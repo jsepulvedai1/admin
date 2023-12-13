@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SFSchema } from '@delon/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { tap } from 'rxjs';
+import { BankService } from 'src/app/services/bank-service';
 
 @Component({
   selector: 'app-basic-list-edit',
@@ -9,29 +11,20 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 })
 export class ProBasicListEditComponent {
   record: any = {};
+  modalInfo: string = 'Banco';
   schema: SFSchema = {
     properties: {
-      title: { type: 'string', title: '任务名称', maxLength: 50 },
-      createdAt: { type: 'string', title: '开始时间', format: 'date' },
-      owner: {
+      Nombre: { type: 'string', name: 'Nombre', maxLength: 50 },
+      Description: {
         type: 'string',
-        title: '任务负责人',
-        enum: [
-          { value: 'asdf', label: 'asdf' },
-          { value: '卡色', label: '卡色' },
-          { value: 'cipchk', label: 'cipchk' }
-        ]
-      },
-      subDescription: {
-        type: 'string',
-        title: '产品描述',
+        title: 'descripcion',
         ui: {
           widget: 'textarea',
           autosize: { minRows: 2, maxRows: 6 }
         }
       }
     },
-    required: ['title', 'createdAt', 'owner'],
+    required: ['nombre'],
     ui: {
       spanLabelFixed: 150,
       grid: { span: 24 }
@@ -40,11 +33,28 @@ export class ProBasicListEditComponent {
 
   constructor(
     private modal: NzModalRef,
-    private msgSrv: NzMessageService
+    private msgSrv: NzMessageService,
+    private bankService: BankService
   ) {}
 
   save(value: any): void {
-    this.msgSrv.success('保存成功');
+    console.log(this.record);
+    this.msgSrv.success('Banco Guardado con exito');
+    console.log(value);
+    const bankInfo = {
+      name: value.Nombre
+    };
+    console.log(bankInfo);
+    if (value.type == 1) {
+      const d = this.bankService.updateBank(bankInfo, this.record.pk).subscribe(res => {
+        console.log(res);
+      });
+      this.modal.close(value);
+      return;
+    }
+    const d = this.bankService.createBank(bankInfo).subscribe(res => {
+      console.log(res);
+    });
     this.modal.close(value);
   }
 

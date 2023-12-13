@@ -1,0 +1,52 @@
+<div nz-row nzGutter="24" class="py-lg">
+  <div nz-col nzMd="24" nzLg="7">
+    <nz-card [nzBordered]="false" class="mb-lg" [nzLoading]="!userDetail">
+      <ng-container *ngIf="userDetail">
+        <div class="avatar-holder">
+          <img [src]="'https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg'" />
+          <div class="name">{{ userDetail.first_name }} {{ userDetail.last_name }}</div>
+        </div>
+        <div class="detail">
+          <p><i class="title"></i> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
+          <p><i class="group"></i> {{ userDetail.phone }}</p>
+          <p><i class="group"></i> {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : 'Mujer' }}</p>
+          <p>
+            <i class="mail"></i>
+            {{ userDetail.email }}
+          </p>
+          <p>
+            <i class="mail"></i>
+            {{ '10 de marzo de 2023' }}
+          </p>
+          <p>
+            <i class="mail"></i>
+            Referido: {{ userDetail.code }}
+          </p>
+          <p>
+            <i class="mail"></i>
+            Dias restantes: {{ userDetail.days_remains }}
+          </p>
+          <p>
+            <i class="mail"></i>
+            Puntos: {{ userDetail.points }}
+          </p>
+          <p>
+            <i class="mail"></i>
+            Consumido periodo: {{ userDetail.consume_period }}
+          </p>
+        </div>
+      </ng-container>
+    </nz-card>
+  </div>
+  <div nz-col nzMd="24" nzLg="17">
+    <nz-card *ngIf="userDetail.first_name" class="tabs-card" [nzBordered]="false">
+      <nz-tabset nzCentered>
+        <ng-container>
+          <nz-tab nzTitle="Viajes"><app-user-trips [userTrips]="userDetail.last_trip || []" /></nz-tab>
+        </ng-container>
+        <nz-tab nzTitle="Editar"><app-user-detail-edit /></nz-tab>
+        <nz-tab nzTitle="Instantanea GetGO"><app-table [userInfo]="userDetail" /></nz-tab>
+      </nz-tabset>
+    </nz-card>
+  </div>
+</div>

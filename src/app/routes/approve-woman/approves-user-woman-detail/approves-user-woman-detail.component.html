@@ -1,0 +1,29 @@
+<page-header [title]="'Documentos'" />
+<table class="document-table">
+  <thead>
+    <tr>
+      <th>Documento</th>
+      <th>Imagen</th>
+      <!-- <th>Fecha de Carga</th> -->
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let key of getObjectKeys(data2)">
+      <td>{{ DocumentEnum[key] }}</td>
+      <td>
+        <img [src]="data2[key] || fallback" alt="{{ 'd' }}" class="document-thumbnail" (click)="openModal(data2[key])" />
+      </td>
+      <td>
+        <nz-radio-group [(ngModel)]="selectedValues[key]" nzButtonStyle="solid">
+          <label nz-radio-button nzValue="{{ data2[key] }}">APROBAR</label>
+          <label class="rechazar-button" nz-radio-button nzValue="">Rechazar</label>
+        </nz-radio-group>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-right">
+  <button class="btn btn-approve" (click)="approveUser()">Aprobar</button>
+  <button class="btn btn-reject" (click)="rejectUser('d')">Rechazar</button>
+</div>

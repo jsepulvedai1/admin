@@ -1,0 +1,66 @@
+/* travel-card.css */
+
+/* Estilo para el contenedor de la lista de tarjetas */
+.travel-list-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Estilo para las tarjetas individuales */
+.card {
+  width: 1500px;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+  transition: transform 0.2s;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(15px);
+  transform: translateX(15px);
+}
+
+.card nz-card-meta-title {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.card p {
+  margin: 10px 0;
+  font-size: 14px;
+  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.card strong {
+  color: #1890ff;
+  font-weight: bold;
+  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+nz-card div.ant-card-body {
+  padding: 10px 20px;
+  border-top: none; /* Eliminar la línea divisoria del título */
+}
+
+.card-date {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Agrega más estilos según sea necesario */

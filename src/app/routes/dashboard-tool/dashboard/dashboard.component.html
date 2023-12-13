@@ -1,0 +1,47 @@
+<page-header [title]="'Herramientas de prueba'" />
+
+<div class="content">
+  <div class="main">
+    <form nz-form [formGroup]="validateForm" (submit)="submit()">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzSpan]="5">Modo</nz-form-label>
+        <nz-form-control [nzSpan]="13" nzHasFeedback>
+          <nz-select formControlName="modo">
+            <nz-option nzValue="1" nzLabel="1" />
+            <nz-option nzValue="2" nzLabel="2" />
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code" nzRequired nzTooltipTitle="What do you want other to call you">
+          <span>Codigo</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="Agrege un codigo de referidos!">
+          <input nz-input id="code" formControlName="code" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired [nzSpan]="5">Cantidad</nz-form-label>
+        <nz-form-control [nzSpan]="13" nzHasFeedback>
+          <nz-select formControlName="cantidad">
+            <nz-option nzValue="1" nzLabel="1" />
+            <nz-option nzValue="2" nzLabel="2" />
+            <nz-option nzValue="3" nzLabel="3" />
+            <nz-option nzValue="4" nzLabel="4" />
+            <nz-option nzValue="5" nzLabel="5" />
+            <nz-option nzValue="6" nzLabel="6" />
+            <nz-option nzValue="7" nzLabel="7" />
+            <nz-option nzValue="8" nzLabel="8" />
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="right">
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="24" [nzOffset]="6">
+            <button nz-button nzType="primary">Crear Usuarios</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </div>
+</div>

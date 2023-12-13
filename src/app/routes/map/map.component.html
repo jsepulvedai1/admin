@@ -1,0 +1,8 @@
+<div *ngIf="apiLoaded | async">
+  <google-map [options]="options">
+    <map-marker [position]="startPoint" />
+
+    <map-marker [position]="endPoint" />
+    <map-polyline [path]="polylinePath" [options]="polylineOptions" />
+  </google-map>
+</div>

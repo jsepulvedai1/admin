@@ -657,11 +657,11 @@
           nz-popconfirm
           [nzPopconfirmVisible]="like"
           [nzPopconfirmPlacement]="'top'"
-          [nzPopconfirmTitle]="'喜欢就开启此内容提醒吧！'"
-          [nzOkText]="'立即开启'"
-          [nzCancelText]="'下次再说'"
-          (nzOnConfirm)="msg.success('开启提醒')"
-          (nzOnCancel)="msg.error('取消提醒')"
+          [nzPopconfirmTitle]="''"
+          [nzOkText]="''"
+          [nzCancelText]="''"
+          (nzOnConfirm)="msg.success('')"
+          (nzOnCancel)="msg.error('')"
           style="display: inline-block; padding-top: 15px"
         ></span>
         <span class="pr-lg">

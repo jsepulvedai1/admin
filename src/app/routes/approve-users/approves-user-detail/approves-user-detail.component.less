@@ -1,0 +1,84 @@
+/* Estilos para la tabla de documentos */
+.document-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+}
+
+.document-table th, .document-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+.document-table th {
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #f5f5f5;
+}
+
+.document-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.document-thumbnail {
+  display: block;
+  max-width: 80px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.btn-approve, .btn-reject {
+  padding: 8px 12px;
+  color: #007bff;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.btn-approve:hover{
+  color: #fff;
+  background-color: #007bff;
+}
+
+.btn-reject:hover {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.button-container {
+  margin-top: 10px; /* Opcional: Agrega un margen superior para separar los botones */
+  text-align: right; /* Alinea el contenido a la derecha */
+}
+
+/* Opcional: Agrega un margen derecho a los botones para espaciarlos */
+.button-container button {
+  margin-right: 10px;
+}
+
+.rechazar-button.ant-radio-button-wrapper-checked {
+  color: white; /* Color del texto en el botón cuando está seleccionado */
+  background-color: #f00; /* Color de fondo rojo cuando está seleccionado */
+  border-color: #f00; /* Borde del botón rojo cuando está seleccionado */
+}
+
+
+.rechazar-button.ant-radio-button-wrapper:hover {
+  color: white; /* Color del texto en el botón al hacer hover */
+  background-color: #f00; /* Color de fondo rojo al hacer hover */
+  border-color: #f00; /* Borde del botón rojo al hacer hover */
+}
+
+/* Estilo personalizado para el botón "Rechazar" cuando no está seleccionado */
+// .rechazar-button.ant-radio-button-wrapper {
+//   color: white;; /* Color del texto en el botón cuando no está seleccionado */
+//   background-color: #fff; /* Color de fondo blanco cuando no está seleccionado */
+//   border-color: #f00; /* Borde del botón rojo cuando no está seleccionado */
+// }

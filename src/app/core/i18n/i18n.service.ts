@@ -29,24 +29,17 @@ interface LangConfigData {
   delon: NzSafeAny;
 }
 
-const DEFAULT = 'zh-CN';
+interface LangConfigData {
+  abbr: string;
+  text: string;
+  ng: NzSafeAny;
+  zorro: NzSafeAny;
+  date: NzSafeAny;
+  delon: NzSafeAny;
+}
+
+const DEFAULT = 'en-US';
 const LANGS: { [key: string]: LangConfigData } = {
-  'zh-CN': {
-    text: '简体中文',
-    ng: ngZh,
-    zorro: zorroZhCN,
-    date: dfZhCn,
-    delon: delonZhCn,
-    abbr: '🇨🇳'
-  },
-  'zh-TW': {
-    text: '繁体中文',
-    ng: ngZhTw,
-    zorro: zorroZhTW,
-    date: dfZhTw,
-    delon: delonZhTw,
-    abbr: '🇭🇰'
-  },
   'en-US': {
     text: 'English',
     ng: ngEn,
@@ -57,11 +50,35 @@ const LANGS: { [key: string]: LangConfigData } = {
   }
 };
 
+const URLS: { [key: string]: LangConfigData } = {
+  'https://dev.getgoapp.com/api/v1/': {
+    text: 'DEV',
+    ng: ngEn,
+    zorro: zorroEnUS,
+    date: dfEn,
+    delon: delonEnUS,
+    abbr: '💻'
+  },
+  'https://qa.getgoapp.com/api/v1/': {
+    text: 'QA',
+    ng: ngEn,
+    zorro: zorroEnUS,
+    date: dfEn,
+    delon: delonEnUS,
+    abbr: '🚀'
+  }
+};
+
 @Injectable({ providedIn: 'root' })
 export class I18NService extends AlainI18nBaseService {
   protected override _defaultLang = DEFAULT;
+  protected override _defaultURL = DEFAULT;
   private _langs = Object.keys(LANGS).map(code => {
     const item = LANGS[code];
+    return { code, text: item.text, abbr: item.abbr };
+  });
+  private _url = Object.keys(URLS).map(code => {
+    const item = URLS[code];
     return { code, text: item.text, abbr: item.abbr };
   });
 
@@ -77,9 +94,24 @@ export class I18NService extends AlainI18nBaseService {
 
     const defaultLang = this.getDefaultLang();
     this._defaultLang = this._langs.findIndex(w => w.code === defaultLang) === -1 ? DEFAULT : defaultLang;
+
+    const defaultURL = this.getDefaultURL();
+    this._defaultURL = this._url.findIndex(w => w.code === defaultLang) === -1 ? DEFAULT : defaultURL;
   }
 
   private getDefaultLang(): string {
+    if (!this.platform.isBrowser) {
+      return DEFAULT;
+    }
+    if (this.settings.layout.lang) {
+      return this.settings.layout.lang;
+    }
+    let res = (navigator.languages ? navigator.languages[0] : null) || navigator.language;
+    const arr = res.split('-');
+    return arr.length <= 1 ? res : `${arr[0]}-${arr[1].toUpperCase()}`;
+  }
+
+  private getDefaultURL(): string {
     if (!this.platform.isBrowser) {
       return DEFAULT;
     }
@@ -112,5 +144,9 @@ export class I18NService extends AlainI18nBaseService {
 
   getLangs(): Array<{ code: string; text: string; abbr: string }> {
     return this._langs;
+  }
+
+  getUrls(): Array<{ code: string; text: string; abbr: string }> {
+    return this._url;
   }
 }

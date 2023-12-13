@@ -21,7 +21,7 @@ export class ProTableListComponent implements OnInit {
     statusList: NzSafeAny[];
   } = {
     pi: 1,
-    ps: 10,
+    ps: 5,
     no: '',
     sorter: '',
     status: null,
@@ -45,7 +45,7 @@ export class ProTableListComponent implements OnInit {
   st!: STComponent;
   columns: STColumn[] = [
     { title: '', index: 'key', type: 'checkbox' },
-    { title: '规则编号', index: 'no' },
+    { title: 'id', index: 'no' },
     { title: '描述', index: 'description' },
     {
       title: '服务调用次数',

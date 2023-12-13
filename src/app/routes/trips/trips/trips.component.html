@@ -1,0 +1,65 @@
+<page-header [title]="'Viajes'" />
+
+<nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" (ngSubmit)="getTripsFilter()" class="search__form">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+      <div nz-col nzMd="13" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzFor="no">Búsqueda</nz-form-label>
+          <nz-form-control>
+            <input nz-input [(ngModel)]="q.email" name="no" placeholder="correo electronico" id="pk" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="updatedAt" />
+          <nz-form-control>
+            <nz-date-picker id="updatedAt" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="status2" />
+          <nz-form-control>
+            <nz-select [nzPlaceHolder]="''" nzId="status2" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx" />
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
+        <nz-form-item>
+          <nz-form-label nzFor="status3" />
+          <nz-form-control>
+            <nz-select [nzPlaceHolder]="''" nzId="status3" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx" />
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="search-buttons">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">Filtrar</button>
+        <button nz-button type="reset" (click)="getTrips()">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="my-md"></div>
+
+  <st #st [columns]="columns" [data]="data" [loading]="loading" (change)="stChange($event)" [scroll]="scroll">
+    <ng-template st-row="status" let-i>
+      <nz-badge [nzStatus]="i.statusType" [nzText]="i.statusText" />
+    </ng-template>
+  </st>
+</nz-card>
+
+<ng-template #modalContent>
+  <nz-form-item>
+    <nz-form-label nzFor="no">描述</nz-form-label>
+    <nz-form-control>
+      <input nz-input [(ngModel)]="description" name="description" placeholder="请输入" id="no" />
+    </nz-form-control>
+  </nz-form-item>
+</ng-template>

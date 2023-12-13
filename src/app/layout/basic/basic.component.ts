@@ -6,17 +6,12 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'layout-basic',
   template: `
-    <layout-default [options]="options" [asideUser]="asideUserTpl" [content]="contentTpl" [customError]="null">
-      <layout-default-header-item direction="left">
-        <a layout-default-header-item-trigger href="//github.com/ng-alain/ng-alain" target="_blank">
-          <i nz-icon nzType="github"></i>
-        </a>
-      </layout-default-header-item>
-      <layout-default-header-item direction="left" hidden="mobile">
+    <layout-default [options]="options" [content]="contentTpl" [customError]="null">
+      <!-- <layout-default-header-item direction="left" hidden="mobile">
         <a layout-default-header-item-trigger routerLink="/passport/lock">
           <i nz-icon nzType="lock"></i>
         </a>
-      </layout-default-header-item>
+      </layout-default-header-item> -->
       <layout-default-header-item direction="left" hidden="pc">
         <div layout-default-header-item-trigger (click)="searchToggleStatus = !searchToggleStatus">
           <i nz-icon nzType="search"></i>
@@ -25,7 +20,7 @@ import { environment } from '@env/environment';
       <layout-default-header-item direction="middle">
         <header-search class="alain-default__search" [(toggleChange)]="searchToggleStatus" />
       </layout-default-header-item>
-      <layout-default-header-item direction="right">
+      <!-- <layout-default-header-item direction="right">
         <header-notify />
       </layout-default-header-item>
       <layout-default-header-item direction="right" hidden="mobile">
@@ -33,7 +28,7 @@ import { environment } from '@env/environment';
       </layout-default-header-item>
       <layout-default-header-item direction="right" hidden="mobile">
         <header-icon />
-      </layout-default-header-item>
+      </layout-default-header-item> -->
       <layout-default-header-item direction="right" hidden="mobile">
         <div layout-default-header-item-trigger nz-dropdown [nzDropdownMenu]="settingsMenu" nzTrigger="click" nzPlacement="bottomRight">
           <i nz-icon nzType="setting"></i>
@@ -58,7 +53,9 @@ import { environment } from '@env/environment';
       <layout-default-header-item direction="right">
         <header-user />
       </layout-default-header-item>
-      <ng-template #asideUserTpl>
+
+      <!-- <theme-btn /> -->
+      <!-- <ng-template #asideUserTpl>
         <div nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu" class="alain-default__aside-user">
           <nz-avatar class="alain-default__aside-user-avatar" [nzSrc]="user.avatar" />
           <div class="alain-default__aside-user-info">
@@ -72,12 +69,11 @@ import { environment } from '@env/environment';
             <li nz-menu-item routerLink="/pro/account/settings">{{ 'menu.account.settings' | i18n }}</li>
           </ul>
         </nz-dropdown-menu>
-      </ng-template>
+      </ng-template> -->
       <ng-template #contentTpl>
         <router-outlet />
       </ng-template>
     </layout-default>
-
     <setting-drawer *ngIf="showSettingDrawer" />
     <theme-btn />
   `

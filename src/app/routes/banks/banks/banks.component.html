@@ -1,0 +1,30 @@
+<page-header [title]="null" />
+<nz-card [nzBordered]="false">
+  <div class="d-flex align-items-center mb-lg">
+    <h3 class="flex-1 text-lg">Bancos</h3>
+  </div>
+  <button nz-button (click)="openCreate()" [nzType]="'dashed'" nzBlock class="mb-sm">
+    <i nz-icon nzType="plus"></i>
+    <span>Añadir</span>
+  </button>
+  <nz-list [nzDataSource]="data" [nzLoading]="loading" [nzRenderItem]="item">
+    <ng-template #item let-item>
+      <nz-list-item [nzContent]="" [nzActions]="[edit, op]">
+        <ng-template #edit>
+          <a (click)="openEdit(item)">Editar</a>
+        </ng-template>
+        <ng-template #op>
+          <a (click)="remove(item)">Eliminar</a>
+        </ng-template>
+        <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="item.name" [nzAvatar]="nzAvatar">
+          <ng-template #nzTitle>
+            <a>{{ item.name }}</a>
+          </ng-template>
+          <ng-template #nzAvatar>
+            <nz-avatar [nzSrc]="item.image" nzSize="large" [nzShape]="'square'" />
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</nz-card>

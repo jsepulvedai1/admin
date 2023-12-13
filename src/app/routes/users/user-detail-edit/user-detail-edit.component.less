@@ -1,0 +1,115 @@
+@import '@delon/theme/index';
+
+:host ::ng-deep {
+  .main {
+    display: flex;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 100px;
+    padding-left: 26px;
+    overflow: auto;
+    background-color: #fff;
+  }
+
+  .left {
+    min-width: 310px;
+    max-width: 448px;
+  }
+
+  .right {
+    flex: 1;
+    padding-left: 104px;
+
+    .avatar {
+      width: 144px;
+      height: 144px;
+      margin-bottom: 12px;
+      overflow: hidden;
+
+      &__title {
+        height: 22px;
+        margin-bottom: 8px;
+        color: @heading-color;
+        font-size: @font-size-base;
+        line-height: 22px;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      &__btn {
+        width: 144px;
+        text-align: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: @mobile-max) {
+    flex-direction: column-reverse;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 448px;
+      padding: 20px;
+
+      .avatar {
+        &__title {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+[data-theme='dark'] {
+  :host ::ng-deep {
+    .right .avatar {
+      &__title {
+        color: rgb(255 255 255 / 65%);
+      }
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 8px 40px;
+}
+
+
+[nz-form] {
+  max-width: 600px;
+}
+
+.phone-select {
+  width: 70px;
+}
+
+.register-are {
+  margin-bottom: 8px;
+}
+
+.ant-form-item-label {
+  display: inline-block;
+  flex-grow: 0;
+  padding-right: 162px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: right;
+  vertical-align: middle;
+}
+
+
+.ant-btn-sm {
+  /* height: 24px; */
+  padding: 0 7px;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+nz-input-group.ant-input-group.ng-tns-c630436078-18 {
+  display: flex;
+}

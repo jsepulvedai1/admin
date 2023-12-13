@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabla con Ant Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.7/antd.min.css" />
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+      }
+
+      .table-container {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .ant-table {
+        font-size: 16px;
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .ant-table th,
+      .ant-table td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .ant-table th {
+        background-color: #f7f7f7;
+      }
+
+      .ant-table tbody tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .ant-table th:first-child,
+      .ant-table td:first-child {
+        padding-left: 20px;
+      }
+
+      .ant-table td:last-child {
+        padding-right: 20px;
+      }
+
+      .image-container {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .user-image {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px; /* Limitar la altura para evitar un desbordamiento */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-container">
+        <table class="ant-table">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nombre</td>
+              <td>{{ userDetailModal.first_name }}</td>
+            </tr>
+            <tr>
+              <td>Nacionalidad</td>
+              <td>chilena</td>
+            </tr>
+            <tr>
+              <td>Sexo</td>
+              <td>{{ userDetailModal.sex == 1 ? 'Masculino' : 'Femenino' }}</td>
+            </tr>
+            <tr>
+              <td>Rut</td>
+              <td>1942435-1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="image-container">
+        <img src="{{ record.image }}" alt="Imagen del usuario" class="user-image" />
+      </div>
+    </div>
+  </body>
+</html>

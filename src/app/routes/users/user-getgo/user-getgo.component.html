@@ -1,0 +1,23 @@
+<nz-table [nzData]="dataSource" [nzBordered]="true" [nzFrontPagination]="false" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th>Instantanea de mi Getgo</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource">
+      <td>{{ row.mainRow }}</td>
+      <td>
+        <nz-table class="inner-table">
+          <tr>
+            <td class="left-column" *ngIf="row.subColumnsRow.left">{{ row.subColumnsRow.left }}</td>
+            <td class="divider" *ngIf="row.subColumnsRow.left && row.subColumnsRow.right"></td>
+            <td class="right-column" *ngIf="row.subColumnsRow.right">{{ row.subColumnsRow.right }}</td>
+            <td class="center-column" *ngIf="row.subColumnsRow.center">{{ row.subColumnsRow.center }}</td>
+          </tr>
+        </nz-table>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

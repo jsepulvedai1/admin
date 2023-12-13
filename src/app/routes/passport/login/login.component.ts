@@ -9,6 +9,7 @@ import { SettingsService, _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { finalize } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/auth-service';
 
 @Component({
   selector: 'passport-login',
@@ -29,14 +30,15 @@ export class UserLoginComponent implements OnDestroy {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private startupSrv: StartupService,
     private http: _HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthenticationService
   ) {}
 
   // #region fields
 
   form = this.fb.nonNullable.group({
-    userName: ['', [Validators.required, Validators.pattern(/^(admin|user)$/)]],
-    password: ['', [Validators.required, Validators.pattern(/^(ng\-alain\.com)$/)]],
+    userName: ['', [Validators.required, Validators.pattern('.*')]],
+    password: ['', Validators.required],
     mobile: ['', [Validators.required, Validators.pattern(/^1\d{10}$/)]],
     captcha: ['', [Validators.required]],
     remember: [true]
@@ -72,9 +74,42 @@ export class UserLoginComponent implements OnDestroy {
     }, 1000);
   }
 
-  // #endregion
+  public submit() {
+    //this.userData['username'] = this.userData['username'];
+    const { userName, password } = this.form.controls;
+    const userData = { username: userName.value, password: password.value, token: '1234', expired: 1233 };
+    console.log(userData);
+    this.loading = true;
+    this.authService
+      .login(userData)
+      .then(result => {
+        this.loading = false;
+        this.cdr.detectChanges();
+        this.tokenService.set(userData);
+        this.reuseTabService.clear();
+        userData;
+        localStorage.setItem('userData', JSON.stringify(result));
+        this.reuseTabService.clear();
+        //res.user.expired = +new Date() + 1000 * 60 * 5;
+        this.startupSrv.load().subscribe(() => {
+          let url = this.tokenService.referrer!.url || '/';
+          if (url.includes('/passport')) {
+            url = '/';
+          }
+          console.log(url);
+          this.router.navigateByUrl(url);
+        });
+      })
+      .catch(error => {
+        // this.invalidData = 1;
+        this.loading = false;
+        this.cdr.detectChanges();
+        console.log(error);
+      });
+  }
 
-  submit(): void {
+  submit2(): void {
+    console.log('submit subbmit/...');
     this.error = '';
     if (this.type === 0) {
       const { userName, password } = this.form.controls;
@@ -96,8 +131,6 @@ export class UserLoginComponent implements OnDestroy {
       }
     }
 
-    // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
-    // 然一般来说登录请求不需要校验，因此加上 `ALLOW_ANONYMOUS` 表示不触发用户 Token 校验
     this.loading = true;
     this.cdr.detectChanges();
     this.http
@@ -125,18 +158,16 @@ export class UserLoginComponent implements OnDestroy {
           this.cdr.detectChanges();
           return;
         }
-        // 清空路由复用信息
         this.reuseTabService.clear();
-        // 设置用户Token信息
-        // TODO: Mock expired value
         res.user.expired = +new Date() + 1000 * 60 * 5;
+        console.log(res.user);
         this.tokenService.set(res.user);
-        // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.load().subscribe(() => {
           let url = this.tokenService.referrer!.url || '/';
           if (url.includes('/passport')) {
             url = '/';
           }
+          console.log(url);
           this.router.navigateByUrl(url);
         });
       });

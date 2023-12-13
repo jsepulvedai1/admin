@@ -1,0 +1,200 @@
+<page-header [title]="'Configuracion Sistema GetGO'" />
+<nz-collapse nzAccordion>
+  <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active">
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones Globales'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="Point lower limit:" error="error" required>
+          <input nz-input formControlName="point_lower_limit" placeholder="" />
+        </se>
+        <se label="Point high limit:" error="error" required>
+          <input nz-input formControlName="point_high_limit" placeholder="" />
+        </se>
+        <se label="Cycle limit:" error="error" required>
+          <input nz-input formControlName="cycle_limit" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G0'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G0 referido minimo:" error="error" required>
+          <input nz-input formControlName="g0_ref_min" placeholder="" />
+        </se>
+        <se label="G0 referido tree:" error="error" required>
+          <input nz-input formControlName="g0_ref_tree" placeholder="" />
+        </se>
+        <se label="G0 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g0_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G1'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G1 referido minimo:" error="error" required>
+          <input nz-input formControlName="g1_ref_min" placeholder="" />
+        </se>
+        <se label="G1 referido tree:" error="error" required>
+          <input nz-input formControlName="g1_ref_tree" placeholder="" />
+        </se>
+        <se label="G1 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g1_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G2'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G2 referido minimo:" error="error" required>
+          <input nz-input formControlName="g2_ref_min" placeholder="" />
+        </se>
+        <se label="G2 referido tree:" error="error" required>
+          <input nz-input formControlName="g2_ref_tree" placeholder="" />
+        </se>
+        <se label="G2 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g2_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G3'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G2 referido minimo:" error="error" required>
+          <input nz-input formControlName="g3_ref_min" placeholder="" />
+        </se>
+        <se label="G2 referido tree:" error="error" required>
+          <input nz-input formControlName="g3_ref_tree" placeholder="" />
+        </se>
+        <se label="G2 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g3_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G4'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G4 referido minimo:" error="error" required>
+          <input nz-input formControlName="g4_ref_min" placeholder="" />
+        </se>
+        <se label="G4 referido tree:" error="error" required>
+          <input nz-input formControlName="g4_ref_tree" placeholder="" />
+        </se>
+        <se label="G4 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g4_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G5'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G5 referido minimo:" error="error" required>
+          <input nz-input formControlName="g5_ref_min" placeholder="" />
+        </se>
+        <se label="G5 referido tree:" error="error" required>
+          <input nz-input formControlName="g5_ref_tree" placeholder="" />
+        </se>
+        <se label="G5 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g5_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G6'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G6 referido minimo:" error="error" required>
+          <input nz-input formControlName="g6_ref_min" placeholder="" />
+        </se>
+        <se label="G6 referido tree:" error="error" required>
+          <input nz-input formControlName="g6_ref_tree" placeholder="" />
+        </se>
+        <se label="G6 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g6_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G7'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G7 referido minimo:" error="error" required>
+          <input nz-input formControlName="g7_ref_min" placeholder="" />
+        </se>
+        <se label="G7 referido tree:" error="error" required>
+          <input nz-input formControlName="g7_ref_tree" placeholder="" />
+        </se>
+        <se label="G7 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g7_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G8'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G8 referido minimo:" error="error" required>
+          <input nz-input formControlName="g8_ref_min" placeholder="" />
+        </se>
+        <se label="G8 referido tree:" error="error" required>
+          <input nz-input formControlName="g8_ref_tree" placeholder="" />
+        </se>
+        <se label="G8 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g8_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G9'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G9 referido minimo:" error="error" required>
+          <input nz-input formControlName="g9_ref_min" placeholder="" />
+        </se>
+        <se label="G9 referido tree:" error="error" required>
+          <input nz-input formControlName="g9_ref_tree" placeholder="" />
+        </se>
+        <se label="G9 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g9_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones G10'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="G10 referido minimo:" error="error" required>
+          <input nz-input formControlName="g10_ref_min" placeholder="" />
+        </se>
+        <se label="G10 referido tree:" error="error" required>
+          <input nz-input formControlName="g10_ref_tree" placeholder="" />
+        </se>
+        <se label="G10 porcentaje bono:" error="error" required>
+          <input nz-input formControlName="g10_percentage_bono" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+  </nz-collapse-panel>
+</nz-collapse>

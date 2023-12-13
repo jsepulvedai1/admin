@@ -37,7 +37,7 @@ const CODEMESSAGE: { [key: number]: string } = {
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`
  */
 @Injectable()
-export class DefaultInterceptor implements HttpInterceptor {
+export class DefaultInterceptor {
   private refreshTokenEnabled = environment.api.refreshTokenEnabled;
   private refreshTokenType: 're-request' | 'auth-refresh' = environment.api.refreshTokenType;
   private refreshToking = false;
@@ -237,25 +237,31 @@ export class DefaultInterceptor implements HttpInterceptor {
     return res;
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // 统一加上服务端前缀
-    let url = req.url;
-    if (!req.context.get(IGNORE_BASE_URL) && !url.startsWith('https://') && !url.startsWith('http://')) {
-      const { baseUrl } = environment.api;
-      url = baseUrl + (baseUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
-    }
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //   // 统一加上服务端前缀
+  //   let url = req.url;
+  //   if (!req.context.get(IGNORE_BASE_URL) && !url.startsWith('https://') && !url.startsWith('http://')) {
+  //     const { baseUrl } = environment.api;
+  //     url = baseUrl + (baseUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
+  //   }
+  //   console.log(url);
+  //   console.log('holaaha');
 
-    const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
-    return next.handle(newReq).pipe(
-      mergeMap(ev => {
-        // 允许统一对请求错误处理
-        if (ev instanceof HttpResponseBase) {
-          return this.handleData(ev, newReq, next);
-        }
-        // 若一切都正常，则后续操作
-        return of(ev);
-      })
-      // catchError((err: HttpErrorResponse) => this.handleData(err, newReq, next))
-    );
-  }
+  //   const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
+  //   const oldReq = req;
+  //   console.log(newReq);
+  //   if (url.includes('qa.getgoapp')) {
+  //   }
+  //   return next.handle(oldReq).pipe(
+  //     mergeMap(ev => {
+  //       // 允许统一对请求错误处理
+  //       if (ev instanceof HttpResponseBase) {
+  //         return this.handleData(ev, newReq, next);
+  //       }
+  //       // 若一切都正常，则后续操作
+  //       return of(ev);
+  //     })
+  //     // catchError((err: HttpErrorResponse) => this.handleData(err, newReq, next))
+  //   );
+  // }
 }

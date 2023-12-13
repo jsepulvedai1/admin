@@ -26,7 +26,7 @@ export class ProListArticlesComponent implements OnInit {
 
   // region: cateogry
   categories = [
-    { id: 0, text: '全部', value: false },
+    { id: 0, text: 'HOLA', value: false },
     { id: 1, text: '类目一', value: false },
     { id: 2, text: '类目二', value: false },
     { id: 3, text: '类目三', value: false },

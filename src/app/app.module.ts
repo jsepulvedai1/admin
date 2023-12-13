@@ -86,11 +86,13 @@ import { RoutesModule } from './routes/routes.module';
 import { SharedModule } from './shared/shared.module';
 import { STWidgetModule } from './shared/st-widget/st-widget.module';
 import { Observable } from 'rxjs';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    NzIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
     GlobalConfigModule.forRoot(),
@@ -103,7 +105,7 @@ import { Observable } from 'rxjs';
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES
   ],
-  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+  providers: [...LANG_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

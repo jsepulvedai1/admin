@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
       }
       if (configLoad && ev instanceof NavigationError) {
         this.modalSrv.confirm({
-          nzTitle: `提醒`,
-          nzContent: environment.production ? `应用可能已发布新版本，请点击刷新才能生效。` : `无法加载路由：${ev.url}`,
+          nzTitle: `Error`,
+          nzContent: environment.production ? 'd' : 'd',
           nzCancelDisabled: false,
-          nzOkText: '刷新',
-          nzCancelText: '忽略',
+          nzOkText: 'OK',
+          nzCancelText: 'Cancel',
           nzOnOk: () => location.reload()
         });
       }

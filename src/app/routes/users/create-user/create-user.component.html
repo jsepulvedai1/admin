@@ -1,0 +1,102 @@
+<page-header [title]="'Crear Usuario'" />
+<div class="content">
+  <div class="main">
+    <form nz-form [formGroup]="validateForm" (submit)="submit()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!" nzHasFeedback>
+          <input nz-input formControlName="email" id="email" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password">Password</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+          <nz-input-group>
+            <input nz-input type="{{ showPassword ? 'text' : 'password' }}" id="password" formControlName="password" />
+            <button nz-button nzType="default" nzSize="small" (click)="togglePasswordVisibility()">
+              <i nz-icon [nzType]="showPassword ? 'eye-invisible' : 'eye'"></i>
+            </button>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="first_name" nzRequired nzTooltipTitle="What do you want other to call you">
+          <span>Nombres</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your nickname!">
+          <input nz-input id="first_name" formControlName="first_name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="last_name" nzRequired nzTooltipTitle="What do you want other to call you">
+          <span>Apellidos</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your nickname!">
+          <input nz-input id="last_name" formControlName="last_name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzValidateStatus]="validateForm.controls['phoneNumber']"
+          nzErrorTip="Please input your phone number!"
+        >
+          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+            <ng-template #addOnBeforeTemplate>
+              <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                <nz-option nzLabel="+569" nzValue="+569" />
+              </nz-select>
+            </ng-template>
+            <input formControlName="phone" id="'phoneNumber'" nz-input />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired [nzSpan]="5">Sexo</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <nz-select formControlName="sex">
+            <nz-option nzValue="0" nzLabel="Masculino" />
+            <nz-option nzValue="1" nzLabel="Femenino" />
+            <nz-option nzValue="2" nzLabel="Otro" />
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired [nzSpan]="5">Tipo de usuario</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <nz-select formControlName="type_user">
+            <nz-option nzValue="1" nzLabel="Conductor" />
+            <nz-option nzValue="0" nzLabel="Pasajero" />
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="parent_id" nzRequired nzTooltipTitle="Codigo referido Getgo">
+          <span>Codigo referidos</span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Ingrese un codigo valido!" nzHasFeedback>
+          <input nz-input id="refCode" formControlName="parent_id" />
+        </nz-form-control>
+      </nz-form-item>
+      <div class="right">
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="24" [nzOffset]="6">
+            <button nz-button nzType="primary">Register</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+    <div class="right">
+      <div class="avatar__title">Avatar</div>
+      <div class="avatar"><img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" alt="Avatar" /></div>
+      <nz-upload nzAction="/user/avatar" [nzShowUploadList]="false">
+        <button nz-button class="avatar__btn">
+          <i nz-icon nzType="upload"></i>
+          <span>Subir imagen</span>
+        </button>
+      </nz-upload>
+    </div>
+  </div></div
+>
