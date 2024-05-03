@@ -51,4 +51,21 @@ export class GlobalService {
       })
     );
   }
+
+  getColorsConfig(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}vehicle/color/`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
 }

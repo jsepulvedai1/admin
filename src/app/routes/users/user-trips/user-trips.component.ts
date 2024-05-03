@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { Router } from '@angular/router';
 
 import { LastTrip, UserData } from '../users-detail/user-detail-interface';
 
@@ -19,15 +17,10 @@ interface Travel {
   styleUrls: ['./user-trips.component.less']
 })
 export class UserTripsComponent implements OnInit {
+  constructor(private router: Router) {}
   @Input() userTrips: LastTrip[] = [];
 
   ngOnInit(): void {
     console.log(this.userTrips);
   }
-
-  // buildInfo(): void {
-  //   for (trip in this.userTrips) {
-  //     this.tripsData.push;
-  //   }
-  // }
 }

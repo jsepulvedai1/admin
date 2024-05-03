@@ -39,6 +39,8 @@ export class ApprovesUsersListComponent implements OnInit {
     statusList: []
   };
   data: any[] = [];
+  data2: any[] = [];
+  data3: any[] = [];
   loading = false;
   status = [
     { index: 0, text: '关闭', value: false, type: 'default', checked: false },
@@ -54,29 +56,6 @@ export class ApprovesUsersListComponent implements OnInit {
   ];
   @ViewChild('st', { static: true })
   st!: STComponent;
-  // columns: STColumn[] = [
-  //   // { title: '', index: 'key', type: 'checkbox' },
-  //   { title: 'Id', index: 'pk' },
-  //   { title: 'avatar', index: 'avatar' },
-  //   { title: 'Email', index: 'email' },
-  //   {
-  //     title: 'Telefono',
-  //     index: 'phone'
-  //   },
-  //   {
-  //     title: 'Nombre',
-  //     index: 'first_name'
-  //   },
-  //   {
-  //     title: 'Detalle',
-  //     buttons: [
-  //       {
-  //         text: 'Detalle',
-  //         click: item => this.router.navigate(['/users/detail/12'])
-  //       }
-  //     ]
-  //   }
-  // ];
   columns: STColumn[] = [
     { title: 'id', index: 'pk', width: 100 },
     {
@@ -92,7 +71,7 @@ export class ApprovesUsersListComponent implements OnInit {
       buttons: [
         {
           text: 'Detalle',
-          click: item => this.router.navigate([`/approve-users/detail/${item.pk}`])
+          click: item => this.router.navigate([`/approve-drivers/detail/${item.pk}`])
         }
       ]
     }
@@ -114,15 +93,28 @@ export class ApprovesUsersListComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getUserToApprove();
+    this.getUserToApproveCancel();
   }
 
   protected getUserToApprove() {
-    console.log('da..100');
     this.userService
       .getUsersToApprove()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        this.data = res;
+        this.data2 = res;
+        this.loading = false;
+        this.unificarRespuestas();
+        this.cdr.detectChanges();
+      });
+  }
+
+  protected getUserToApproveCancel() {
+    this.userService
+      .getUsersToApproveCancel()
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        this.data3 = res;
+        this.unificarRespuestas();
         this.loading = false;
         this.cdr.detectChanges();
       });
@@ -144,27 +136,11 @@ export class ApprovesUsersListComponent implements OnInit {
     this.scroll = val ? { y: '550px' } : { y: '430px' };
   }
 
-  // remove(): void {
-  //   this.http.delete('/rule', { nos: this.selectedRows.map(i => i['no']).join(',') }).subscribe(() => {
-  //     this.getData();
-  //     this.st.clearCheck();
-  //   });
-  // }
-
-  // approval(): void {
-  //   this.msg.success(`审批了 ${this.selectedRows.length} 笔`);
-  // }
-
-  // add(tpl: TemplateRef<{}>): void {
-  //   this.modalSrv.create({
-  //     nzTitle: '新建规则',
-  //     nzContent: tpl,
-  //     nzOnOk: () => {
-  //       this.loading = true;
-  //       this.http.post('/rule', { description: this.description }).subscribe(() => this.getData());
-  //     }
-  //   });
-  // }
+  unificarRespuestas() {
+    // Unir los datos de ambos servicios en this.data
+    this.data = [...this.data2, ...this.data3];
+    console.log(this.data);
+  }
 
   reset(): void {
     // wait form reset updated finished

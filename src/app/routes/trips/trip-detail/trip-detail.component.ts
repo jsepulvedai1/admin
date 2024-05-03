@@ -51,6 +51,9 @@ export class TripDetailComponent implements OnInit {
   taging = false;
   tagValue = '';
 
+  tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+  value = 3;
+
   ngOnInit(): void {
     this.getTripDetail();
   }

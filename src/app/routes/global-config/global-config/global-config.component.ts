@@ -45,7 +45,15 @@ export class GlobalConfigComponent implements OnInit {
     g9_percentage_bono: new FormControl('', Validators.required),
     g10_ref_min: new FormControl('', Validators.required),
     g10_ref_tree: new FormControl('', Validators.required),
-    g10_percentage_bono: new FormControl('', Validators.required)
+    g10_percentage_bono: new FormControl('', Validators.required),
+    limit_activate_driver_nearby: new FormControl('', Validators.required),
+    cost_activation: new FormControl('', Validators.required),
+    cost_cancel_comision: new FormControl('', Validators.required),
+    cost_operacional_cancel: new FormControl('', Validators.required),
+    count_trip_driver_activation: new FormControl('', Validators.required),
+    factor_point_activation: new FormControl('', Validators.required),
+    factor_point_cancel_trip: new FormControl('', Validators.required),
+    factor_point_trip: new FormControl('', Validators.required)
   });
   submitting = false;
 
@@ -113,11 +121,16 @@ export class GlobalConfigComponent implements OnInit {
     {
       active: false,
       name: 'Configuraciones G10'
+    },
+    {
+      active: false,
+      name: 'Configuraciones Negocio'
     }
   ];
 
   getConfig() {
     this.globalService.getGlobalConfig().subscribe(res => {
+      console.log(res);
       this.form.patchValue({
         point_lower_limit: res[0].point_lower_limit,
         point_high_limit: res[0].point_high_limit,
@@ -154,7 +167,15 @@ export class GlobalConfigComponent implements OnInit {
         g9_percentage_bono: res[0].g9_percentage_bono,
         g10_ref_min: res[0].g10_ref_min,
         g10_ref_tree: res[0].g10_ref_tree,
-        g10_percentage_bono: res[0].g10_percentage_bono
+        g10_percentage_bono: res[0].g10_percentage_bono,
+        limit_activate_driver_nearby: res[0].limit_activate_driver_nearby,
+        cost_activation: res[0].cost_activation,
+        cost_cancel_comision: res[0].cost_cancel_comision,
+        cost_operacional_cancel: res[0].cost_operacional_cancel,
+        count_trip_driver_activation: res[0].count_trip_driver_activation,
+        factor_point_activation: res[0].factor_point_activation,
+        factor_point_cancel_trip: res[0].factor_point_cancel_trip,
+        factor_point_trip: res[0].factor_point_trip
       });
       this.cdr.detectChanges();
     });

@@ -1,10 +1,10 @@
 <page-header [title]="'Documentos'" />
-<table class="document-table">
+<nz-skeleton *ngIf="loading" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+<table *ngIf="!loading" class="document-table">
   <thead>
     <tr>
       <th>Documento</th>
       <th>Imagen</th>
-      <!-- <th>Fecha de Carga</th> -->
       <th>Acciones</th>
     </tr>
   </thead>
@@ -25,5 +25,5 @@
 </table>
 <div class="text-right">
   <button class="btn btn-approve" (click)="approveUser()">Aprobar</button>
-  <button class="btn btn-reject" (click)="rejectUser('d')">Rechazar</button>
+  <button class="btn btn-reject" (click)="rejectUser()">Rechazar</button>
 </div>

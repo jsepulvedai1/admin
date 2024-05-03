@@ -16,7 +16,7 @@ import { ModalDetailUserComponent } from '../modal-detail-user/modal-detail-user
 })
 export class ApprovesUserDetailComponent implements OnInit {
   userInfo: userDetail = {};
-  loading = false;
+  loading = true;
   pk: string = '';
   data: any = {};
   data2: any = {};
@@ -39,11 +39,11 @@ export class ApprovesUserDetailComponent implements OnInit {
     indenfitication_front: 'Identificacion Frontal',
     indenfitication_back: 'Identificaion Posterior',
     residence_certificate: 'Certificado de residencia',
-    background_certificate: 'background certificate',
+    background_certificate: 'Papel de Antecedentes',
     circulation_permit_front: 'Permiso de Circulacion',
     technical_review: 'Revision Tecnica',
-    photo_vehicle_1: 'Foto vehiculo',
-    photo_vehicle_2: 'Foto vehiculo2',
+    photo_vehicle_1: 'Foto Vehiculo Frontal',
+    photo_vehicle_2: 'Foto Vehiculo Trasero',
     padron: 'Padron Vehiculo'
   };
 
@@ -65,8 +65,8 @@ export class ApprovesUserDetailComponent implements OnInit {
 
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
-      console.log(res);
       this.userInfo = res;
+      this.loading = false;
     });
   }
 
@@ -75,14 +75,12 @@ export class ApprovesUserDetailComponent implements OnInit {
       .getUsersRecord(this.pk)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log(res);
         this.data = res[0];
         this.buildData();
       });
   }
 
   buildData() {
-    console.log(this.data);
     this.data2 = {
       driver_license_front: this.data.driver_license_front || this.fallback,
       driver_license_back: this.data.driver_license_back || this.fallback,
@@ -111,15 +109,14 @@ export class ApprovesUserDetailComponent implements OnInit {
     this.modal.create(ModalDetailUserComponent, { userDetailModal, record, driverInfo }).subscribe(res => {});
   }
 
-  rejectUser(userData: any) {
+  rejectUser() {
     console.log(this.selectedValues);
     this.userService
-      .rejecDocument(this.data.pk, this.selectedValues)
+      .rejectUser(this.pk)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        // console.log(res);
-        // this.data = res[0];
-        this.getUserRecord();
+        this.msg.success(`Usurario rechazado con exito`);
+        this.router.navigate([`/approve-drivers/`]);
       });
   }
 
@@ -132,10 +129,11 @@ export class ApprovesUserDetailComponent implements OnInit {
         validate = true;
       }
     }
-    if (validate) this.msg.error(`Documentos si evaluar`);
+    if (validate) {
+      this.msg.error(`Documentos si evaluar`);
+      return;
+    }
     this.userInfo.is_validated = 1;
-    this.userInfo.antecedentes_back = '';
-    this.userInfo.antecedentes_front = '';
     this.userService
       .approveUser(this.pk, this.userInfo)
       .pipe(tap(() => (this.loading = false)))
@@ -143,7 +141,7 @@ export class ApprovesUserDetailComponent implements OnInit {
         console.log(res);
         this.data = res[0];
         this.msg.success(`Usurario aprobado con exito`);
-        this.router.navigate([`/approve-users/`]);
+        this.router.navigate([`/approve-drivers/`]);
       });
   }
 }

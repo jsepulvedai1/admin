@@ -9,6 +9,7 @@ import { map, tap } from 'rxjs';
 import { TripService } from 'src/app/services/trip-service';
 
 import { UserService } from '../../../services/users-service';
+import { GlobalService } from 'src/app/services/global-service';
 
 export interface Data {
   id: number;
@@ -19,11 +20,11 @@ export interface Data {
 }
 
 @Component({
-  selector: 'app-trips',
-  templateUrl: './trips.component.html',
-  styleUrls: ['./trips.component.less']
+  selector: 'app-colors',
+  templateUrl: './colors.component.html',
+  styleUrls: ['./colors.component.less']
 })
-export class TripsComponent implements OnInit {
+export class ColorsComponent implements OnInit {
   listOfData: readonly Data[] = [];
   scroll = { y: '220px' };
   token: string;
@@ -61,25 +62,12 @@ export class TripsComponent implements OnInit {
   st!: STComponent;
   columns: STColumn[] = [
     // { title: '', index: 'key', type: 'checkbox' },
-    { title: 'Dirrecion Origen	', index: 'address_origin' },
-    { title: 'Dirrecion Destino	', index: 'address_delivery' },
-    {
-      title: 'Pasajero',
-      index: 'user_customer.email'
-    },
-    {
-      title: 'Conductor',
-      index: 'user_delivery.email'
-    },
-    {
-      title: 'Detalle',
-      buttons: [
-        {
-          text: 'Detalle',
-          click: item => this.router.navigate([`/trips/detail/${item.pk}`])
-        }
-      ]
-    }
+    { title: 'Nombre', index: 'name' },
+    { title: 'Codigo', index: 'code' }
+    //{
+    //   title: 'Color',
+    //   render: 'customColor'
+    // }
   ];
   selectedRows: STData[] = [];
   description = '';
@@ -92,6 +80,7 @@ export class TripsComponent implements OnInit {
     private modalSrv: NzModalService,
     private cdr: ChangeDetectorRef,
     private userService: UserService,
+    private globalService: GlobalService,
     private router: Router,
     private tripService: TripService
   ) {
@@ -104,11 +93,10 @@ export class TripsComponent implements OnInit {
   }
 
   protected getTrips() {
-    this.tripService
-      .getTrips()
+    this.globalService
+      .getColorsConfig()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log(res);
         this.loading = false;
         this.data = res;
         this.dataOriginal = res;
@@ -116,6 +104,10 @@ export class TripsComponent implements OnInit {
         this.cdr.detectChanges();
       });
   }
+
+  // customColor(data: any) {
+  //   return `<div class="format"><nz-color-picker nzFormat="hex" [(ngModel)]="hex"></nz-color-picker> HEX: {{ hex }}</div>`;
+  // }
 
   protected getTripsFilter() {
     this.data = this.dataOriginal;
@@ -132,44 +124,6 @@ export class TripsComponent implements OnInit {
     } else {
     }
   }
-
-  // protected getUserData() {
-  //   this.userService
-  //     .getUsers(this.token)
-  //     .pipe(tap(() => (this.loading = false)))
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       this.data = res;
-  //       this.cdr.detectChanges();
-  //     });
-  // }
-
-  // getData(): void {
-  //   this.loading = true;
-  //   //this.q.statusList = this.status.filter(w => w.checked).map(item => item.);
-  //   if (this.q.status !== null && this.q.status > -1) {
-  //     this.q.statusList.push(this.q.status);
-  //   }
-  //   this.http
-  //     .get('/rule', this.q)
-  //     .pipe(
-  //       map((list: Array<{ status: number; statusText: string; statusType: string }>) =>
-  //         list.map(i => {
-  //           const statusItem = this.status[i.status];
-  //           i.statusText = statusItem.text;
-  //           i.statusType = statusItem.type;
-  //           return i;
-  //         })
-  //       ),
-  //       tap(() => (this.loading = false))
-  //     )
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       //this.data = res;
-  //       this.cdr.detectChanges();
-  //     });
-  // }
-
   stChange(e: STChange): void {
     switch (e.type) {
       case 'checkbox':
@@ -182,29 +136,6 @@ export class TripsComponent implements OnInit {
         break;
     }
   }
-
-  // remove(): void {
-  //   this.http.delete('/rule', { nos: this.selectedRows.map(i => i['no']).join(',') }).subscribe(() => {
-  //     this.getData();
-  //     this.st.clearCheck();
-  //   });
-  // }
-
-  // approval(): void {
-  //   this.msg.success(`审批了 ${this.selectedRows.length} 笔`);
-  // }
-
-  // add(tpl: TemplateRef<{}>): void {
-  //   this.modalSrv.create({
-  //     nzTitle: '新建规则',
-  //     nzContent: tpl,
-  //     nzOnOk: () => {
-  //       this.loading = true;
-  //       this.http.post('/rule', { description: this.description }).subscribe(() => this.getData());
-  //     }
-  //   });
-  // }
-
   reset(): void {
     // wait form reset updated finished
     setTimeout(() => this.getTrips());

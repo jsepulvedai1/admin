@@ -1,5 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ColorsComponent } from './colors/colors.component';
+import { ColorsRoutingModule } from './colors-routing.module';
 import { AvatarListModule } from '@delon/abc/avatar-list';
 import { EllipsisModule } from '@delon/abc/ellipsis';
 import { FooterToolbarModule } from '@delon/abc/footer-toolbar';
@@ -9,17 +11,17 @@ import { SharedModule } from '@shared';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { NzStepsModule } from 'ng-zorro-antd/steps';
-
-import { TripDetailComponent } from './trip-detail/trip-detail.component';
-import { TripsComponent } from './trips/trips.component';
-import { TripRoutingModule } from './trips-routing.module';
-import { MapModule } from '../map/map.module';
 import { NzRateModule } from 'ng-zorro-antd/rate';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { MapModule } from '../map/map.module';
+import { TripRoutingModule } from '../trips/trips-routing.module';
+import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
 
 @NgModule({
-  declarations: [TripsComponent, TripDetailComponent],
+  declarations: [ColorsComponent],
   imports: [
+    CommonModule,
+    ColorsRoutingModule,
     CommonModule,
     CommonModule,
     TripRoutingModule,
@@ -34,7 +36,8 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
     MapModule,
     NzDescriptionsModule,
     NzBadgeModule,
-    NzRateModule
+    NzRateModule,
+    NzColorPickerModule
   ]
 })
-export class TripsModule {}
+export class ColorsModule {}

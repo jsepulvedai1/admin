@@ -196,5 +196,39 @@
         </se>
       </form>
     </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Configuraciones Negocio'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="200">
+        <se label="Limite conductor cercano" error="error" required>
+          <input nz-input formControlName="limit_activate_driver_nearby" placeholder="" />
+        </se>
+        <se label="Monto para activacion" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Contador viaje-conductor activacion:" error="error" required>
+          <input nz-input formControlName="count_trip_driver_activation" placeholder="" />
+        </se>
+        <se label="Costo activacion:" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Costo comision de cancelacion:" error="error" required>
+          <input nz-input formControlName="cost_cancel_comision" placeholder="" />
+        </se>
+        <se label="Costo operacional cancelacion:" error="error" required>
+          <input nz-input formControlName="cost_operacional_cancel" placeholder="" />
+        </se>
+        <se label="Factor punto viaje:" error="error" required>
+          <input nz-input formControlName="factor_point_trip" placeholder="" />
+        </se>
+        <se label="Factor de cancelar viaje:" error="error" required>
+          <input nz-input formControlName="factor_point_cancel_trip" placeholder="" />
+        </se>
+        <se label="Factor punto activacion" error="error" required>
+          <input nz-input formControlName="factor_point_activation" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
   </nz-collapse-panel>
 </nz-collapse>

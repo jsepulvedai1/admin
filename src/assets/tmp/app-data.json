@@ -35,19 +35,19 @@
           "link": "/trips"
         },
         {
-          "text": "aprobar usuarios",
-          "i18n": "aprobar usuarios",
+          "text": "Aprobar Conductor",
+          "i18n": "Aprobar Conductor",
           "icon": "anticon-audit",
-          "link": "/approve-users"
+          "link": "/approve-drivers"
         },
         {
-          "text": "aprobar usuarios mujeres",
-          "i18n": "aprobar usuarios mujeres",
-          "icon": "anticon-form",
+          "text": "Aprobar usuarios mujeres",
+          "i18n": "Aprobar usuarios mujeres",
+          "icon": "anticon-woman",
           "link": "/approve-woman"
         },
         {
-          "text": "Mantenedor de bancos",
+          "text": "Mantenedor de Bancos",
           "i18n": "Mantenedor de bancos",
           "icon": "anticon-bank",
           "link": "/banks"
@@ -59,17 +59,24 @@
           "link": "/global-config"
         },
         {
-          "text": "Pago de comisiones",
+          "text": "Pago de Comisiones",
           "i18n": "Comisiones",
           "icon": "anticon-percentage",
           "link": "/pay-commission"
         },
         {
-          "text": "Herramientas de prueba",
+          "text": "Herramientas de Prueba",
           "i18n": "Herramientas de prueba",
           "icon": "anticon-tool",
           "link": "/dashboard-tool"
+        },
+        {
+          "text": "Mantenedor de colores",
+          "i18n": "Mantenedor de colores",
+          "icon": "anticon-tool",
+          "link": "/colors"
         }
+
       ]
     }
   ]

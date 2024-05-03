@@ -7,31 +7,31 @@
           <div class="name">{{ userDetail.first_name }} {{ userDetail.last_name }}</div>
         </div>
         <div class="detail">
-          <p><i class="title"></i> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
-          <p><i class="group"></i> {{ userDetail.phone }}</p>
-          <p><i class="group"></i> {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : 'Mujer' }}</p>
+          <p> <span nz-icon nzType="user" nzTheme="outline"></span> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
+          <p><span nz-icon nzType="phone" nzTheme="outline"></span> {{ userDetail.phone }}</p>
+          <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : 'Mujer' }}</p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="mail" nzTheme="outline"></span>
             {{ userDetail.email }}
           </p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
             {{ '10 de marzo de 2023' }}
           </p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="barcode" nzTheme="outline"></span>
             Referido: {{ userDetail.code }}
           </p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
             Dias restantes: {{ userDetail.days_remains }}
           </p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="book" nzTheme="outline"></span>
             Puntos: {{ userDetail.points }}
           </p>
           <p>
-            <i class="mail"></i>
+            <span nz-icon nzType="calculator" nzTheme="outline"></span>
             Consumido periodo: {{ userDetail.consume_period }}
           </p>
         </div>
@@ -44,7 +44,7 @@
         <ng-container>
           <nz-tab nzTitle="Viajes"><app-user-trips [userTrips]="userDetail.last_trip || []" /></nz-tab>
         </ng-container>
-        <nz-tab nzTitle="Editar"><app-user-detail-edit /></nz-tab>
+        <!-- <nz-tab nzTitle="Editar"><app-user-detail-edit /></nz-tab> -->
         <nz-tab nzTitle="Instantanea GetGO"><app-table [userInfo]="userDetail" /></nz-tab>
       </nz-tabset>
     </nz-card>

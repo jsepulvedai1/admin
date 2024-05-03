@@ -124,6 +124,26 @@
       </div>
     </div>
   </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="8" class="mb-md" (click)="navigateToOtherApproveUserWomen()">
+    <div nz-row nzType="flex" nzAlign="middle" class="bg-red rounded-md">
+      <div nz-col nzSpan="12" class="p-md text-white">
+        <div class="h2 mt0">1</div>
+        <p class="text-nowrap mb0">Usuarios por femeninos aprobar</p>
+      </div>
+      <div nz-col nzSpan="12">
+        <g2-mini-bar
+          *ngIf="webSite"
+          height="35"
+          color="#fff"
+          borderWidth="3"
+          [padding]="[5, 30]"
+          [data]="webSite"
+          tooltipType="mini"
+          (ready)="fixDark($event)"
+        />
+      </div>
+    </div>
+  </div>
 </div>
 <div nz-row nzGutter="16">
   <div nz-col nzXs="24" nzMd="12">

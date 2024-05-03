@@ -4,7 +4,7 @@ import { STComponent, STColumn, STData, STChange } from '@delon/abc/st';
 import { G2MiniBarData } from '@delon/chart/mini-bar';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { tap } from 'rxjs';
+import { range, tap } from 'rxjs';
 import { UserService } from 'src/app/services/users-service';
 
 @Component({
@@ -37,6 +37,8 @@ export class ApproveWomanComponent implements OnInit {
     statusList: []
   };
   data: any[] = [];
+  data2: any[] = [];
+  data3: any[] = [];
   loading = false;
   status = [
     { index: 0, text: '关闭', value: false, type: 'default', checked: false },
@@ -52,29 +54,6 @@ export class ApproveWomanComponent implements OnInit {
   ];
   @ViewChild('st', { static: true })
   st!: STComponent;
-  // columns: STColumn[] = [
-  //   // { title: '', index: 'key', type: 'checkbox' },
-  //   { title: 'Id', index: 'pk' },
-  //   { title: 'avatar', index: 'avatar' },
-  //   { title: 'Email', index: 'email' },
-  //   {
-  //     title: 'Telefono',
-  //     index: 'phone'
-  //   },
-  //   {
-  //     title: 'Nombre',
-  //     index: 'first_name'
-  //   },
-  //   {
-  //     title: 'Detalle',
-  //     buttons: [
-  //       {
-  //         text: 'Detalle',
-  //         click: item => this.router.navigate(['/users/detail/12'])
-  //       }
-  //     ]
-  //   }
-  // ];
   columns: STColumn[] = [
     { title: 'id', index: 'pk', width: 100 },
     {
@@ -111,20 +90,44 @@ export class ApproveWomanComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    console.log('dada...1');
     this.getUserToApprove();
+    this.getUserToApprove2();
+    this.unificarRespuestas();
   }
 
   protected getUserToApprove() {
-    console.log('dada...1');
     this.userService
       .getWomanUsers()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        this.data = res;
+        this.data2 = res;
         this.loading = false;
         this.cdr.detectChanges();
+        this.unificarRespuestas();
       });
+  }
+
+  protected getUserToApprove2() {
+    this.userService
+      .getWomanUsersCanceled()
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        for (const item of res) {
+          this.data.push(item);
+        }
+
+        this.loading = false;
+        console.log(this.data);
+        this.data3 = res;
+        this.cdr.detectChanges();
+        this.unificarRespuestas();
+      });
+  }
+
+  unificarRespuestas() {
+    // Unir los datos de ambos servicios en this.data
+    this.data = [...this.data2, ...this.data3];
+    console.log(this.data);
   }
 
   stChange(e: STChange): void {

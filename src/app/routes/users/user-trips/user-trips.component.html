@@ -13,4 +13,7 @@
     </nz-card>
   </div>
 </div>
-<nz-empty nzNotFoundImage="simple" />
+<div *ngIf="!userTrips[0]?.address_delivery">
+  <nz-empty nzNotFoundImage="simple" />
+</div>
+

@@ -90,7 +90,11 @@ export class DashboardV1Component implements OnInit {
   }
 
   protected navigateToOtherApproveUser() {
-    this.router.navigate(['/approve-users']);
+    this.router.navigate(['/approve-drivers']);
+  }
+
+  protected navigateToOtherApproveUserWomen() {
+    this.router.navigate(['/approve-woman']);
   }
 
   protected navigateToTrips() {

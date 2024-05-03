@@ -42,7 +42,25 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
 
-    return this.http.get<any[]>(`${this.apiUrl}users/?is_validated=0&type_user=1`, { headers }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}users/?is_validated=0&type_user=0`, { headers }).pipe(
+      map((response: any) => {
+        const womanUser = response.filter((user: { sex: number }) => user.sex == 2);
+        return womanUser;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getWomanUsersCanceled(): Observable<any> {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}users/?is_validated=3&type_user=0`, { headers }).pipe(
       map((response: any) => {
         const womanUser = response.filter((user: { sex: number }) => user.sex == 2);
         return womanUser;
@@ -60,7 +78,7 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
 
-    return this.http.get<any[]>(`${this.apiUrl}users/?type_user=1`, { headers }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}users/?type_user=1&is_validated=2`, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -92,8 +110,25 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=0&type_user=1`, { headers }).pipe(
+    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
       map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getUsersToApproveCancel() {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=3&type_user=1`, { headers }).pipe(
+      map((response: any) => {
+        console.log('fff', response);
         return response;
       }),
       catchError(error => {
@@ -150,13 +185,60 @@ export class UserService {
     );
   }
 
+  approveUserWoman(pk: string, userData: any) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_woman_validated: 1, is_validated: 2 }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  rejectUserWoman(pk: string) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_woman_validated: 2, is_validated: 3 }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
   approveUser(pk: string, userData: any) {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, userData, { headers }).pipe(
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated: 2 }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  rejectUser(pk: string) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated: 3 }, { headers }).pipe(
       map((response: any) => {
         return response;
       }),

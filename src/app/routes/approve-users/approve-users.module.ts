@@ -15,6 +15,7 @@ import { ApproveUserRoutingModule } from './approve-users-routing.module';
 import { ApprovesUserDetailComponent } from './approves-user-detail/approves-user-detail.component';
 import { ApprovesUsersListComponent } from './approves-users-list/approves-users-list.component';
 import { ModalDetailUserComponent } from './modal-detail-user/modal-detail-user.component';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 @NgModule({
   declarations: [ApprovesUserDetailComponent, ApprovesUsersListComponent, ModalDetailUserComponent],
@@ -30,7 +31,8 @@ import { ModalDetailUserComponent } from './modal-detail-user/modal-detail-user.
     G2MiniBarModule,
     FullContentModule,
     SharedModule,
-    ApproveUserRoutingModule
+    ApproveUserRoutingModule,
+    NzSkeletonModule
   ]
 })
 export class ApproveUsersModule {}

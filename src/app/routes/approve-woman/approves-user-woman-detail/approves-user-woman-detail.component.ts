@@ -129,38 +129,27 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
     this.modal.create(ModalDetailUserWomanComponent, { userDetailModal, record, driverInfo }).subscribe(res => {});
   }
 
-  rejectUser(userData: any) {
-    console.log(this.selectedValues);
+  async rejectUser() {
     this.userService
-      .rejecDocument(this.data.pk, this.selectedValues)
+      .rejectUserWoman(this.pk)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        // console.log(res);
-        // this.data = res[0];
-        this.getUserRecord();
+        console.log(res);
+        this.data = res[0];
+        this.msg.success(`Usurario rechazado con exito`);
+        this.router.navigate([`/approve-woman/`]);
       });
   }
 
   async approveUser() {
-    this.userInfo.is_validated = 1;
-    this.userInfo.avatar = '';
-    this.userInfo.antecedentes_back = '';
-    this.userInfo.antecedentes_front = '';
-    // console.log(this.userInfo.document_sex_validator);
-    // const i = await this.getBase64ImageFromUrl(
-    //   'https://imgs.search.brave.com/MZcVw_uqMRXrrCdbi3wOUlSNxfZBENpSMzqYwLyE28c/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvSG9t/ZVBhZ2UvRm91clBh/Y2svQzItUGhvdG9z/LWlTdG9jay0xMzU2/MTk3Njk1LmpwZw' ||
-    //     ''
-    // );
-    this.userInfo.document_sex_validator = '';
-    // console.log(this.userInfo.document_sex_validator);
     this.userService
-      .approveUser(this.pk, this.userInfo)
+      .approveUserWoman(this.pk, this.userInfo)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         console.log(res);
         this.data = res[0];
         this.msg.success(`Usurario aprobado con exito`);
-        this.router.navigate([`/approve-users/`]);
+        this.router.navigate([`/approve-woman/`]);
       });
   }
 }
