@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { STChange, STColumn, STComponent, STData } from '@delon/abc/st';
-import { _HttpClient } from '@delon/theme';
+import { _HttpClient, ModalHelper } from '@delon/theme';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -10,6 +10,9 @@ import { TripService } from 'src/app/services/trip-service';
 
 import { UserService } from '../../../services/users-service';
 import { GlobalService } from 'src/app/services/global-service';
+import { NzColorPickerComponent } from 'ng-zorro-antd/color-picker';
+import { NgAntdColorPickerModule } from 'ng-antd-color-picker';
+import { CreateColorComponent } from '../create-color/create-color.component';
 
 export interface Data {
   id: number;
@@ -63,16 +66,17 @@ export class ColorsComponent implements OnInit {
   columns: STColumn[] = [
     // { title: '', index: 'key', type: 'checkbox' },
     { title: 'Nombre', index: 'name' },
-    { title: 'Codigo', index: 'code' }
-    //{
-    //   title: 'Color',
-    //   render: 'customColor'
-    // }
+    { title: 'Codigo', index: 'code' },
+    {
+      title: 'Color',
+      index: 'code'
+    }
   ];
   selectedRows: STData[] = [];
   description = '';
   totalCallNo = 0;
   expandForm = false;
+  hex: string = '#1677ff';
 
   constructor(
     private http: _HttpClient,
@@ -82,17 +86,18 @@ export class ColorsComponent implements OnInit {
     private userService: UserService,
     private globalService: GlobalService,
     private router: Router,
-    private tripService: TripService
+    private tripService: TripService,
+    private modal: ModalHelper
   ) {
     this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.getTrips();
+    this.getColors();
   }
 
-  protected getTrips() {
+  protected getColors() {
     this.globalService
       .getColorsConfig()
       .pipe(tap(() => (this.loading = false)))
@@ -105,21 +110,27 @@ export class ColorsComponent implements OnInit {
       });
   }
 
-  // customColor(data: any) {
-  //   return `<div class="format"><nz-color-picker nzFormat="hex" [(ngModel)]="hex"></nz-color-picker> HEX: {{ hex }}</div>`;
-  // }
+  protected createColors() {
+    const color = {
+      name: 'rojo',
+      code: '#ff0000'
+    };
+    this.globalService
+      .createColorsConfig(color)
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        this.loading = false;
+        this.data = res;
+        this.dataOriginal = res;
 
-  protected getTripsFilter() {
+        this.cdr.detectChanges();
+      });
+  }
+
+  protected getColorsFilter() {
     this.data = this.dataOriginal;
     if (this.q.email && this.q.email.trim() !== '') {
-      console.log(this.q);
-      console.log(this.data);
       const data1 = this.data.filter(item => item.user_customer.email.toLowerCase().includes(this.q.email.trim().toLowerCase()));
-      // const data2 = this.data.map(user => {
-      //   console.log(user.user_customer.email);
-      // });
-      // console.log(this.data);
-      // console.log(data1);
       this.data = [...data1];
     } else {
     }
@@ -132,16 +143,31 @@ export class ColorsComponent implements OnInit {
         this.cdr.detectChanges();
         break;
       case 'filter':
-        this.getTrips();
+        this.getColors();
         break;
     }
   }
   reset(): void {
     // wait form reset updated finished
-    setTimeout(() => this.getTrips());
+    setTimeout(() => this.getColors());
   }
 
   fullChange(val: boolean): void {
     this.scroll = val ? { y: '550px' } : { y: '430px' };
+  }
+
+  openCreate(record: { id?: number; type?: number } = {}): void {
+    const modalInfo = 'Crear Banco';
+    record.type = 2;
+    this.modal.create(CreateColorComponent, { record, modalInfo }, { size: 'md' }).subscribe(res => {
+      if (record.id) {
+        record = { ...record, id: 'mock_id', percent: 0, ...res };
+      } else {
+        this.data.splice(0, 0, res);
+        this.data = [...this.data];
+      }
+      this.getColors();
+      this.cdr.detectChanges();
+    });
   }
 }

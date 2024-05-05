@@ -16,9 +16,11 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { MapModule } from '../map/map.module';
 import { TripRoutingModule } from '../trips/trips-routing.module';
 import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { CreateColorComponent } from './create-color/create-color.component';
 
 @NgModule({
-  declarations: [ColorsComponent],
+  declarations: [ColorsComponent, CreateColorComponent],
   imports: [
     CommonModule,
     ColorsRoutingModule,
@@ -37,7 +39,8 @@ import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
     NzDescriptionsModule,
     NzBadgeModule,
     NzRateModule,
-    NzColorPickerModule
+    NzColorPickerModule,
+    NzTableModule
   ]
 })
 export class ColorsModule {}

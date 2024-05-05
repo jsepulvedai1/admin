@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <div class="modal-title">{{ modalInfo }} </div>
+</div>
+<sf #sf mode="edit" [schema]="schema" [formData]="record" button="none">
+  <div class="modal-footer">
+    <button nz-button type="button" (click)="close()">Cerrar</button>
+    <button nz-button type="submit" [nzType]="'primary'" (click)="save(sf.value)" [disabled]="!sf.valid">Crear</button>
+  </div>
+</sf>
