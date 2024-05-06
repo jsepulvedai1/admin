@@ -80,6 +80,12 @@ export class ApprovesUserDetailComponent implements OnInit {
       });
   }
 
+  documents = [
+    { imageUrl: 'https://i.blogs.es/0ca9a6/aa/1366_2000.jpeg', description: 'Descripción de la imagen 1' },
+    { imageUrl: 'https://i.blogs.es/0ca9a6/aa/1366_2000.jpeg', description: 'Descripción de la imagen 2' }
+    // Agrega más documentos según sea necesario
+  ];
+
   buildData() {
     this.data2 = {
       driver_license_front: this.data.driver_license_front || this.fallback,

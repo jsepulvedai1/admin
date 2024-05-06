@@ -44,7 +44,6 @@ export class ProBasicListEditComponent {
     const bankInfo = {
       name: value.Nombre
     };
-    console.log(bankInfo);
     if (value.type == 1) {
       const d = this.bankService.updateBank(bankInfo, this.record.pk).subscribe(res => {
         console.log(res);

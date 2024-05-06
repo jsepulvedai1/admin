@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { GlobalService } from 'src/app/services/global-service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
-  selector: 'nz-demo-color-picker-use',
-  styleUrls: ['./create-color.component.less'],
+  selector: 'nz-demo-color-picker',
+  styleUrls: ['./colors-edit.component.less'],
   template: `
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
       <nz-form-item>
@@ -30,18 +31,33 @@ import { GlobalService } from 'src/app/services/global-service';
     </form>
   `
 })
-export class CreateColorComponent {
+export class ColorsEditComponent implements OnInit {
   validateForm = this.formBuilder.group({
     userName: ['', [Validators.required]],
     colorPicker: ['#1677ff']
   });
 
   loading = false;
+  pk = '';
   constructor(
     private formBuilder: FormBuilder,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private route: ActivatedRoute
   ) {}
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.pk = params.get('id')!;
+    });
+    this.getColorDetial();
+  }
+
+  async getColorDetial() {
+    this.globalService
+      .getColorsConfig()
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {});
+  }
   submitForm(): void {
     const color = {
       name: this.validateForm.value.userName,

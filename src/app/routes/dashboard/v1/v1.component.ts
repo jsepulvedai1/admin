@@ -24,6 +24,7 @@ export class DashboardV1Component implements OnInit {
   usersSize: Number = 0;
   tripSize: Number = 0;
   driverSize: Number = 0;
+  usersToApprove: number = 0;
 
   constructor(
     private http: _HttpClient,
@@ -49,6 +50,7 @@ export class DashboardV1Component implements OnInit {
     this.getUsers();
     this.getTrips();
     this.getDrivers();
+    this.getUserToApprove();
     this.webSite = CHARTS['/chart'].visitData.slice(0, 10);
     this.salesData = CHARTS['/chart'].salesData;
     this.offlineChartData = CHARTS['/chart'].offlineChartData;
@@ -67,23 +69,23 @@ export class DashboardV1Component implements OnInit {
     });
   }
 
+  private getUserToApprove() {
+    this.userService.getUsersToApprove().subscribe(res => {
+      this.usersToApprove = this.usersToApprove + res.length;
+      this.cdr.detectChanges();
+    });
+    this.userService.getUsersToApproveCancel().subscribe(res => {
+      this.usersToApprove = this.usersToApprove + res.length;
+      this.cdr.detectChanges();
+    });
+  }
+
   private getTrips() {
     this.tripService.getTrips().subscribe(res => {
       this.tripSize = res.length;
       this.cdr.detectChanges();
     });
   }
-
-  // private genOnboarding(): void {
-  //   const KEY = 'on-boarding';
-  //   if (!this.platform.isBrowser || localStorage.getItem(KEY) === '1') {
-  //     return;
-  //   }
-  //   this.http.get(`./assets/tmp/on-boarding.json`).subscribe(res => {
-  //     this.obSrv.start(res);
-  //     localStorage.setItem(KEY, '1');
-  //   });
-  // }
 
   protected navigateToOtherPage() {
     this.router.navigate(['/users']);

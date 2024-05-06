@@ -18,9 +18,10 @@ import { TripRoutingModule } from '../trips/trips-routing.module';
 import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { CreateColorComponent } from './create-color/create-color.component';
+import { ColorsEditComponent } from './colors-edit/colors-edit.component';
 
 @NgModule({
-  declarations: [ColorsComponent, CreateColorComponent],
+  declarations: [ColorsComponent, CreateColorComponent, ColorsEditComponent],
   imports: [
     CommonModule,
     ColorsRoutingModule,

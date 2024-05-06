@@ -1,4 +1,4 @@
-<page-header [title]="'Documentos'" />
+<!-- <page-header [title]="'Documentos'" />
 <nz-skeleton *ngIf="loading" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
 <table *ngIf="!loading" class="document-table">
   <thead>
@@ -26,4 +26,21 @@
 <div class="text-right">
   <button class="btn btn-approve" (click)="approveUser()">Aprobar</button>
   <button class="btn btn-reject" (click)="rejectUser()">Rechazar</button>
-</div>
+</div> -->
+
+
+<page-header [title]="'Documentos'"></page-header>
+
+<nz-card class="carousel-card">
+  <div nz-card-meta>
+    <div nz-card-meta-title>Imágenes de Documentos</div>
+  </div>
+  <nz-carousel [nzEffect]="'fade'" style="max-width: 100%">
+    <div nz-carousel-content *ngFor="let document of documents">
+      <div class="image-container">
+        <img [src]="document.imageUrl" alt="{{ document.description }}" />
+      </div>
+      <div class="description">{{ document.description }}</div>
+    </div>
+  </nz-carousel>
+</nz-card>

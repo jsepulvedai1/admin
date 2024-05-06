@@ -74,8 +74,8 @@ import { environment } from '@env/environment';
         <router-outlet />
       </ng-template>
     </layout-default>
-    <setting-drawer *ngIf="showSettingDrawer" />
-    <theme-btn />
+    <!-- <setting-drawer *ngIf="showSettingDrawer" /> -->
+    <!-- <theme-btn /> -->
   `
 })
 export class LayoutBasicComponent {

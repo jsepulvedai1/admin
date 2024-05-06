@@ -66,14 +66,14 @@
         },
         {
           "text": "Herramientas de Prueba",
-          "i18n": "Herramientas de prueba",
+          "i18n": "Herramientas de Prueba",
           "icon": "anticon-tool",
           "link": "/dashboard-tool"
         },
         {
           "text": "Mantenedor de colores",
           "i18n": "Mantenedor de colores",
-          "icon": "anticon-tool",
+          "icon": "anticon-format-painter",
           "link": "/colors"
         }
 

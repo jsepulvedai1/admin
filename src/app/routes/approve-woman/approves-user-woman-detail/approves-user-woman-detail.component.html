@@ -1,29 +1,51 @@
 <page-header [title]="'Documentos'" />
-<table class="document-table">
-  <thead>
-    <tr>
-      <th>Documento</th>
-      <th>Imagen</th>
-      <!-- <th>Fecha de Carga</th> -->
-      <!-- <th>Acciones</th> -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let key of getObjectKeys(data2)">
-      <td>{{ DocumentEnum[key] }}</td>
-      <td>
-        <img [src]="data2[key] || fallback" alt="{{ 'd' }}" class="document-thumbnail" (click)="openModal(data2[key])" />
-      </td>
-      <!-- <td>
-        <nz-radio-group [(ngModel)]="selectedValues[key]" nzButtonStyle="solid">
-          <label nz-radio-button nzValue="{{ data2[key] }}">APROBAR</label>
-          <label class="rechazar-button" nz-radio-button nzValue="">Rechazar</label>
-        </nz-radio-group>
-      </td> -->
-    </tr>
-  </tbody>
-</table>
-<div class="text-right">
-  <button class="btn btn-approve" (click)="approveUser()">Aprobar</button>
-  <button class="btn btn-reject" (click)="rejectUser()">Rechazar</button>
+
+<div class="document-container">
+  <!-- Documentos -->
+  <div class="document-card" *ngFor="let key of getObjectKeys(data2)">
+    <div class="document-thumbnail" (click)="openModal(data2[key])">
+      <img [src]="data2[key] || fallback" alt="{{ 'd' }}" />
+    </div>
+    <div class="document-info">
+      <div class="document-name">Documento a evaluar</div>
+    </div>
+  </div>
+
+  <!-- Información adicional -->
+  <div class="additional-info">
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nombre</td>
+          <td>{{userInfo.first_name}}</td>
+        </tr>
+        <tr>
+          <td>Nacionalidad</td>
+          <td>chilena</td>
+        </tr>
+        <tr>
+          <td>Sexo</td>
+          <td>{{ userInfo.sex == 1 ? 'Masculino' : 'Femenino' }}</td>
+        </tr>
+        <tr>
+          <td>Rut</td>
+          <td>1942435-1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="button-container">
+      <button class="btn btn-approve" (click)="approveUser()">
+        <i class="fas fa-check"></i> Aprobar
+      </button>
+      <button class="btn btn-reject" (click)="rejectUser()">
+        <i class="fas fa-times"></i> Rechazar
+      </button>
+    </div>
+  </div>
 </div>

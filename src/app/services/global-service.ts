@@ -68,4 +68,38 @@ export class GlobalService {
       })
     );
   }
+
+  getColorsConfigDetail(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}vehicle/color/1`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  createColorsConfig(color: any): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.post<any[]>(`${this.apiUrl}vehicle/color/`, color, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
 }
