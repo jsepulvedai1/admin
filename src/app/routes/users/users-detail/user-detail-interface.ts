@@ -39,6 +39,10 @@ export interface UserData {
   direct_users_g10?: number;
   getgo_money?: number;
   trip_month_current?: number;
+  trip_month_user_current?: number;
+  trip_count_user?: number;
+  trip_count_driver?: number;
+  count_card?: number;
 }
 
 export interface LastTrip {

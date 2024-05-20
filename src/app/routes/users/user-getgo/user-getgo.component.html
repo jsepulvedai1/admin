@@ -14,7 +14,7 @@
             <td class="left-column" *ngIf="row.subColumnsRow.left">{{ row.subColumnsRow.left }}</td>
             <td class="divider" *ngIf="row.subColumnsRow.left && row.subColumnsRow.right"></td>
             <td class="right-column" *ngIf="row.subColumnsRow.right">{{ row.subColumnsRow.right }}</td>
-            <td class="center-column" *ngIf="row.subColumnsRow.center">{{ row.subColumnsRow.center }}</td>
+            <td class="center-column" *ngIf="row.subColumnsRow.center" colspan="3">{{ row.subColumnsRow.center }}</td>
           </tr>
         </nz-table>
       </td>

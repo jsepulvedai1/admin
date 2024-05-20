@@ -78,7 +78,6 @@ export class UserLoginComponent implements OnDestroy {
     //this.userData['username'] = this.userData['username'];
     const { userName, password } = this.form.controls;
     const userData = { username: userName.value, password: password.value, token: '1234', expired: 1233 };
-    console.log(userData);
     this.loading = true;
     this.authService
       .login(userData)
@@ -96,7 +95,6 @@ export class UserLoginComponent implements OnDestroy {
           if (url.includes('/passport')) {
             url = '/';
           }
-          console.log(url);
           this.router.navigateByUrl(url);
         });
       })
@@ -104,7 +102,6 @@ export class UserLoginComponent implements OnDestroy {
         // this.invalidData = 1;
         this.loading = false;
         this.cdr.detectChanges();
-        console.log(error);
       });
   }
 

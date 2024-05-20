@@ -32,7 +32,6 @@ export class StartupService {
 
   load(): Observable<void> {
     const defaultLang = this.i18n.defaultLang;
-    console.log(defaultLang);
     return zip(this.i18n.loadLangData(defaultLang), this.httpClient.get('assets/tmp/app-data.json')).pipe(
       catchError(res => {
         setTimeout(() => this.router.navigateByUrl(`/exception/500`));

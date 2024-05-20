@@ -22,7 +22,6 @@ export class TripService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    console.log(this.token);
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     return this.http.get<any[]>(`${this.apiUrl}trip/normal/`, { headers }).pipe(
       map((response: any) => {
@@ -40,7 +39,6 @@ export class TripService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    console.log(this.token);
     return this.http.get<any[]>(`${this.apiUrl}trip/detail/${pk}/`, { headers }).pipe(
       map((response: any) => {
         return response;

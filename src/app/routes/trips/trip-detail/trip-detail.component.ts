@@ -6,6 +6,7 @@ import { TripService } from 'src/app/services/trip-service';
 import { UserService } from 'src/app/services/users-service';
 
 import { UserData } from '../../users/users-detail/user-detail-interface';
+import { EstadoViaje, EstadoViajeText } from './trip-detail.enum';
 
 @Component({
   selector: 'app-trip-detail',
@@ -13,6 +14,8 @@ import { UserData } from '../../users/users-detail/user-detail-interface';
   styleUrls: ['./trip-detail.component.less']
 })
 export class TripDetailComponent implements OnInit {
+  EstadoViaje = EstadoViaje;
+  EstadoViajeText = EstadoViajeText;
   pk: string = '';
   token: string;
   Sexo = {

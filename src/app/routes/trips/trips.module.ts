@@ -14,7 +14,6 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { TripDetailComponent } from './trip-detail/trip-detail.component';
 import { TripsComponent } from './trips/trips.component';
 import { TripRoutingModule } from './trips-routing.module';
-import { MapModule } from '../map/map.module';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 
 @NgModule({
@@ -31,7 +30,6 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
     NzPaginationModule,
     NzStepsModule,
     CurrencyPipeModule,
-    MapModule,
     NzDescriptionsModule,
     NzBadgeModule,
     NzRateModule

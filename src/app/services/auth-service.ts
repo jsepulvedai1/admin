@@ -22,7 +22,6 @@ export class AuthenticationService {
     this.apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
 
     const url = JSON.parse(localStorage.getItem('url') || '{}');
-    console.log(url);
     return new Promise((resolve, reject) => {
       let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

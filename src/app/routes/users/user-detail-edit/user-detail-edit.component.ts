@@ -48,8 +48,6 @@ export class UserDetailEditComponent implements OnInit {
   }
 
   submit(): void {
-    console.log('dasd..');
-    console.log(this.validateForm.value);
     if (this.validateForm.valid) {
       const ageValue = this.validateForm.get('sex')?.value;
       const ageAsInt = parseInt(ageValue, 10); // base 10

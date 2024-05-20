@@ -38,22 +38,16 @@ export class ProBasicListEditComponent {
   ) {}
 
   save(value: any): void {
-    console.log(this.record);
     this.msgSrv.success('Banco Guardado con exito');
-    console.log(value);
     const bankInfo = {
       name: value.Nombre
     };
     if (value.type == 1) {
-      const d = this.bankService.updateBank(bankInfo, this.record.pk).subscribe(res => {
-        console.log(res);
-      });
+      const d = this.bankService.updateBank(bankInfo, this.record.pk).subscribe(res => {});
       this.modal.close(value);
       return;
     }
-    const d = this.bankService.createBank(bankInfo).subscribe(res => {
-      console.log(res);
-    });
+    this.bankService.createBank(bankInfo);
     this.modal.close(value);
   }
 

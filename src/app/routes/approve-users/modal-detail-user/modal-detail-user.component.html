@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.7/antd.min.css" />
     <style>
       .container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         display: flex;
       }
@@ -79,16 +79,8 @@
               <td>{{ userDetailModal.first_name }}</td>
             </tr>
             <tr>
-              <td>Nacionalidad</td>
-              <td>chilena</td>
-            </tr>
-            <tr>
               <td>Sexo</td>
               <td>{{ userDetailModal.sex == 1 ? 'Masculino' : 'Femenino' }}</td>
-            </tr>
-            <tr>
-              <td>Rut</td>
-              <td>1942435-1</td>
             </tr>
             <tr>
               <td>Matrícula</td>
@@ -114,4 +106,8 @@
       </div>
     </div>
   </body>
+  <ng-template [nzModalFooter]>
+    <button nz-button nzType="primary" class="approve-button" (click)="handleOk()">Aprobar</button>
+    <button nz-button nzType="primary" nzDanger (click)="handleCancel()">Rechazar</button>
+  </ng-template>
 </html>

@@ -16,6 +16,7 @@ export class UsersDetailComponent implements OnInit {
   pk: string = '';
   token: string;
   Sexo = {
+    'Sin informar': 0,
     Hombre: 1,
     Mujer: 2
   };
@@ -100,7 +101,6 @@ export class UsersDetailComponent implements OnInit {
 
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
-      console.log(res);
       this.userDetail = res;
       this.cdr.detectChanges();
     });
@@ -109,7 +109,6 @@ export class UsersDetailComponent implements OnInit {
   getUserProfile() {
     console.log(this.userDetail.user_name);
     this.userService.getUserProfile(this.pk).subscribe(res => {
-      console.log(res);
       this.userDetail = res;
       // this.userDetail.join_date = this.formatIsoDate(this.userDetail.join_date || 'd');
       //console.log(this.userDetail.join_date);

@@ -102,12 +102,14 @@
     <nz-descriptions-item nzTitle="Fecha Viaje">2018-04-24 18:00:00</nz-descriptions-item>
     <!-- <nz-descriptions-item nzTitle="Usage Time" [nzSpan]="2"> 2018-04-24 18:00:00 To 2019-04-24 18:00:00 </nz-descriptions-item> -->
     <nz-descriptions-item nzTitle="Estatus" [nzSpan]="3">
-      <nz-badge nzStatus="processing" nzText="Running" />
+      <nz-badge [nzStatus]="'processing'" [nzText]="EstadoViajeText[tripDetail?.status]"></nz-badge>
+
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Valor">${{ tripDetail?.total }}</nz-descriptions-item>
     <!-- <nz-descriptions-item nzTitle="Official Receipts">$60.00</nz-descriptions-item> -->
     <nz-descriptions-item nzTitle="Comentarios">
     </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Calificacion"><nz-rate [(ngModel)]="value" [nzTooltips]="tooltips"></nz-rate></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Calificacion usuario"><nz-rate [ngModel]="tripDetail.user_customer?.rank_user" nzAllowHalf nzDisabled></nz-rate></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Calificacion conductor"><nz-rate [ngModel]="tripDetail.user_delivery?.rank_user" nzAllowHalf nzDisabled></nz-rate></nz-descriptions-item>
   </nz-descriptions>
 </div>

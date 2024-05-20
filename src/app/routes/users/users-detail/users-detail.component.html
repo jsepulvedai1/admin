@@ -9,7 +9,7 @@
         <div class="detail">
           <p> <span nz-icon nzType="user" nzTheme="outline"></span> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
           <p><span nz-icon nzType="phone" nzTheme="outline"></span> {{ userDetail.phone }}</p>
-          <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : 'Mujer' }}</p>
+          <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : userDetail.sex === Sexo.Mujer ? 'Mujer' : 'Sin Informar'}}</p>
           <p>
             <span nz-icon nzType="mail" nzTheme="outline"></span>
             {{ userDetail.email }}
@@ -29,6 +29,10 @@
           <p>
             <span nz-icon nzType="book" nzTheme="outline"></span>
             Puntos: {{ userDetail.points }}
+          </p>
+          <p>
+            <span nz-icon nzType="book" nzTheme="outline"></span>
+            Ciclos: {{ userDetail.ciclos }}
           </p>
           <p>
             <span nz-icon nzType="calculator" nzTheme="outline"></span>

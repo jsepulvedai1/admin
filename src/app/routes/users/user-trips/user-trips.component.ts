@@ -20,7 +20,5 @@ export class UserTripsComponent implements OnInit {
   constructor(private router: Router) {}
   @Input() userTrips: LastTrip[] = [];
 
-  ngOnInit(): void {
-    console.log(this.userTrips);
-  }
+  ngOnInit(): void {}
 }

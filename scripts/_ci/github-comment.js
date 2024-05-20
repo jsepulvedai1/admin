@@ -29,7 +29,6 @@ async function withGithub(url, json, method) {
 
 (async function run() {
   if (PR == null) {
-    console.log('未获取到PR，忽略处理')
     return;
   }
 
@@ -38,7 +37,6 @@ async function withGithub(url, json, method) {
   // Find my comment
   const updateComment = comments.find(({ body }) => body.includes(REPLACE_MARK));
   // eslint-disable-next-line no-console
-  console.log('Origin comment:', updateComment);
 
   // Update
   let res;
@@ -57,5 +55,4 @@ async function withGithub(url, json, method) {
   }
 
   // eslint-disable-next-line no-console
-  console.log(res);
 })();

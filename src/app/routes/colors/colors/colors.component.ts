@@ -13,6 +13,7 @@ import { GlobalService } from 'src/app/services/global-service';
 import { NzColorPickerComponent } from 'ng-zorro-antd/color-picker';
 import { NgAntdColorPickerModule } from 'ng-antd-color-picker';
 import { CreateColorComponent } from '../create-color/create-color.component';
+import { ModalDetailUserComponent } from '../../approve-users/modal-detail-user/modal-detail-user.component';
 
 export interface Data {
   id: number;
@@ -87,7 +88,7 @@ export class ColorsComponent implements OnInit {
     private globalService: GlobalService,
     private router: Router,
     private tripService: TripService,
-    private modal: ModalHelper
+    private modal: NzModalService
   ) {
     this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
   }
@@ -100,23 +101,6 @@ export class ColorsComponent implements OnInit {
   protected getColors() {
     this.globalService
       .getColorsConfig()
-      .pipe(tap(() => (this.loading = false)))
-      .subscribe(res => {
-        this.loading = false;
-        this.data = res;
-        this.dataOriginal = res;
-
-        this.cdr.detectChanges();
-      });
-  }
-
-  protected createColors() {
-    const color = {
-      name: 'rojo',
-      code: '#ff0000'
-    };
-    this.globalService
-      .createColorsConfig(color)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.loading = false;
@@ -159,15 +143,15 @@ export class ColorsComponent implements OnInit {
   openCreate(record: { id?: number; type?: number } = {}): void {
     const modalInfo = 'Crear Banco';
     record.type = 2;
-    this.modal.create(CreateColorComponent, { record, modalInfo }, { size: 'md' }).subscribe(res => {
-      if (record.id) {
-        record = { ...record, id: 'mock_id', percent: 0, ...res };
-      } else {
-        this.data.splice(0, 0, res);
-        this.data = [...this.data];
-      }
+    //const modalRef2 = this.modal.create(CreateColorComponent);
+    const modalRef = this.modal.create({
+      nzContent: CreateColorComponent,
+      nzFooter: null
+    });
+
+    // const modalRef = this.modal.create({});
+    modalRef.afterClose.subscribe(result => {
       this.getColors();
-      this.cdr.detectChanges();
     });
   }
 }

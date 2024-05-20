@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-
+import { Component, Input } from '@angular/core';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { userDetail } from '../approves-user-detail/user-detail.interface';
 
 @Component({
@@ -10,39 +8,33 @@ import { userDetail } from '../approves-user-detail/user-detail.interface';
   styleUrls: ['./modal-detail-user.component.less']
 })
 export class ModalDetailUserComponent {
-  isVisible = false;
+  @Input() userDetailModal: userDetail = {};
+  @Input() driverInfo: any;
+  @Input() record: any;
   isConfirmLoading = false;
-  data: any = {};
-  userDetailModal: userDetail = {};
-  driverInfo: any;
-  record = {
-    image: 'https://pbs.twimg.com/profile_images/1014662509045919750/Q8r2bozC_400x400.jpg',
-    details: {}
-  };
-  isImageExpanded = false;
-  imageCssClasses = {
-    im: true, // Clase predeterminada para la imagen
-    expanded: this.isImageExpanded // Clase que se aplicará cuando isImageExpanded sea true
-  };
 
-  radioValue: any;
-  selectedValue: any;
-
-  constructor() {}
+  constructor(private modal: NzModalRef) {}
 
   handleOk(): void {
     this.isConfirmLoading = true;
+    this.modal.close({ result: this.record, radioValue: true });
     setTimeout(() => {
-      this.isVisible = false;
       this.isConfirmLoading = false;
+      this.modal.close({ result: 'ok', radioValue: 'true' });
     }, 3000);
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    console.log('cancel');
+    this.record.image = '';
+    this.modal.close({ result: this.record, radioValue: true });
+  }
+
+  handleCancelOutside(): void {
+    this.modal.close({ action: 'cancel' });
   }
 
   toggleImageSize(): void {
-    this.isImageExpanded = !this.isImageExpanded;
+    this.record.imageExpanded = !this.record.imageExpanded;
   }
 }

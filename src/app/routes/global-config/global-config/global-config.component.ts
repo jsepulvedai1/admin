@@ -48,6 +48,7 @@ export class GlobalConfigComponent implements OnInit {
     g10_percentage_bono: new FormControl('', Validators.required),
     limit_activate_driver_nearby: new FormControl('', Validators.required),
     cost_activation: new FormControl('', Validators.required),
+    amount_for_activation: new FormControl('', Validators.required),
     cost_cancel_comision: new FormControl('', Validators.required),
     cost_operacional_cancel: new FormControl('', Validators.required),
     count_trip_driver_activation: new FormControl('', Validators.required),
@@ -172,6 +173,7 @@ export class GlobalConfigComponent implements OnInit {
         cost_activation: res[0].cost_activation,
         cost_cancel_comision: res[0].cost_cancel_comision,
         cost_operacional_cancel: res[0].cost_operacional_cancel,
+        amount_for_activation: res[0].amount_for_activation,
         count_trip_driver_activation: res[0].count_trip_driver_activation,
         factor_point_activation: res[0].factor_point_activation,
         factor_point_cancel_trip: res[0].factor_point_cancel_trip,
@@ -182,7 +184,6 @@ export class GlobalConfigComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form);
     if (this.form.valid) {
       this.submitting = true;
       this.globalService.UpdateGlobalConfig(this.form.value).subscribe(res => {

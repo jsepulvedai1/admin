@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { GlobalService } from 'src/app/services/global-service';
+import { Router } from '@angular/router';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'nz-demo-color-picker-use',
@@ -39,7 +41,8 @@ export class CreateColorComponent {
   loading = false;
   constructor(
     private formBuilder: FormBuilder,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private modal: NzModalRef
   ) {}
 
   submitForm(): void {
@@ -53,5 +56,6 @@ export class CreateColorComponent {
       .subscribe(res => {
         this.loading = false;
       });
+    this.modal.close();
   }
 }

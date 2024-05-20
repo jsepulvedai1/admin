@@ -121,7 +121,6 @@ export class UsersComponent implements OnInit {
   protected getUserFilter() {
     this.data = this.dataOriginal;
     if (this.q.email && this.q.email.trim() !== '') {
-      console.log(this.data);
       const data1 = this.data.filter(
         item =>
           item.email.includes(this.q.email.trim().toLowerCase()) ||

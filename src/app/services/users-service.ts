@@ -128,7 +128,6 @@ export class UserService {
     });
     return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=3&type_user=1`, { headers }).pipe(
       map((response: any) => {
-        console.log('fff', response);
         return response;
       }),
       catchError(error => {

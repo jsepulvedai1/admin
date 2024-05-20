@@ -40,7 +40,6 @@ export class BankService {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     return this.http.post(`${this.apiUrl}bank/`, bankInfo, { headers: this.header }).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(error => {
@@ -53,7 +52,6 @@ export class BankService {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     return this.http.patch(`${this.apiUrl}bank/${pk}`, bankInfo, { headers: this.header }).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(error => {
@@ -66,7 +64,6 @@ export class BankService {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     return this.http.delete(`${this.apiUrl}bank/${pk}`, { headers: this.header }).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(error => {

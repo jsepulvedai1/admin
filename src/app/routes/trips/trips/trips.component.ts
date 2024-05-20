@@ -18,6 +18,18 @@ export interface Data {
   disabled: boolean;
 }
 
+export enum EstadoViaje {
+  Borrador = 0,
+  EsperandoConfirmacionConductor = 1,
+  ConfirmacionConductor = 2,
+  EnCaminoParaRecoger = 3,
+  ViajeIniciado = 4,
+  ViajeCanceladoPorConductor = 5,
+  ViajeCanceladoPorUsuario = 6,
+  ViajeCompletado = 7,
+  EsperandoRespuestaDelConductor = 10
+}
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -87,11 +99,8 @@ export class TripsComponent implements OnInit {
   expandForm = false;
 
   constructor(
-    private http: _HttpClient,
     public msg: NzMessageService,
-    private modalSrv: NzModalService,
     private cdr: ChangeDetectorRef,
-    private userService: UserService,
     private router: Router,
     private tripService: TripService
   ) {
@@ -108,7 +117,6 @@ export class TripsComponent implements OnInit {
       .getTrips()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log(res);
         this.loading = false;
         this.data = res;
         this.dataOriginal = res;
@@ -120,55 +128,11 @@ export class TripsComponent implements OnInit {
   protected getTripsFilter() {
     this.data = this.dataOriginal;
     if (this.q.email && this.q.email.trim() !== '') {
-      console.log(this.q);
-      console.log(this.data);
       const data1 = this.data.filter(item => item.user_customer.email.toLowerCase().includes(this.q.email.trim().toLowerCase()));
-      // const data2 = this.data.map(user => {
-      //   console.log(user.user_customer.email);
-      // });
-      // console.log(this.data);
-      // console.log(data1);
       this.data = [...data1];
     } else {
     }
   }
-
-  // protected getUserData() {
-  //   this.userService
-  //     .getUsers(this.token)
-  //     .pipe(tap(() => (this.loading = false)))
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       this.data = res;
-  //       this.cdr.detectChanges();
-  //     });
-  // }
-
-  // getData(): void {
-  //   this.loading = true;
-  //   //this.q.statusList = this.status.filter(w => w.checked).map(item => item.);
-  //   if (this.q.status !== null && this.q.status > -1) {
-  //     this.q.statusList.push(this.q.status);
-  //   }
-  //   this.http
-  //     .get('/rule', this.q)
-  //     .pipe(
-  //       map((list: Array<{ status: number; statusText: string; statusType: string }>) =>
-  //         list.map(i => {
-  //           const statusItem = this.status[i.status];
-  //           i.statusText = statusItem.text;
-  //           i.statusType = statusItem.type;
-  //           return i;
-  //         })
-  //       ),
-  //       tap(() => (this.loading = false))
-  //     )
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       //this.data = res;
-  //       this.cdr.detectChanges();
-  //     });
-  // }
 
   stChange(e: STChange): void {
     switch (e.type) {
@@ -183,30 +147,7 @@ export class TripsComponent implements OnInit {
     }
   }
 
-  // remove(): void {
-  //   this.http.delete('/rule', { nos: this.selectedRows.map(i => i['no']).join(',') }).subscribe(() => {
-  //     this.getData();
-  //     this.st.clearCheck();
-  //   });
-  // }
-
-  // approval(): void {
-  //   this.msg.success(`审批了 ${this.selectedRows.length} 笔`);
-  // }
-
-  // add(tpl: TemplateRef<{}>): void {
-  //   this.modalSrv.create({
-  //     nzTitle: '新建规则',
-  //     nzContent: tpl,
-  //     nzOnOk: () => {
-  //       this.loading = true;
-  //       this.http.post('/rule', { description: this.description }).subscribe(() => this.getData());
-  //     }
-  //   });
-  // }
-
   reset(): void {
-    // wait form reset updated finished
     setTimeout(() => this.getTrips());
   }
 
