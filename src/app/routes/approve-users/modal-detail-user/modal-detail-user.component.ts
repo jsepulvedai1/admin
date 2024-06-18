@@ -8,7 +8,13 @@ import { userDetail } from '../approves-user-detail/user-detail.interface';
   styleUrls: ['./modal-detail-user.component.less']
 })
 export class ModalDetailUserComponent {
-  @Input() userDetailModal: userDetail = {};
+  @Input() userDetailModal: userDetail = {
+    type_vehicle: 0,
+    accept_trip_type_1: false,
+    accept_trip_type_2: false,
+    accept_trip_type_3: false,
+    accept_trip_type_4: false
+  };
   @Input() driverInfo: any;
   @Input() record: any;
   isConfirmLoading = false;

@@ -23,6 +23,11 @@ export interface userDetail {
   count_trip_complete?: number;
   count_trip_current_month?: number;
   document_sex_validator?: null | string;
+  type_vehicle: number;
+  accept_trip_type_1: boolean;
+  accept_trip_type_2: boolean;
+  accept_trip_type_3: boolean;
+  accept_trip_type_4: boolean;
 }
 
 export interface DocumentEnum {

@@ -110,7 +110,7 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
+    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=2&type_user=1`, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -142,6 +142,7 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
+    console.log(this.token);
     return this.http.get<any[]>(` ${this.apiUrl}user-record/${pk}`, { headers }).pipe(
       map((response: any) => {
         return response;

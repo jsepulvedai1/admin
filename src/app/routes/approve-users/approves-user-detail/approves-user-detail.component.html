@@ -1,24 +1,35 @@
-<page-header [title]="'Documentos'" />
+<page-header [title]="'Documentos'" [titleSub]='userName' />
 <nz-skeleton *ngIf="loading" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
 <table *ngIf="!loading" class="document-table">
   <thead>
     <tr>
       <th>Documento</th>
-      <th>Imagen</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let key of getObjectKeys(data2)">
-      <td>{{ DocumentEnum[key] }}</td>
-      <td>
-        <img [src]="data2[key] || fallback" alt="{{ data2[key].name }}" class="document-thumbnail" (click)="openModal(data2[key], key)" />
+      <td (click)="openModal(data2[key], key)">
+          {{ DocumentEnum[key] }}
       </td>
-      <td>
-        <nz-radio-group [(ngModel)]="selectedValues[key]" nzButtonStyle="solid">
-          <label nz-radio-button nzValue="{{ data2[key] }}">APROBAR</label>
-          <label class="rechazar-button" nz-radio-button nzValue="">Rechazar</label>
-        </nz-radio-group>
+      <!-- <td>
+        <img [src]="data2[key] || fallback" alt="{{ data2[key].name }}" class="document-thumbnail" (click)="openModal(data2[key], key)" />
+      </td> -->
+      <td >
+        <ng-container  *ngIf="DocumentEnum[key] === 'Tipo de Vehiculo'">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Tipo de vehiculo" [(ngModel)]="selectedValue">
+            <nz-option nzLabel="GetgoCar" nzValue="1"></nz-option>
+            <nz-option nzLabel="Ejecutivo" nzValue="2"></nz-option>
+            <nz-option nzLabel="GetgoXL" nzValue="3"></nz-option>
+            <nz-option nzLabel="Taxi" nzValue="4"></nz-option>
+          </nz-select>
+        </ng-container>
+        <ng-container *ngIf="DocumentEnum[key] !== 'Tipo de Vehiculo'">
+          <nz-radio-group [(ngModel)]="selectedValues[key]" nzButtonStyle="solid">
+            <label nz-radio-button [nzValue]="data2[key]">APROBAR</label>
+            <label class="rechazar-button" nz-radio-button nzValue="">Rechazar</label>
+          </nz-radio-group>
+      </ng-container>
       </td>
     </tr>
   </tbody>

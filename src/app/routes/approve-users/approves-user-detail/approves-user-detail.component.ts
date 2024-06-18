@@ -13,7 +13,13 @@ import { ModalDetailUserComponent } from '../modal-detail-user/modal-detail-user
   styleUrls: ['./approves-user-detail.component.less']
 })
 export class ApprovesUserDetailComponent implements OnInit {
-  userInfo: userDetail = {};
+  userInfo: userDetail = {
+    type_vehicle: 0,
+    accept_trip_type_1: false,
+    accept_trip_type_2: false,
+    accept_trip_type_3: false,
+    accept_trip_type_4: false
+  };
   loading = true;
   pk: string = '';
   data: any = {};
@@ -28,6 +34,10 @@ export class ApprovesUserDetailComponent implements OnInit {
     'Padron Vehiculo': 'A'
   };
 
+  userName = '';
+
+  selectedValue = '1';
+
   fallback = 'data:image/png;base64,...'; // Base64 string truncated for brevity
 
   DocumentEnum: DocumentEnum = {
@@ -41,8 +51,10 @@ export class ApprovesUserDetailComponent implements OnInit {
     technical_review: 'Revision Tecnica',
     photo_vehicle_1: 'Foto Vehiculo Frontal',
     photo_vehicle_2: 'Foto Vehiculo Trasero',
-    padron: 'Padron Vehiculo'
+    padron: 'Padron Vehiculo',
+    type_vehicle: 'Tipo de Vehiculo'
   };
+  userInfoName = 'John Doe'; //
 
   constructor(
     private userService: UserService,
@@ -63,6 +75,8 @@ export class ApprovesUserDetailComponent implements OnInit {
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
       this.userInfo = res;
+      console.log(this.userInfo);
+      this.userName = this.userInfo.first_name + ' ' + this.userInfo.last_name;
       this.loading = false;
     });
   }
@@ -73,6 +87,7 @@ export class ApprovesUserDetailComponent implements OnInit {
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.data = res[0];
+        this.selectedValue = this.data.type_vehicle.toString();
         this.buildData();
       });
   }
@@ -93,8 +108,8 @@ export class ApprovesUserDetailComponent implements OnInit {
       technical_review: this.data?.technical_review || this.fallback,
       photo_vehicle_1: this.data?.photo_vehicle_1 || this.fallback,
       photo_vehicle_2: this.data?.photo_vehicle_2 || this.fallback,
-      padron: this.data?.padron || this.fallback
-      //tipo de vehiculo: this.data?.padron || this.fallback
+      padron: this.data?.padron || this.fallback,
+      type_vehicle: this.data?.type_vehicle || this.fallback
     };
   }
 
