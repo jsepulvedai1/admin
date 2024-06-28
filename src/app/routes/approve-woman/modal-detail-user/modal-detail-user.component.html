@@ -84,7 +84,7 @@
             </tr>
             <tr>
               <td>Sexo</td>
-              <td>{{ userDetailModal.sex == 1 ? 'Masculino' : 'Femenino' }}</td>
+              <td>{{ userDetailModal.sex == 2 ? 'Femenino' : this.userDetailModal.sex === 1  ? 'Masculino' : 'Sin Informar' }}</td>
             </tr>
             <tr>
               <td>Rut</td>

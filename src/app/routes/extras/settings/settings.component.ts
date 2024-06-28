@@ -46,7 +46,6 @@ export class ExtrasSettingsComponent implements OnInit {
       this.msg.error('invalid confirm new password');
       return;
     }
-    console.log('pwd value', this.pwd);
   }
 
   ngOnInit(): void {

@@ -28,6 +28,7 @@ export interface userDetail {
   accept_trip_type_2: boolean;
   accept_trip_type_3: boolean;
   accept_trip_type_4: boolean;
+  id_number?: string;
 }
 
 export interface DocumentEnum {

@@ -41,6 +41,7 @@ export class ApprovesUsersListComponent implements OnInit {
   data: any[] = [];
   data2: any[] = [];
   data3: any[] = [];
+  data4: any[] = [];
   loading = false;
   status = [
     { index: 0, text: '关闭', value: false, type: 'default', checked: false },
@@ -145,5 +146,20 @@ export class ApprovesUsersListComponent implements OnInit {
   reset(): void {
     // wait form reset updated finished
     setTimeout(() => this.getUserToApprove());
+  }
+
+  protected getTripsFilter() {
+    this.data4 = this.data;
+    if (this.q.email && this.q.email.trim() !== '') {
+      const data1 = this.data.filter(
+        item =>
+          item.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.phone.toString().includes(this.q.email.trim().toLowerCase()) ||
+          item.phone.toString().includes(this.q.email.trim().toLowerCase())
+      );
+      this.data = [...data1];
+    } else {
+    }
   }
 }

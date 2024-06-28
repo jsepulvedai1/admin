@@ -17,9 +17,11 @@ import { ApprovesUsersListComponent } from './approves-users-list/approves-users
 import { ModalDetailUserComponent } from './modal-detail-user/modal-detail-user.component';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzDemoImageBasicComponent } from './approves-user-detail/imgage';
 
 @NgModule({
-  declarations: [ApprovesUserDetailComponent, ApprovesUsersListComponent, ModalDetailUserComponent],
+  declarations: [ApprovesUserDetailComponent, ApprovesUsersListComponent, ModalDetailUserComponent, NzDemoImageBasicComponent],
   imports: [
     CommonModule,
     EllipsisModule,
@@ -34,7 +36,8 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
     SharedModule,
     ApproveUserRoutingModule,
     NzSkeletonModule,
-    NzCarouselModule
+    NzCarouselModule,
+    NzImageModule
   ]
 })
 export class ApproveUsersModule {}

@@ -26,6 +26,10 @@ export class UsersDetailComponent implements OnInit {
     Pasajero: 2
   };
 
+  activeUser = true;
+
+  oldStatus = 0;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private userService: UserService,
@@ -107,11 +111,21 @@ export class UsersDetailComponent implements OnInit {
   }
 
   getUserProfile() {
-    console.log(this.userDetail.user_name);
     this.userService.getUserProfile(this.pk).subscribe(res => {
       this.userDetail = res;
-      // this.userDetail.join_date = this.formatIsoDate(this.userDetail.join_date || 'd');
-      //console.log(this.userDetail.join_date);
+      this.oldStatus = this.userDetail.is_validated_user || 0;
+      console.log(res);
+      this.cdr.detectChanges();
+    });
+  }
+
+  updateStatusUser() {
+    console.log(this.activeUser);
+    const statusUser = this.activeUser ? 0 : this.oldStatus;
+
+    this.userService.UpdateStatusUser(this.pk, statusUser).subscribe(res => {
+      this.userDetail = res;
+      console.log(res);
       this.cdr.detectChanges();
     });
   }

@@ -106,7 +106,6 @@ export class UserLoginComponent implements OnDestroy {
   }
 
   submit2(): void {
-    console.log('submit subbmit/...');
     this.error = '';
     if (this.type === 0) {
       const { userName, password } = this.form.controls;
@@ -157,14 +156,12 @@ export class UserLoginComponent implements OnDestroy {
         }
         this.reuseTabService.clear();
         res.user.expired = +new Date() + 1000 * 60 * 5;
-        console.log(res.user);
         this.tokenService.set(res.user);
         this.startupSrv.load().subscribe(() => {
           let url = this.tokenService.referrer!.url || '/';
           if (url.includes('/passport')) {
             url = '/';
           }
-          console.log(url);
           this.router.navigateByUrl(url);
         });
       });

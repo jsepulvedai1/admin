@@ -15,9 +15,13 @@ import { ApproveWomanComponent } from './approve-woman/approve-woman.component';
 import { ApproveWomanUserRoutingModule } from './approve-woman-routing.module';
 import { ApprovesUserWomanDetailComponent } from './approves-user-woman-detail/approves-user-woman-detail.component';
 import { ModalDetailUserWomanComponent } from './modal-detail-user/modal-detail-user.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzDemoImageBasicComponent } from './approves-user-woman-detail/imgage';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 @NgModule({
-  declarations: [ApproveWomanComponent, ApprovesUserWomanDetailComponent, ModalDetailUserWomanComponent],
+  declarations: [ApproveWomanComponent, ApprovesUserWomanDetailComponent, ModalDetailUserWomanComponent, NzDemoImageBasicComponent],
   imports: [
     CommonModule,
     EllipsisModule,
@@ -30,7 +34,10 @@ import { ModalDetailUserWomanComponent } from './modal-detail-user/modal-detail-
     G2MiniBarModule,
     FullContentModule,
     SharedModule,
-    ApproveWomanUserRoutingModule
+    ApproveWomanUserRoutingModule,
+    NzImageModule,
+    NzCarouselModule,
+    NzSkeletonModule
   ]
 })
 export class ApproveWomanModule {}

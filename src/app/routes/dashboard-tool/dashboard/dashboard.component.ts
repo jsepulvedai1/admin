@@ -37,8 +37,6 @@ export class DashboardComponent implements OnInit {
   }
 
   submit(): void {
-    console.log('dasd..');
-    console.log(this.validateForm.value);
     if (this.validateForm.valid) {
       const typeUser = this.validateForm.get('cantidad')?.value;
       const count = parseInt(typeUser, 10); // base 10

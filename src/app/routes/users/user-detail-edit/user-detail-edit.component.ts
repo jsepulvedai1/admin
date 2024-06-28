@@ -40,7 +40,6 @@ export class UserDetailEditComponent implements OnInit {
       antecedentes_back: [''],
       antecedentes_front: ['']
     });
-    console.log('');
   }
 
   togglePasswordVisibility() {

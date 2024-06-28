@@ -43,6 +43,7 @@ export class TripsComponent implements OnInit {
     pk: number;
     ps: number;
     email: string;
+    phone: string;
     sorter: string;
     status: number | null;
     statusList: NzSafeAny[];
@@ -50,6 +51,7 @@ export class TripsComponent implements OnInit {
     pk: 1,
     ps: 10,
     email: '',
+    phone: '',
     sorter: '',
     status: null,
     statusList: []
@@ -75,6 +77,14 @@ export class TripsComponent implements OnInit {
     // { title: '', index: 'key', type: 'checkbox' },
     { title: 'Dirrecion Origen	', index: 'address_origin' },
     { title: 'Dirrecion Destino	', index: 'address_delivery' },
+    {
+      title: 'Telefono Pasajero',
+      index: 'user_customer.phone'
+    },
+    {
+      title: 'Telefono Conductor',
+      index: 'user_delivery.phone'
+    },
     {
       title: 'Pasajero',
       index: 'user_customer.email'
@@ -128,7 +138,13 @@ export class TripsComponent implements OnInit {
   protected getTripsFilter() {
     this.data = this.dataOriginal;
     if (this.q.email && this.q.email.trim() !== '') {
-      const data1 = this.data.filter(item => item.user_customer.email.toLowerCase().includes(this.q.email.trim().toLowerCase()));
+      const data1 = this.data.filter(
+        item =>
+          item.user_customer.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.user_delivery.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.user_customer.phone.toString().includes(this.q.email.trim().toLowerCase()) ||
+          item.user_delivery.phone.toString().includes(this.q.email.trim().toLowerCase())
+      );
       this.data = [...data1];
     } else {
     }

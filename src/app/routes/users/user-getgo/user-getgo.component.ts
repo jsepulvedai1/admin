@@ -35,7 +35,7 @@ export class UserGetgoComponent implements OnInit {
       subColumnsRow: { left: '', center: '', right: '' }
     },
     {
-      mainRow: 'Ciclo mes',
+      mainRow: 'Ciclo periodo',
       subColumnsRow: { left: '', center: '', right: '' }
     },
     {
@@ -57,7 +57,6 @@ export class UserGetgoComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    console.log(this.userInfo);
     this.buildInfo();
   }
 

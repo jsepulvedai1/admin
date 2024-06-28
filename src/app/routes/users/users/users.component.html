@@ -53,10 +53,6 @@
       </div>
     </div>
   </form>
-  <!-- <button nz-button (click)="createUser()" [nzType]="'dashed'" nzBlock class="mb-sm">
-    <i nz-icon nzType="plus"></i>
-    <span>Crear Usuario</span>
-  </button> -->
   <div class="my-md"> </div>
   <st #st [columns]="columns" [data]="data" [loading]="loading" (change)="stChange($event)" [scroll]="scroll">
     <ng-template st-row="status" let-i>
@@ -64,11 +60,3 @@
     </ng-template>
   </st>
 </nz-card>
-<ng-template #modalContent>
-  <nz-form-item>
-    <nz-form-label nzFor="no">no</nz-form-label>
-    <nz-form-control>
-      <input nz-input [(ngModel)]="description" name="description" placeholder="descrption" id="no" />
-    </nz-form-control>
-  </nz-form-item>
-</ng-template>

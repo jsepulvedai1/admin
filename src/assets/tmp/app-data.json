@@ -41,9 +41,9 @@
           "link": "/approve-drivers"
         },
         {
-          "text": "Aprobar usuarios mujeres",
-          "i18n": "Aprobar usuarios mujeres",
-          "icon": "anticon-woman",
+          "text": "Aprobar usuarios",
+          "i18n": "Aprobar usuarios",
+          "icon": "anticon-check",
           "link": "/approve-woman"
         },
         {
@@ -64,12 +64,7 @@
           "icon": "anticon-percentage",
           "link": "/pay-commission"
         },
-        {
-          "text": "Herramientas de Prueba",
-          "i18n": "Herramientas de Prueba",
-          "icon": "anticon-tool",
-          "link": "/dashboard-tool"
-        },
+
         {
           "text": "Mantenedor de colores",
           "i18n": "Mantenedor de colores",

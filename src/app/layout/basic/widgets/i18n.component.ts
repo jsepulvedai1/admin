@@ -64,7 +64,6 @@ export class HeaderI18nComponent {
   ) {}
 
   setUrl(lang: string): void {
-    console.log(lang);
     //localStorage.clear();
     localStorage.setItem('url', JSON.stringify(lang));
     // console.log(this.url);

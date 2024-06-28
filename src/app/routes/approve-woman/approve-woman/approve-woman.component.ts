@@ -39,6 +39,7 @@ export class ApproveWomanComponent implements OnInit {
   data: any[] = [];
   data2: any[] = [];
   data3: any[] = [];
+  data4: any[] = [];
   loading = false;
   status = [
     { index: 0, text: '关闭', value: false, type: 'default', checked: false },
@@ -91,7 +92,6 @@ export class ApproveWomanComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getUserToApprove();
-    this.getUserToApprove2();
     this.unificarRespuestas();
   }
 
@@ -105,6 +105,7 @@ export class ApproveWomanComponent implements OnInit {
         this.cdr.detectChanges();
         this.unificarRespuestas();
       });
+    this.getUserToApprove2;
   }
 
   protected getUserToApprove2() {
@@ -117,7 +118,6 @@ export class ApproveWomanComponent implements OnInit {
         }
 
         this.loading = false;
-        console.log(this.data);
         this.data3 = res;
         this.cdr.detectChanges();
         this.unificarRespuestas();
@@ -125,9 +125,7 @@ export class ApproveWomanComponent implements OnInit {
   }
 
   unificarRespuestas() {
-    // Unir los datos de ambos servicios en this.data
     this.data = [...this.data2, ...this.data3];
-    console.log(this.data);
   }
 
   stChange(e: STChange): void {
@@ -169,7 +167,24 @@ export class ApproveWomanComponent implements OnInit {
   // }
 
   reset(): void {
-    // wait form reset updated finished
-    setTimeout(() => this.getUserToApprove());
+    this.getUserToApprove();
+    this.getUserToApprove2();
+    this.unificarRespuestas();
+  }
+
+  protected getTripsFilter() {
+    console.log('f.fa..fa.f...fa.a..');
+    this.data4 = this.data;
+    if (this.q.email && this.q.email.trim() !== '') {
+      const data1 = this.data.filter(
+        item =>
+          item.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.email.includes(this.q.email.trim().toLowerCase()) ||
+          item.phone.toString().includes(this.q.email.trim().toLowerCase()) ||
+          item.phone.toString().includes(this.q.email.trim().toLowerCase())
+      );
+      this.data = [...data1];
+    } else {
+    }
   }
 }

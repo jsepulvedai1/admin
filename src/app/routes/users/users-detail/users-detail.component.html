@@ -5,6 +5,7 @@
         <div class="avatar-holder">
           <img [src]="'https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg'" />
           <div class="name">{{ userDetail.first_name }} {{ userDetail.last_name }}</div>
+          <nz-switch (click)="updateStatusUser()"  [(ngModel)]="activeUser"></nz-switch>
         </div>
         <div class="detail">
           <p> <span nz-icon nzType="user" nzTheme="outline"></span> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
@@ -38,6 +39,10 @@
             <span nz-icon nzType="calculator" nzTheme="outline"></span>
             Consumido periodo: {{ userDetail.consume_period }}
           </p>
+          <!-- <p>
+            Activar/Desactivar: <nz-switch [(ngModel)]="activeUser"></nz-switch>
+          </p> -->
+
         </div>
       </ng-container>
     </nz-card>

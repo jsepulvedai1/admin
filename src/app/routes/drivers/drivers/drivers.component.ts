@@ -105,8 +105,6 @@ export class DriversComponent implements OnInit {
       .getDrivers()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log('dsadasd...');
-        console.log(res);
         this.data = res;
         this.dataOriginal = res;
         this.loading = false;
@@ -115,18 +113,23 @@ export class DriversComponent implements OnInit {
   }
 
   protected getUserFilter() {
-    this.data = this.dataOriginal;
-    if (this.q.email && this.q.email.trim() !== '') {
-      console.log(this.data);
-      const data1 = this.data.filter(
-        item =>
-          item.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.phone.toString().includes(this.q.email.trim().toLowerCase())
-      );
-      this.data = [...data1];
-    } else {
+    const regex = /^\d+$/;
+    let phone = '';
+    let email = this.q.email;
+    if (regex.test(this.q.email)) {
+      phone = this.q.email;
+      email = '';
     }
+    phone = regex.test(this.q.email) ? this.q.email : '';
+    this.userService
+      .getDriversFilter(email, phone)
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        this.data = res;
+        this.dataOriginal = res;
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
   }
 
   createUser() {

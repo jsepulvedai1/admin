@@ -43,6 +43,7 @@ export interface UserData {
   trip_count_user?: number;
   trip_count_driver?: number;
   count_card?: number;
+  is_validated_user?: number;
 }
 
 export interface LastTrip {

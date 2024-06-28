@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { forkJoin, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 let url = '';
@@ -35,6 +35,64 @@ export class UserService {
     );
   }
 
+  getUsersBulk(): Observable<any[]> {
+    const apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    const typeUsers = [2, 3, 4, 5]; // Los diferentes valores de type_user
+
+    const requests = typeUsers.map(typeUser =>
+      this.http.get<any[]>(`${apiUrl}users/?type_user=0&is_validated_user=${typeUser}`, { headers }).pipe(
+        map((response: any) => response),
+        catchError(error => throwError(() => error))
+      )
+    );
+
+    return forkJoin(requests).pipe(
+      map(responses => {
+        return responses.flat();
+      }),
+      catchError(error => throwError(() => error))
+    );
+  }
+
+  getUsersFilter(email: string, phone: string = ''): Observable<any[]> {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}users/?type_user=0&email=${email}&phone=${phone}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getDriversFilter(email: string, phone: string = ''): Observable<any[]> {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}users/?type_user=1&is_validated=2&email=${email}&phone=${phone}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   getWomanUsers(): Observable<any> {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
@@ -42,10 +100,9 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
 
-    return this.http.get<any[]>(`${this.apiUrl}users/?is_validated=0&type_user=0`, { headers }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}users/?is_validated_user=0&type_user=0`, { headers }).pipe(
       map((response: any) => {
-        const womanUser = response.filter((user: { sex: number }) => user.sex == 2);
-        return womanUser;
+        return response;
       }),
       catchError(error => {
         return throwError(() => error);
@@ -104,14 +161,33 @@ export class UserService {
     );
   }
 
+  // getUsersToApprove() {
+  //   apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Token ${this.token}`
+  //   });
+  //   console.log(this.token);
+  //   return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
+  //     map((response: any) => {
+  //       return response;
+  //     }),
+  //     catchError(error => {
+  //       return throwError(() => error);
+  //     })
+  //   );
+  // }
+
   getUsersToApprove() {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=2&type_user=1`, { headers }).pipe(
+    console.log(this.token);
+    return this.http.post<any[]>(` ${this.apiUrl}filter_trips/`, { headers }).pipe(
       map((response: any) => {
+        console.log(response);
         return response;
       }),
       catchError(error => {
@@ -191,14 +267,22 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_woman_validated: 1, is_validated: 2 }, { headers }).pipe(
-      map((response: any) => {
-        return response;
-      }),
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    let is_woman_validated = 0;
+    if (userData.sex === 2) {
+      is_woman_validated = 1;
+    }
+    return this.http
+      .patch<
+        any[]
+      >(`${this.apiUrl}users/${pk}`, { is_validated_user: userData.is_validated_user, id_number: userData.id_number, is_woman_validated, first_name: userData.first_name, last_name: userData.last_name }, { headers })
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(error => {
+          return throwError(() => error);
+        })
+      );
   }
 
   rejectUserWoman(pk: string) {
@@ -222,7 +306,23 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated: 2 }, { headers }).pipe(
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated: 2, id_number: userData.id_number }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  UpdateStatusUser(pk: string, status: number) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated_user: status }, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -248,20 +348,31 @@ export class UserService {
     );
   }
 
-  rejecDocument(pk: string, userData: any) {
+  rejecDocument(
+    pk: string,
+    type_vehicle: string,
+    accept_trip_type_1: boolean,
+    accept_trip_type_2: boolean,
+    accept_trip_type_3: boolean,
+    accept_trip_type_4: boolean
+  ) {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.patch<any[]>(`${this.apiUrl}user-record/update/${pk}`, userData, { headers }).pipe(
-      map((response: any) => {
-        return response;
-      }),
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http
+      .patch<
+        any[]
+      >(`${this.apiUrl}user-record/update/${pk}`, { type_vehicle: type_vehicle, accept_trip_type_1, accept_trip_type_2, accept_trip_type_3, accept_trip_type_4 }, { headers })
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(error => {
+          return throwError(() => error);
+        })
+      );
   }
 
   private getCookie(name: string): string | null {

@@ -1,16 +1,15 @@
 <page-header [title]="'Conductores Pendientes De Aprobación'" />
 <nz-card [nzBordered]="false">
-  <form nz-form [nzLayout]="'inline'" (ngSubmit)="getUserToApprove()" class="search__form">
+  <form nz-form [nzLayout]="'inline'" (ngSubmit)="getTripsFilter()" class="search__form">
     <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
-      <div nz-col nzMd="8" nzSm="24">
+      <div nz-col nzMd="13" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="no">pk</nz-form-label>
+          <nz-form-label nzFor="no">Búsqueda</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="q.pk" name="no" placeholder="id" id="pk" />
+            <input nz-input [(ngModel)]="q.email" name="no" placeholder="Búsqueda" id="pk" />
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzMd="8" nzSm="24"> </div>
       <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
         <nz-form-item>
           <nz-form-label nzFor="callNo">vacio</nz-form-label>
@@ -37,18 +36,9 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzMd="8" nzSm="24" *ngIf="expandForm">
-        <nz-form-item>
-          <nz-form-label nzFor="status3">Filtrar</nz-form-label>
-          <nz-form-control>
-            <nz-select [nzPlaceHolder]="'BUSCAR'" nzId="status3" [nzShowSearch]="true">
-              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx" />
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzSpan]="expandForm ? 24 : 8" [class.text-right]="expandForm">
-        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">Filtar</button>
+      <div class="search-buttons">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">Filtrar</button>
+        <button nz-button type="reset" (click)="ngOnInit()">Reset</button>
       </div>
     </div>
   </form>

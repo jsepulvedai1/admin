@@ -34,6 +34,13 @@ export class ApprovesUserDetailComponent implements OnInit {
     'Padron Vehiculo': 'A'
   };
 
+  typeVehicle = '';
+  accept_trip_type_1 = false;
+  accept_trip_type_2 = false;
+  accept_trip_type_3 = false;
+  accept_trip_type_4 = false;
+  id_number = '';
+
   userName = '';
 
   selectedValue = '1';
@@ -75,7 +82,6 @@ export class ApprovesUserDetailComponent implements OnInit {
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
       this.userInfo = res;
-      console.log(this.userInfo);
       this.userName = this.userInfo.first_name + ' ' + this.userInfo.last_name;
       this.loading = false;
     });
@@ -119,7 +125,8 @@ export class ApprovesUserDetailComponent implements OnInit {
 
   openModal(document: any, key: string): void {
     const modalRef = this.modalService.create({
-      nzContent: ModalDetailUserComponent
+      nzContent: ModalDetailUserComponent,
+      nzWidth: '60%'
     });
 
     const instance = modalRef.getContentComponent() as ModalDetailUserComponent;
@@ -130,10 +137,15 @@ export class ApprovesUserDetailComponent implements OnInit {
       imageExpanded: false
     };
     instance.driverInfo = this.data;
-    console.log(this.selectedValues);
+    instance.keyName = key;
+    instance.id_number = this.userInfo.id_number ?? '';
+    instance.type_vehicle = this.data2.type_vehicle;
 
     modalRef.afterClose.subscribe(result => {
       this.selectedValues[key] = result.result.image;
+      this.data2.type_vehicle = result.value;
+      this.selectedValues['type_vehicle'] = result.value;
+      this.userInfo.id_number = result.id_number;
     });
   }
 
@@ -148,12 +160,39 @@ export class ApprovesUserDetailComponent implements OnInit {
       });
   }
 
+  logicOfAuto() {
+    if (this.typeVehicle === '1') {
+      this.typeVehicle = '1';
+      this.accept_trip_type_1 = true;
+      this.accept_trip_type_2 = false;
+      this.accept_trip_type_3 = false;
+      this.accept_trip_type_4 = false;
+    }
+    if (this.typeVehicle === '2') {
+      this.accept_trip_type_1 = true;
+      this.accept_trip_type_2 = true;
+      this.accept_trip_type_3 = false;
+      this.accept_trip_type_4 = false;
+    }
+    if (this.typeVehicle === '3') {
+      this.accept_trip_type_1 = true;
+      this.accept_trip_type_2 = false;
+      this.accept_trip_type_3 = true;
+      this.accept_trip_type_4 = false;
+    }
+    if (this.typeVehicle === '4') {
+      this.accept_trip_type_1 = true;
+      this.accept_trip_type_2 = false;
+      this.accept_trip_type_3 = false;
+      this.accept_trip_type_4 = true;
+    }
+  }
+
   approveUser() {
+    this.logicOfAuto();
     let validate = false;
-    console.log(this.selectedValues);
     for (const k in this.data2) {
       if (!this.selectedValues[k]) {
-        console.log(this.selectedValues[k]);
         validate = true;
       }
     }
@@ -166,10 +205,23 @@ export class ApprovesUserDetailComponent implements OnInit {
       .approveUser(this.pk, this.userInfo)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log(res);
         this.data = res[0];
         this.msg.success('Usuario aprobado con éxito');
         this.router.navigate(['/approve-drivers/']);
       });
+    // this.userService
+    //   .rejecDocument(
+    //     this.data.pk,
+    //     this.typeVehicle,
+    //     this.accept_trip_type_1,
+    //     this.accept_trip_type_2,
+    //     this.accept_trip_type_3,
+    //     this.accept_trip_type_4
+    //   )
+    //   .pipe(tap(() => (this.loading = false)))
+    //   .subscribe(res => {
+    //     this.msg.success('Usuario rechazado con éxito');
+    //     console.log(res);
+    //   });
   }
 }

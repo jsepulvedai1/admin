@@ -54,7 +54,11 @@ export class GlobalConfigComponent implements OnInit {
     count_trip_driver_activation: new FormControl('', Validators.required),
     factor_point_activation: new FormControl('', Validators.required),
     factor_point_cancel_trip: new FormControl('', Validators.required),
-    factor_point_trip: new FormControl('', Validators.required)
+    factor_point_trip: new FormControl('', Validators.required),
+    tax_comision: new FormControl('', Validators.required),
+    tax_transfer_bank: new FormControl('', Validators.required),
+    factor_autocancel_trip: new FormControl('', Validators.required),
+    radar_limit_trip_queue: new FormControl('', Validators.required)
   });
   submitting = false;
 
@@ -78,6 +82,14 @@ export class GlobalConfigComponent implements OnInit {
           name: 'This is panel header 1-1'
         }
       ]
+    },
+    {
+      active: false,
+      name: 'Configuraciones APP'
+    },
+    {
+      active: false,
+      name: 'Configuraciones Negocio'
     },
     {
       active: false,
@@ -122,16 +134,13 @@ export class GlobalConfigComponent implements OnInit {
     {
       active: false,
       name: 'Configuraciones G10'
-    },
-    {
-      active: false,
-      name: 'Configuraciones Negocio'
     }
   ];
 
+  getConfigApp() {}
+
   getConfig() {
     this.globalService.getGlobalConfig().subscribe(res => {
-      console.log(res);
       this.form.patchValue({
         point_lower_limit: res[0].point_lower_limit,
         point_high_limit: res[0].point_high_limit,
@@ -177,7 +186,19 @@ export class GlobalConfigComponent implements OnInit {
         count_trip_driver_activation: res[0].count_trip_driver_activation,
         factor_point_activation: res[0].factor_point_activation,
         factor_point_cancel_trip: res[0].factor_point_cancel_trip,
-        factor_point_trip: res[0].factor_point_trip
+        factor_point_trip: res[0].factor_point_trip,
+        tax_comision: res[0].tax_comision,
+        tax_transfer_bank: res[0].tax_transfer_bank,
+        factor_autocancel_trip: res[0].factor_autocancel_trip
+      });
+      this.cdr.detectChanges();
+    });
+  }
+
+  getGlobalApp() {
+    this.globalService.getGlobalApp().subscribe(res => {
+      this.form.patchValue({
+        radar_limit_trip_queue: res[0].radar_limit_trip_queue
       });
       this.cdr.detectChanges();
     });

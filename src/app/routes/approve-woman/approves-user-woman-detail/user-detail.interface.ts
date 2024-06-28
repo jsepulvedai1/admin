@@ -23,6 +23,9 @@ export interface userDetail {
   count_trip_complete?: number;
   count_trip_current_month?: number;
   document_sex_validator?: any;
+  id_photo?: string;
+  id_number?: string;
+  is_validated_user?: number;
 }
 
 export interface DocumentEnum {

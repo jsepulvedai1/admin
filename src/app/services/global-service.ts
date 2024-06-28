@@ -18,6 +18,23 @@ export class GlobalService {
     this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
   }
 
+  getGlobalConfigApp(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}config-global/`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   getGlobalConfig(): Observable<any[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,6 +43,23 @@ export class GlobalService {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
 
     return this.http.get<any[]>(`${this.apiUrl}config-global/`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getGlobalApp(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}config-app/`, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -95,6 +129,24 @@ export class GlobalService {
 
     return this.http.post<any[]>(`${this.apiUrl}vehicle/color/`, color, { headers }).pipe(
       map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getwithdrawalorder(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}withdrawalorder/`, { headers }).pipe(
+      map((response: any) => {
+        console.log(response);
         return response;
       }),
       catchError(error => {

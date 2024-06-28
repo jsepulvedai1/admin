@@ -147,7 +147,6 @@ export class DefaultInterceptor {
       .pipe(
         filter(() => !this.refreshToking),
         switchMap(res => {
-          console.log(res);
           this.refreshToking = true;
           return this.refreshTokenRequest();
         })
@@ -244,8 +243,6 @@ export class DefaultInterceptor {
   //     const { baseUrl } = environment.api;
   //     url = baseUrl + (baseUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
   //   }
-  //   console.log(url);
-  //   console.log('holaaha');
 
   //   const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
   //   const oldReq = req;

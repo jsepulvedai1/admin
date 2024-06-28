@@ -110,3 +110,34 @@
 nz-select {
   width: 200px;
 }
+
+
+:host ::ng-deep .red-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: red !important;
+  border-color: red !important;
+}
+
+:host ::ng-deep .red-checkbox .ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: white !important; /* Color del check dentro del checkbox */
+}
+
+/* Estilo para el checkbox cuando toma el valor 'valor2' (azul) */
+:host ::ng-deep .blue-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
+
+:host ::ng-deep .blue-checkbox .ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: white !important; /* Color del check dentro del checkbox */
+}
+
+.user-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px; /* Aumentar la altura máxima para permitir una imagen más grande */
+}
+
+.custom-title-sub {
+  padding: 102px;
+  font-size: 1.2em !important;
+}

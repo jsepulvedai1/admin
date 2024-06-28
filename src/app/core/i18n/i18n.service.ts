@@ -59,7 +59,7 @@ const URLS: { [key: string]: LangConfigData } = {
     delon: delonEnUS,
     abbr: '💻'
   },
-  'https://qa.getgoapp.com/api/v1/': {
+  'http://0.0.0.0:8067/api/v1/': {
     text: 'QA',
     ng: ngEn,
     zorro: zorroEnUS,

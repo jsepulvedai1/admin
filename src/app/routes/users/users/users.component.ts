@@ -108,7 +108,7 @@ export class UsersComponent implements OnInit {
 
   protected getUserData() {
     this.userService
-      .getUsers()
+      .getUsersBulk()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.data = res;
@@ -119,17 +119,34 @@ export class UsersComponent implements OnInit {
   }
 
   protected getUserFilter() {
-    this.data = this.dataOriginal;
-    if (this.q.email && this.q.email.trim() !== '') {
-      const data1 = this.data.filter(
-        item =>
-          item.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.phone.toString().includes(this.q.email.trim().toLowerCase())
-      );
-      this.data = [...data1];
-    } else {
+    // this.data = this.dataOriginal;
+    // if (this.q.email && this.q.email.trim() !== '') {
+    //   const data1 = this.data.filter(
+    //     item =>
+    //       item.email.includes(this.q.email.trim().toLowerCase()) ||
+    //       item.email.includes(this.q.email.trim().toLowerCase()) ||
+    //       item.phone.toString().includes(this.q.email.trim().toLowerCase())
+    //   );
+    //   this.data = [...data1];
+    // } else {
+    // }
+    const regex = /^\d+$/;
+    let phone = '';
+    let email = this.q.email;
+    if (regex.test(this.q.email)) {
+      phone = this.q.email;
+      email = '';
     }
+    phone = regex.test(this.q.email) ? this.q.email : '';
+    this.userService
+      .getUsersFilter(email, phone)
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        this.data = res;
+        this.dataOriginal = res;
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
   }
 
   createUser() {

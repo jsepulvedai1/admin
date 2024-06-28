@@ -1,12 +1,12 @@
 export enum EstadoViaje {
   Borrador = 0,
-  EsperandoConfirmacionConductor,
-  ConfirmacionConductor,
-  EnCaminoParaRecoger,
-  ViajeIniciado,
-  ViajeCanceladoPorConductor,
-  ViajeCanceladoPorUsuario,
-  ViajeCompletado,
+  EsperandoConfirmacionConductor = 1,
+  ConfirmacionConductor = 2,
+  EnCaminoParaRecoger = 3,
+  ViajeIniciado = 4,
+  ViajeCanceladoPorConductor = 5,
+  ViajeCanceladoPorUsuario = 6,
+  ViajeCompletado = 7,
   EsperandoRespuestaDelConductor = 10
 }
 
