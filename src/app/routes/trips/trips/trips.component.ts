@@ -11,6 +11,7 @@ import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } f
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '../../../services/users-service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface DataItem {
   name: string;
@@ -26,6 +27,7 @@ interface ColumnItem {
   filterFn: NzTableFilterFn<DataItem> | null;
 }
 
+filterForm: FormGroup;
 export enum EstadoViaje {
   Borrador = 0,
   EsperandoConfirmacionConductor = 1,
@@ -94,7 +96,6 @@ export class TripsComponent implements OnInit {
     pk: number;
     ps: number;
     email: string;
-    phone: string;
     sorter: string;
     status: number | null;
     statusList: NzSafeAny[];
@@ -102,7 +103,6 @@ export class TripsComponent implements OnInit {
     pk: 1,
     ps: 10,
     email: '',
-    phone: '',
     sorter: '',
     status: null,
     statusList: []
@@ -129,14 +129,6 @@ export class TripsComponent implements OnInit {
     { title: 'Dirrecion Origen	', index: 'address_origin' },
     { title: 'Dirrecion Destino	', index: 'address_delivery' },
     {
-      title: 'Telefono Pasajero',
-      index: 'user_customer.phone'
-    },
-    {
-      title: 'Telefono Conductor',
-      index: 'user_delivery.phone'
-    },
-    {
       title: 'Pasajero',
       index: 'user_customer.email'
     },
@@ -159,6 +151,26 @@ export class TripsComponent implements OnInit {
   totalCallNo = 0;
   expandForm = false;
 
+  filteredData: any[] = [...this.data];
+
+  constructor(
+    public msg: NzMessageService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private tripService: TripService,
+    private fb: FormBuilder
+  ) {
+    this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
+    this.filterForm = this.fb.group({
+      startDate: [''],
+      endDate: [''],
+      address_origin: [''],
+      address_delivery: [''],
+      user_customer: [''],
+      user_delivery: ['']
+    });
+  }
+
   ngOnInit(): void {
     this.loading = true;
     this.getTrips();
@@ -172,7 +184,6 @@ export class TripsComponent implements OnInit {
         this.loading = false;
         this.data = res;
         this.dataOriginal = res;
-
         this.cdr.detectChanges();
       });
   }
@@ -180,13 +191,7 @@ export class TripsComponent implements OnInit {
   protected getTripsFilter() {
     this.data = this.dataOriginal;
     if (this.q.email && this.q.email.trim() !== '') {
-      const data1 = this.data.filter(
-        item =>
-          item.user_customer.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.user_delivery.email.includes(this.q.email.trim().toLowerCase()) ||
-          item.user_customer.phone.toString().includes(this.q.email.trim().toLowerCase()) ||
-          item.user_delivery.phone.toString().includes(this.q.email.trim().toLowerCase())
-      );
+      const data1 = this.data.filter(item => item.user_customer.email.toLowerCase().includes(this.q.email.trim().toLowerCase()));
       this.data = [...data1];
     } else {
     }
@@ -213,204 +218,16 @@ export class TripsComponent implements OnInit {
     this.scroll = val ? { y: '550px' } : { y: '430px' };
   }
 
-  listOfData: DataItem[] = [
-    {
-      startDate: '03/04/2003',
-      endDate: '31/12/2003',
-      interestRate: '15.00%',
-      accountType: 'Time deposit account',
-      accountNumber: '2095 0001 00 0000000001',
-      monthlyInterestRate: '1.25%',
-      name: '',
-      age: 0,
-      address: ''
-    },
-    {
-      startDate: '05/04/2003',
-      endDate: '31/12/2003',
-      interestRate: '3.20%',
-      accountType: 'Automatic transfer service account',
-      accountNumber: '2095 0001 00 0000000007',
-      monthlyInterestRate: '0.28%',
-      name: '',
-      age: 0,
-      address: ''
-    },
-    {
-      startDate: '05/04/2003',
-      endDate: '31/12/2003',
-      interestRate: '2.10%',
-      accountType: 'Numbered bank account',
-      accountNumber: '2099 0001 00 0000000938',
-      monthlyInterestRate: '0.18%',
-      name: '',
-      age: 0,
-      address: ''
-    },
-    {
-      startDate: '05/04/2003',
-      endDate: '31/12/2003',
-      interestRate: '2.30%',
-      accountType: 'Personal account',
-      accountNumber: '2095 0001 00 000125711',
-      monthlyInterestRate: '0.18%',
-      name: '',
-      age: 0,
-      address: ''
-    },
-    {
-      startDate: '05/04/2003',
-      endDate: '31/12/2003',
-      interestRate: '3.83%',
-      accountType: 'Negotiable Order of Withdrawal account',
-      accountNumber: '2095 0001 00 001658111',
-      monthlyInterestRate: '0.28%',
-      name: '',
-      age: 0,
-      address: ''
-    }
-  ];
-  filteredData: DataItem[] = [...this.listOfData];
-
-  // listOfColumns: ColumnItem[] = [
-  //   {
-  //     name: 'Name',
-  //     sortOrder: null,
-  //     sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
-  //     listOfFilter: [
-  //       { text: 'Joe', value: 'Joe' },
-  //       { text: 'Jim', value: 'Jim' }
-  //     ],
-  //     filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
-  //   },
-  //   {
-  //     name: 'Age',
-  //     sortOrder: null,
-  //     sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
-  //     listOfFilter: [],
-  //     filterFn: null
-  //   },
-  //   {
-  //     name: 'Address',
-  //     sortFn: null,
-  //     sortOrder: null,
-  //     listOfFilter: [
-  //       { text: 'London', value: 'London' },
-  //       { text: 'Sidney', value: 'Sidney' }
-  //     ],
-  //     filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
-  //   }
-  // ];
-  // listOfData: DataItem[] = [
-  //   {
-  //     name: 'John Brown',
-  //     age: 32,
-  //     address: 'New York No. 1 Lake Park'
-  //   },
-  //   {
-  //     name: 'Jim Green',
-  //     age: 42,
-  //     address: 'London No. 1 Lake Park'
-  //   },
-  //   {
-  //     name: 'Joe Black',
-  //     age: 32,
-  //     address: 'Sidney No. 1 Lake Park'
-  //   },
-  //   {
-  //     name: 'Jim Red',
-  //     age: 32,
-  //     address: 'London No. 2 Lake Park'
-  //   }
-  // ];
-
-  filterForm: FormGroup;
-  // listOfData: DataItem[] = [
-  //   {
-  //     startDate: '03/04/2003',
-  //     endDate: '31/12/2003',
-  //     interestRate: '15.00%',
-  //     accountType: 'Time deposit account',
-  //     accountNumber: '2095 0001 00 0000000001',
-  //     monthlyInterestRate: '1.25%'
-  //   },
-  //   {
-  //     startDate: '05/04/2003',
-  //     endDate: '31/12/2003',
-  //     interestRate: '3.20%',
-  //     accountType: 'Automatic transfer service account',
-  //     accountNumber: '2095 0001 00 0000000007',
-  //     monthlyInterestRate: '0.28%'
-  //   },
-  //   {
-  //     startDate: '05/04/2003',
-  //     endDate: '31/12/2003',
-  //     interestRate: '2.10%',
-  //     accountType: 'Numbered bank account',
-  //     accountNumber: '2099 0001 00 0000000938',
-  //     monthlyInterestRate: '0.18%'
-  //   },
-  //   {
-  //     startDate: '05/04/2003',
-  //     endDate: '31/12/2003',
-  //     interestRate: '2.30%',
-  //     accountType: 'Personal account',
-  //     accountNumber: '2095 0001 00 000125711',
-  //     monthlyInterestRate: '0.18%'
-  //   },
-  //   {
-  //     startDate: '05/04/2003',
-  //     endDate: '31/12/2003',
-  //     interestRate: '3.83%',
-  //     accountType: 'Negotiable Order of Withdrawal account',
-  //     accountNumber: '2095 0001 00 001658111',
-  //     monthlyInterestRate: '0.28%'
-  //   }
-  // ];
-  //filteredData: DataItem[] = [...this.listOfData];
-
-  constructor(
-    private fb: FormBuilder,
-    public msg: NzMessageService,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private tripService: TripService
-  ) {
-    this.filterForm = this.fb.group({
-      startDate: [''],
-      endDate: [''],
-      interestRate: [''],
-      accountType: [''],
-      accountNumber: [''],
-      monthlyInterestRate: ['']
-    });
-    this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
-  }
-  // constructor(
-  //   public msg: NzMessageService,
-  //   private cdr: ChangeDetectorRef,
-  //   private router: Router,
-  //   private tripService: TripService
-  // ) {
-  //   this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
-  // }
-
-  applyFilters(): void {
-    const { startDate, endDate, interestRate, accountType, accountNumber, monthlyInterestRate } = this.filterForm.value;
-
-    this.filteredData = this.listOfData.filter(
-      item =>
-        (!startDate || item.startDate.includes(startDate)) &&
-        (!endDate || item.endDate.includes(endDate)) &&
-        (!interestRate || item.interestRate.includes(interestRate)) &&
-        (!accountType || item.accountType.includes(accountType)) &&
-        (!accountNumber || item.accountNumber.includes(accountNumber)) &&
-        (!monthlyInterestRate || item.monthlyInterestRate.includes(monthlyInterestRate))
-    );
-  }
-
   resetFilters(): void {
     this.filterForm.reset();
     this.filteredData = [...this.listOfData];
+  }
+  filterForm: FormGroup;
+  applyFilters(): void {
+    const { startDate, endDate, address_origin, address_delivery, user_customer, user_delivery } = this.filterForm.value;
+  }
+
+  tripDetail(pk: string): void {
+    this.router.navigate([`/trips/detail/${pk}`]);
   }
 }

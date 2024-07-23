@@ -92,39 +92,17 @@ export class ApproveWomanComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getUserToApprove();
-    //this.unificarRespuestas();
   }
 
   protected getUserToApprove() {
     this.userService
-      .getWomanUsers()
+      .getWomanUsersBulk()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        this.data2 = res;
+        this.data = res;
         this.loading = false;
         this.cdr.detectChanges();
       });
-    this.getUserToApprove2;
-  }
-
-  protected getUserToApprove2() {
-    this.userService
-      .getWomanUsersCanceled()
-      .pipe(tap(() => (this.loading = false)))
-      .subscribe(res => {
-        for (const item of res) {
-          this.data.push(item);
-        }
-
-        this.loading = false;
-        this.data3 = res;
-        this.cdr.detectChanges();
-        this.unificarRespuestas();
-      });
-  }
-
-  unificarRespuestas() {
-    this.data = [...this.data2, ...this.data3];
   }
 
   stChange(e: STChange): void {
@@ -143,36 +121,11 @@ export class ApproveWomanComponent implements OnInit {
     this.scroll = val ? { y: '550px' } : { y: '430px' };
   }
 
-  // remove(): void {
-  //   this.http.delete('/rule', { nos: this.selectedRows.map(i => i['no']).join(',') }).subscribe(() => {
-  //     this.getData();
-  //     this.st.clearCheck();
-  //   });
-  // }
-
-  // approval(): void {
-  //   this.msg.success(`审批了 ${this.selectedRows.length} 笔`);
-  // }
-
-  // add(tpl: TemplateRef<{}>): void {
-  //   this.modalSrv.create({
-  //     nzTitle: '新建规则',
-  //     nzContent: tpl,
-  //     nzOnOk: () => {
-  //       this.loading = true;
-  //       this.http.post('/rule', { description: this.description }).subscribe(() => this.getData());
-  //     }
-  //   });
-  // }
-
   reset(): void {
     this.getUserToApprove();
-    this.getUserToApprove2();
-    this.unificarRespuestas();
   }
 
   protected getTripsFilter() {
-    console.log('f.fa..fa.f...fa.a..');
     this.data4 = this.data;
     if (this.q.email && this.q.email.trim() !== '') {
       const data1 = this.data.filter(

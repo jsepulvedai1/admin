@@ -46,6 +46,8 @@ export interface UserData {
   count_card?: number;
   is_validated_user?: number;
   is_validated?: number;
+  fec_birth?: string;
+  id_number?: number;
 }
 
 export interface LastTrip {
@@ -53,4 +55,6 @@ export interface LastTrip {
   address_delivery?: string;
   amount?: number;
   type_payment?: number;
+  date_created?: string;
+  total?: number;
 }

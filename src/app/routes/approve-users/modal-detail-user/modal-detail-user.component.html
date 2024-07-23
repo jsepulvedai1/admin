@@ -63,9 +63,20 @@
     <!-- <img class="user-image" nz-image width="100%" height="100%" nzSrc="{{img}}" /> -->
   </div>
 </div>
-<ng-template *ngIf="keyName !== 'indenfitication_front'"[nzModalFooter]>
+<ng-template *ngIf="keyName !== 'indenfitication_front' && keyName !== 'padron'"[nzModalFooter]>
   <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Aprobar</button>
   <button nz-button nzType="default" (click)="handleCancel()">Rechazar</button>
+</ng-template>
+
+<ng-template *ngIf="keyName == 'padron'" [nzModalFooter]>
+  <button nz-button
+          nzType="primary"
+          (click)="handleOk()"
+          [nzLoading]="isConfirmLoading"
+          [disabled]="!selectedValue">Aprobar</button>
+  <button nz-button
+          nzType="default"
+          (click)="handleCancel()">Rechazar</button>
 </ng-template>
 
 <ng-template *ngIf="keyName == 'indenfitication_front'" [nzModalFooter]>

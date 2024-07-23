@@ -56,16 +56,8 @@
       </tbody>
     </table>
     <div class="button-container">
-      <!-- <button  class="btn btn-approve" nz-button
-      nzType="primary"
-      (click)="approveUser()"
-      [disabled]="!isValidRut">Aprobar</button>
-      <button class="btn btn-reject" (click)="rejectUser()">
-        <i class="fas fa-times"></i> Rechazar
-      </button> -->
-      <button nz-button nzType="primary" (click)="approveUser()" [disabled]="!isValidRut">Aprobar</button>
+      <button nz-button nzType="primary" (click)="approveUser()" [disabled]="!isValidRut || selectedValue =='0'">Aprobar</button>
       <button nz-button nzType="primary" nzDanger (click)="rejectUser()">Rechazar</button>
-
     </div>
   </div>
 </div>

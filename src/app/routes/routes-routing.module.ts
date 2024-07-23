@@ -31,7 +31,8 @@ const routes: Routes = [
       { path: 'pro', loadChildren: () => import('./pro/pro.module').then(m => m.ProModule) },
       { path: 'approve-woman', loadChildren: () => import('./approve-woman/approve-woman.module').then(m => m.ApproveWomanModule) },
       // { path: 'dashboard-tool', loadChildren: () => import('./dashboard-tool/dashboard-tool.module').then(m => m.DashboardToolModule) },
-      { path: 'colors', loadChildren: () => import('./colors/colors.module').then(m => m.ColorsModule) }
+      { path: 'colors', loadChildren: () => import('./colors/colors.module').then(m => m.ColorsModule) },
+      { path: 'travel-ratess', loadChildren: () => import('./travel-ratess/travel-ratess.module').then(m => m.TravelRatessModule) }
     ]
   },
   // {

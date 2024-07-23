@@ -35,9 +35,7 @@ export class HeaderUserComponent {
   logout(): void {
     this.tokenService.clear();
     localStorage.removeItem('url');
-    console.log('fdf....');
     const url = JSON.parse(localStorage.getItem('url') || '{}');
-    console.log(url);
     this.router.navigateByUrl(this.tokenService.login_url!);
   }
 }

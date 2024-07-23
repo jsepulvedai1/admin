@@ -93,7 +93,7 @@ export class ApprovesUserDetailComponent implements OnInit {
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.data = res[0];
-        this.selectedValue = this.data.type_vehicle.toString();
+        this.selectedValue = '';
         this.buildData();
       });
   }
@@ -115,7 +115,7 @@ export class ApprovesUserDetailComponent implements OnInit {
       photo_vehicle_1: this.data?.photo_vehicle_1 || this.fallback,
       photo_vehicle_2: this.data?.photo_vehicle_2 || this.fallback,
       padron: this.data?.padron || this.fallback,
-      type_vehicle: this.data?.type_vehicle || this.fallback
+      type_vehicle: this.data?.type_vehicle || ''
     };
   }
 
@@ -142,15 +142,16 @@ export class ApprovesUserDetailComponent implements OnInit {
     instance.type_vehicle = this.data2.type_vehicle;
 
     modalRef.afterClose.subscribe(result => {
-      this.selectedValues[key] = result.result.image;
-      this.data2.type_vehicle = result.value;
-      this.selectedValues['type_vehicle'] = result.value;
-      this.userInfo.id_number = result.id_number;
+      if (result) {
+        this.selectedValues[key] = result.result.image;
+        this.data2.type_vehicle = result.value;
+        this.selectedValues['type_vehicle'] = result.value;
+        this.userInfo.id_number = result.id_number;
+      }
     });
   }
 
   rejectUser() {
-    console.log(this.selectedValues);
     this.userService
       .rejectUser(this.pk)
       .pipe(tap(() => (this.loading = false)))
@@ -225,7 +226,7 @@ export class ApprovesUserDetailComponent implements OnInit {
     //   .pipe(tap(() => (this.loading = false)))
     //   .subscribe(res => {
     //     this.msg.success('Usuario rechazado con éxito');
-    //     console.log(res);
+    //
     //   });
   }
 }

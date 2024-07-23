@@ -1,0 +1,117 @@
+<page-header [title]="'Tarifas De Viaje'" />
+<nz-collapse nzAccordion>
+  <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active">
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Taxi'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="300">
+        <se label="Nombre" error="error" required>
+          <input nz-input formControlName="limit_activate_driver_nearby" placeholder="" />
+        </se>
+        <se label="Tipo de tarifa" error="error" required>
+          <input nz-input formControlName="factor_autocancel_trip" placeholder="" />
+        </se>
+        <se label="Valor por kilómetro" error="error" required>
+          <input nz-input formControlName="amount_for_activation" placeholder="" />
+        </se>
+        <se label="Valor por minuto:" error="error" required>
+          <input nz-input formControlName="count_trip_driver_activation" placeholder="" />
+        </se>
+        <se label="Valor base:" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Valor por cancelación:" error="error" required>
+          <input nz-input formControlName="cost_cancel_comision" placeholder="" />
+        </se>
+        <se label="Valor operacional:" error="error" required>
+          <input nz-input formControlName="cost_operacional_cancel" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Car'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="300">
+        <se label="Nombre" error="error" required>
+          <input nz-input formControlName="limit_activate_driver_nearby" placeholder="" />
+        </se>
+        <se label="Tipo de tarifa" error="error" required>
+          <input nz-input formControlName="factor_autocancel_trip" placeholder="" />
+        </se>
+        <se label="Valor por kilómetro" error="error" required>
+          <input nz-input formControlName="amount_for_activation" placeholder="" />
+        </se>
+        <se label="Valor por minuto:" error="error" required>
+          <input nz-input formControlName="count_trip_driver_activation" placeholder="" />
+        </se>
+        <se label="Valor base:" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Valor por cancelación:" error="error" required>
+          <input nz-input formControlName="cost_cancel_comision" placeholder="" />
+        </se>
+        <se label="Valor operacional:" error="error" required>
+          <input nz-input formControlName="cost_operacional_cancel" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'XL'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="300">
+        <se label="Nombre" error="error" required>
+          <input nz-input formControlName="limit_activate_driver_nearby" placeholder="" />
+        </se>
+        <se label="Tipo de tarifa" error="error" required>
+          <input nz-input formControlName="factor_autocancel_trip" placeholder="" />
+        </se>
+        <se label="Valor por kilómetro" error="error" required>
+          <input nz-input formControlName="amount_for_activation" placeholder="" />
+        </se>
+        <se label="Valor por minuto:" error="error" required>
+          <input nz-input formControlName="count_trip_driver_activation" placeholder="" />
+        </se>
+        <se label="Valor base:" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Valor por cancelación:" error="error" required>
+          <input nz-input formControlName="cost_cancel_comision" placeholder="" />
+        </se>
+        <se label="Valor operacional:" error="error" required>
+          <input nz-input formControlName="cost_operacional_cancel" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+    <nz-card [nzBordered]="false" *ngIf="panel.name === 'Ejecutivo'">
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" se-container="1" labelWidth="300">
+        <se label="Nombre" error="error" required>
+          <input nz-input formControlName="limit_activate_driver_nearby" placeholder="" />
+        </se>
+        <se label="Tipo de tarifa" error="error" required>
+          <input nz-input formControlName="factor_autocancel_trip" placeholder="" />
+        </se>
+        <se label="Valor por kilómetro" error="error" required>
+          <input nz-input formControlName="amount_for_activation" placeholder="" />
+        </se>
+        <se label="Valor por minuto:" error="error" required>
+          <input nz-input formControlName="count_trip_driver_activation" placeholder="" />
+        </se>
+        <se label="Valor base:" error="error" required>
+          <input nz-input formControlName="cost_activation" placeholder="" />
+        </se>
+        <se label="Valor por cancelación:" error="error" required>
+          <input nz-input formControlName="cost_cancel_comision" placeholder="" />
+        </se>
+        <se label="Valor operacional:" error="error" required>
+          <input nz-input formControlName="cost_operacional_cancel" placeholder="" />
+        </se>
+        <se>
+          <button nz-button class="ml-sm">Guardar</button>
+        </se>
+      </form>
+    </nz-card>
+  </nz-collapse-panel>
+</nz-collapse>

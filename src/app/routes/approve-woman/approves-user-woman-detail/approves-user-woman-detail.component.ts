@@ -35,9 +35,10 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
     'Padron Vehiculo': 'A'
   };
 
-  selectedValue = '0';
+  selectedValue = '1001';
 
   isValidRut = false;
+  isValidStatus = false;
 
   effect = 'scrollx';
 
@@ -98,8 +99,8 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
         driver_license_front: this.userInfo.document_sex_validator,
         id_photo: this.userInfo.id_photo
       };
-      console.log(this.userInfo.is_validated_user?.toString());
       this.selectedValue = this.userInfo.is_validated_user?.toString() || '0';
+      this.isValidStatus = this.userInfo.is_validated_user === '0' ? true : false;
       this.validarRut(this.userInfo.id_number || '');
       this.userInfo.avatar = this.userInfo?.avatar ? this.userInfo?.avatar.replace(/^http:\/\//i, 'https://') : '';
       this.userInfo.id_photo = this.userInfo?.id_photo ? this.userInfo?.id_photo.replace(/^http:\/\//i, 'https://') : '';
@@ -113,17 +114,6 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
       this.array.push(photho2);
     });
   }
-
-  // protected getUserRecord() {
-  //   this.userService
-  //     .getUsersRecord(this.pk)
-  //     .pipe(tap(() => (this.loading = false)))
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       this.data = res[0];
-  //       this.buildData();
-  //     });
-  // }
 
   async getBase64ImageFromUrl(imageUrl: any): Promise<any> {
     var res = await fetch(imageUrl);
@@ -151,8 +141,6 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
       id_photo: this.userInfo.id_photo,
       avatar: this.userInfo.avatar
     };
-
-    console.log(this.array);
   }
 
   getObjectKeys(obj: any): string[] {
@@ -174,7 +162,6 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
       .rejectUserWoman(this.pk)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
-        console.log(res);
         this.data = res[0];
         this.msg.success(`Usurario rechazado con exito`);
         this.router.navigate([`/approve-woman/`]);
@@ -200,7 +187,6 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
 
   validarRut2() {
     this.userInfo.id_number = rutTools.format(this.userInfo.id_number);
-    console.log(rutTools.validate(this.userInfo.id_number));
     if (this.userInfo.id_number.length > 8) {
       if (!rutTools.validate(this.userInfo.id_number)) {
         this.isValidRut = false;
@@ -212,7 +198,6 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
   validarRut(rut: string) {
     if (rut) {
       this.userInfo.id_number = rutTools.format(this.userInfo.id_number);
-      console.log(rutTools.validate(this.userInfo.id_number));
       if (this.userInfo.id_number.length > 8) {
         if (!rutTools.validate(this.userInfo.id_number)) {
           this.isValidRut = false;

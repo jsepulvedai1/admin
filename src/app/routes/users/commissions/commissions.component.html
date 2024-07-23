@@ -1,0 +1,36 @@
+<nz-select [(ngModel)]="selectedWeek" (ngModelChange)="onWeekChange($event)" nzPlaceHolder="Select week">
+  <nz-option *ngFor="let week of weeks" [nzLabel]="'Week ' + week.week" [nzValue]="week.week"></nz-option>
+</nz-select>
+
+<nz-card *ngIf="selectedWeekInfo">
+  <div class="info">
+    <nz-card-meta nzTitle="Total Comisión semana" [nzDescription]="selectedWeekInfo.total"></nz-card-meta>
+    <nz-card-meta nzTitle="Total Comisión Global" [nzDescription]="totalCommision"></nz-card-meta>
+  </div>
+
+
+  <ng-container *ngFor="let comision of selectedWeekInfo.comision">
+    <nz-card nzTitle="{{ comision.type }}" style="margin-top: 16px;">
+      <nz-table #detailTable [nzData]="comision.detail">
+        <thead>
+          <tr>
+            <th>User Commission</th>
+            <th>User Parent Commission</th>
+            <th>Commission</th>
+            <th>Date</th>
+            <th>Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of detailTable.data">
+            <td>{{ detail.user_comision }}</td>
+            <td>{{ detail.user_parent_comision }}</td>
+            <td>{{ detail.comision }}</td>
+            <td>{{ detail.date }}</td>
+            <td>{{ detail.hours }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </ng-container>
+</nz-card>

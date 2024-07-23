@@ -57,28 +57,28 @@
   <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
     <div class="filter-grid">
       <div class="filter-row">
-        <label><b>Fecha inicio</b></label>
+        <label><b>Fecha incial</b></label>
         <nz-date-picker formControlName="startDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
       </div>
       <div class="filter-row">
-        <label><b>Fecha fin</b></label>
+        <label><b>Fecha Final</b></label>
         <nz-date-picker formControlName="endDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
       </div>
       <div class="filter-row">
-        <label><b>% Interés</b></label>
-        <input nz-input formControlName="interestRate" placeholder="% Interés" />
+        <label><b>Dirrecion Origen</b></label>
+        <input nz-input formControlName="address_origin" placeholder="Dirrecion" />
       </div>
       <div class="filter-row">
-        <label><b>Tipo de cuenta</b></label>
-        <input nz-input formControlName="accountType" placeholder="Tipo de cuenta" />
+        <label><b>Dirrecion Destino</b></label>
+        <input nz-input formControlName="address_delivery" placeholder="Dirrecion" />
       </div>
       <div class="filter-row">
-        <label><b>Nº Cuenta</b></label>
-        <input nz-input formControlName="accountNumber" placeholder="Nº Cuenta" />
+        <label><b>Pasajero</b></label>
+        <input nz-input formControlName="user_customer" placeholder="Pasajero" />
       </div>
       <div class="filter-row">
-        <label><b>% Interés mensual</b></label>
-        <input nz-input formControlName="monthlyInterestRate" placeholder="% Interés mensual" />
+        <label><b>Conductor</b></label>
+        <input nz-input formControlName="user_delivery" placeholder="Conductor" />
       </div>
     </div>
     <div class="button-container">
@@ -87,25 +87,23 @@
     </div>
   </form>
 </div>
-<nz-table #filterTable [nzData]="filteredData" nzTableLayout="fixed" nzBordered>
+<nz-table #filterTable [nzData]="data" nzTableLayout="fixed" nzBordered>
   <thead>
     <tr>
-      <th>Fecha inicio</th>
-      <th>Fecha fin</th>
-      <th>% Interés</th>
-      <th>Tipo de cuenta</th>
-      <th>Nº Cuenta</th>
-      <th>% Interés mensual</th>
+      <th>Dirrecion Origen</th>
+      <th>Dirrecion Destino</th>
+      <th>Pasajero</th>
+      <th>Conductor</th>
+      <th>Detalle</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of filterTable.data">
-      <td>{{ data.startDate }}</td>
-      <td>{{ data.endDate }}</td>
-      <td>{{ data.interestRate }}</td>
-      <td>{{ data.accountType }}</td>
-      <td>{{ data.accountNumber }}</td>
-      <td>{{ data.monthlyInterestRate }}</td>
+      <td>{{ data.address_origin }}</td>
+      <td>{{ data.address_delivery }}</td>
+      <td>{{ data.user_customer.email }}</td>
+      <td>{{ data.user_delivery.email }}</td>
+      <td (click)="tripDetail(data.pk)">Detalle</td>
     </tr>
   </tbody>
 </nz-table>

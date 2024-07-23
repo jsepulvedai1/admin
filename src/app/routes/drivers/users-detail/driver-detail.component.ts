@@ -106,9 +106,7 @@ export class DriverDetailComponent implements OnInit {
 
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
-      console.log(res);
       this.userDetail = res;
-      console.log(this.userDetail);
       this.cdr.detectChanges();
     });
   }
@@ -118,19 +116,16 @@ export class DriverDetailComponent implements OnInit {
       this.userDetail = res;
       this.oldStatusDriver = this.userDetail.is_validated_user || 0;
       this.oldStatusUser = this.userDetail.is_validated || 0;
-      console.log(res);
       this.cdr.detectChanges();
     });
   }
 
   updateStatusUser() {
-    console.log(this.activeUser);
     const statusUser = this.activeUser ? 0 : this.oldStatusUser;
     const statusDriver = this.activeUser ? 0 : this.oldStatusDriver;
 
     this.userService.UpdateStatusUser(this.pk, statusDriver).subscribe(res => {
       this.userDetail = res;
-      console.log(res);
       this.cdr.detectChanges();
     });
   }

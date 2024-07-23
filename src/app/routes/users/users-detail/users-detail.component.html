@@ -12,6 +12,14 @@
           <p><span nz-icon nzType="phone" nzTheme="outline"></span> {{ userDetail.phone }}</p>
           <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : userDetail.sex === Sexo.Mujer ? 'Mujer' : 'Sin Informar'}}</p>
           <p>
+            <span nz-icon nzType="gift" nzTheme="outline"></span>
+            {{ userDetail.fec_birth ?? 'sin informacion'}}
+          </p>
+          <p>
+            <span nz-icon nzType="gift" nzTheme="outline"></span>
+            Rut:{{ userDetail.id_number ?? 'sin informacion'}}
+          </p>
+          <p>
             <span nz-icon nzType="mail" nzTheme="outline"></span>
             {{ userDetail.email }}
           </p>
@@ -39,6 +47,10 @@
             <span nz-icon nzType="calculator" nzTheme="outline"></span>
             Consumido periodo: {{ userDetail.consume_period }}
           </p>
+          <p>
+            <span nz-icon nzType="calculator" nzTheme="outline"></span>
+            Activo/Desactivo: <label nz-checkbox [(ngModel)]="userDetail.is_active"></label>
+          </p>
           <!-- <p>
             Activar/Desactivar: <nz-switch [(ngModel)]="activeUser"></nz-switch>
           </p> -->
@@ -53,8 +65,10 @@
         <ng-container>
           <nz-tab nzTitle="Viajes"><app-user-trips [userPk]="pk || '0'" /></nz-tab>
         </ng-container>
-        <!-- <nz-tab nzTitle="Editar"><app-user-detail-edit /></nz-tab> -->
         <nz-tab nzTitle="Instantanea GetGO"><app-table [userInfo]="userDetail" /></nz-tab>
+        <nz-tab nzTitle="Saldo GetGO"><app-getgo-balance [userInfo]="userDetail" /></nz-tab>
+        <nz-tab nzTitle="Comisiones"><app-commissions [userInfo]="pk" /></nz-tab>
+
       </nz-tabset>
     </nz-card>
   </div>

@@ -66,7 +66,6 @@ export class HeaderI18nComponent {
   setUrl(lang: string): void {
     //localStorage.clear();
     localStorage.setItem('url', JSON.stringify(lang));
-    // console.log(this.url);
     // // const spinEl = this.doc.createElement('div');
     // // spinEl.setAttribute('class', `page-loading ant-spin ant-spin-lg ant-spin-spinning`);
     // // spinEl.innerHTML = `<span class="ant-spin-dot ant-spin-dot-spin"><i></i><i></i><i></i><i></i></span>`;

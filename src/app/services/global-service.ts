@@ -146,7 +146,6 @@ export class GlobalService {
 
     return this.http.get<any[]>(`${this.apiUrl}withdrawalorder/`, { headers }).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(error => {

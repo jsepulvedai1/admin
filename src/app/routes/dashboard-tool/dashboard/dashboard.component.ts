@@ -42,15 +42,6 @@ export class DashboardComponent implements OnInit {
       const count = parseInt(typeUser, 10); // base 10
       const mode = this.validateForm.get('modo')?.value;
       const code = this.validateForm.get('code')?.value;
-      // console.log('submit', this.validateForm.value);
-      // this.userService.createUserTool(this.validateForm.value).subscribe(res => {
-      //   this.msg.success(`Usurarios creado con exito`);
-      //   this.cdr.detectChanges();
-      // });
-      // const typeUser = this.validateForm.get('sex')?.value;
-      // const typeUserInt = parseInt(typeUser, 10); //
-      // const typeUser = this.validateForm.get('sex')?.value;
-      // const typeUserInt = parseInt(typeUser, 10); //
       this.userService.createBulkUser(count, mode, code);
     } else {
       Object.values(this.validateForm.controls).forEach(control => {

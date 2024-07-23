@@ -35,11 +35,7 @@ export class UserGetgoComponent implements OnInit {
       subColumnsRow: { left: '', center: '', right: '' }
     },
     {
-      mainRow: 'Ciclo periodo',
-      subColumnsRow: { left: '', center: '', right: '' }
-    },
-    {
-      mainRow: 'Saldo GetGo',
+      mainRow: 'Ciclo Semana',
       subColumnsRow: { left: '', center: '', right: '' }
     },
     {
@@ -74,9 +70,9 @@ export class UserGetgoComponent implements OnInit {
     this.dataSource[5].subColumnsRow.center = this.userInfo?.total_red_activos?.toString() || '0';
 
     this.dataSource[6].subColumnsRow.center = this.userInfo?.ciclos?.toString() || '0';
-    this.dataSource[7].subColumnsRow.center = this.userInfo?.getgo_money?.toString() || '0';
-    this.dataSource[8].subColumnsRow.center = this.userInfo?.trip_month_current?.toString() || '0';
-    this.dataSource[9].subColumnsRow.center = this.userInfo?.trip_count_user?.toString() || '0';
-    this.dataSource[10].subColumnsRow.center = this.userInfo?.trip_count_driver?.toString() || '0';
+    // this.dataSource[7].subColumnsRow.center = this.userInfo?.getgo_money?.toString() || '0';
+    this.dataSource[7].subColumnsRow.center = this.userInfo?.trip_month_current?.toString() || '0';
+    this.dataSource[8].subColumnsRow.center = this.userInfo?.trip_count_user?.toString() || '0';
+    this.dataSource[9].subColumnsRow.center = this.userInfo?.trip_count_driver?.toString() || '0';
   }
 }

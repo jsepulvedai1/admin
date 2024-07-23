@@ -5,6 +5,7 @@ import { Subscription, zip, filter } from 'rxjs';
 import { UserService } from 'src/app/services/users-service';
 
 import { UserData } from '../users-detail/user-detail-interface';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-users-detail',
@@ -26,7 +27,7 @@ export class UsersDetailComponent implements OnInit {
     Pasajero: 2
   };
 
-  activeUser = true;
+  activeUser = false;
 
   oldStatusDriver = 0;
   oldStatusUser = 0;
@@ -35,7 +36,8 @@ export class UsersDetailComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
     this.userDetail = {};
@@ -68,6 +70,11 @@ export class UsersDetailComponent implements OnInit {
     this.getUserProfile();
   }
 
+  blockBackButton() {
+    this.location.subscribe(() => {
+      this.router.navigateByUrl('/users/detail/202'); // Reemplaza '/current-page' con la URL de la página actual
+    });
+  }
   private setActive(): void {
     const key = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     const idx = this.tabs.findIndex(w => w.key === key);
@@ -114,21 +121,17 @@ export class UsersDetailComponent implements OnInit {
   getUserProfile() {
     this.userService.getUserProfile(this.pk).subscribe(res => {
       this.userDetail = res;
-      this.oldStatusDriver = this.userDetail.is_validated_user || 0;
-      this.oldStatusUser = this.userDetail.is_validated || 0;
-      console.log(res);
+      this.activeUser = res.is_validated_user === 0 ? false : true;
       this.cdr.detectChanges();
     });
   }
 
   updateStatusUser() {
-    console.log(this.activeUser);
-    const statusUser = this.activeUser ? 0 : this.oldStatusUser;
+    const statusUser = this.activeUser ? 0 : 2;
     const statusDriver = this.activeUser ? 0 : this.oldStatusDriver;
 
     this.userService.UpdateStatusUser(this.pk, statusUser).subscribe(res => {
       this.userDetail = res;
-      console.log(res);
       this.cdr.detectChanges();
     });
   }

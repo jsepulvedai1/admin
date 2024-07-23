@@ -61,11 +61,10 @@ export class CreateUserComponent implements OnInit {
 
       if (!isNaN(typeUserInt)) {
         this.validateForm.get('age')?.setValue(typeUserInt);
-        console.log('Edad como número entero:', typeUserInt);
       } else {
         console.error('El valor ingresado no es un número válido.');
       }
-      console.log('submit', this.validateForm.value);
+
       this.userService.createUser(this.validateForm.value).subscribe(res => {
         this.msg.success(`Usurario creado con exito`);
         this.router.navigate([`/users/`]);

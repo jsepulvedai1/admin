@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/users-service';
 
 import { UserData } from '../../users/users-detail/user-detail-interface';
 import { EstadoViaje, EstadoViajeText } from './trip-detail.enum';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-trip-detail',
@@ -26,13 +27,16 @@ export class TripDetailComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private tripService: TripService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) {
     this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
     this.tripDetail = {};
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.pk = params.get('id')!;
     });
+    this.blockBackButton();
   }
   private router$!: Subscription;
   public user: any;
@@ -61,13 +65,17 @@ export class TripDetailComponent implements OnInit {
     this.getTripDetail();
   }
 
+  blockBackButton() {
+    this.location.subscribe(() => {
+      this.router.navigateByUrl('/users/detail/202'); // Reemplaza '/current-page' con la URL de la página actual
+    });
+  }
   to(item: { key: string }): void {
     //this.router.navigateByUrl(`/pro/account/center/${item.key}`);
   }
 
   protected getTripDetail() {
     this.tripService.getTripDetail(this.pk).subscribe(res => {
-      console.log(res);
       this.tripDetail = res;
       this.cdr.detectChanges();
     });

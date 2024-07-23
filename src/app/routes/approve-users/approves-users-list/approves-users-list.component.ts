@@ -138,13 +138,10 @@ export class ApprovesUsersListComponent implements OnInit {
   }
 
   unificarRespuestas() {
-    // Unir los datos de ambos servicios en this.data
     this.data = [...this.data2, ...this.data3];
-    console.log(this.data);
   }
 
   reset(): void {
-    // wait form reset updated finished
     setTimeout(() => this.getUserToApprove());
   }
 

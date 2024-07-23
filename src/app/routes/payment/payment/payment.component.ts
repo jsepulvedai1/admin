@@ -114,7 +114,6 @@ export class PaymentComponent implements OnInit {
       this.setOfCheckedId.delete(id);
       this.listOfCurrentPageDataToexport = this.listOfCurrentPageDataToexport.filter(item => item.pk !== id);
     }
-    console.log(this.listOfCurrentPageDataToexport);
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -128,16 +127,12 @@ export class PaymentComponent implements OnInit {
   }
 
   onCurrentPageDataChange($event: readonly Withdrawalorder[]): void {
-    console.log($event);
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
   }
 
   refreshCheckedStatus(): void {
-    console.log('d');
-
     this.checked = this.withdrawalorder.every(item => this.setOfCheckedId.has(item.pk));
-    console.log(this.checked);
     this.indeterminate = this.withdrawalorder.some(item => this.setOfCheckedId.has(item.pk)) && !this.checked;
   }
 

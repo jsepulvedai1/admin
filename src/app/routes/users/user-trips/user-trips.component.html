@@ -3,13 +3,14 @@
     <nz-card *ngFor="let trip of userTrips" class="card">
       <div class="card-header">
         <span class="card-title">{{ userTrips[0].address_delivery }}</span>
-        <span class="card-date">{{ '2023-09-15' }}</span>
       </div>
       <nz-timeline>
         <nz-timeline-item [nzColor]="'blue'">{{ trip.address_origin }}</nz-timeline-item>
         <nz-timeline-item [nzColor]="'red'">{{ trip.address_delivery }}</nz-timeline-item>
       </nz-timeline>
-      <p><strong>monto:</strong> {{ trip.amount }}</p>
+      <span class="card-date">Fecha: {{ trip.date_created | date:'dd-MM-yyyy' }}</span>
+
+      <p><strong>monto:</strong> {{ trip.total}}</p>
     </nz-card>
   </div>
 </div>

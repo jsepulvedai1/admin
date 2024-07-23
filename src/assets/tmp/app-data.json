@@ -70,6 +70,12 @@
           "i18n": "Mantenedor de colores",
           "icon": "anticon-format-painter",
           "link": "/colors"
+        },
+        {
+          "text": "Tarifas de Viajes",
+          "i18n": "Tarifas de Viajes",
+          "icon": "anticon-car",
+          "link": "/travel-ratess"
         }
 
       ]

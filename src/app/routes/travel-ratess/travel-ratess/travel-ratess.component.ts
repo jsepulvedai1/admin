@@ -5,11 +5,11 @@ import { catchError } from 'rxjs';
 import { GlobalService } from 'src/app/services/global-service';
 
 @Component({
-  selector: 'app-global-config',
-  templateUrl: './global-config.component.html',
-  styleUrls: ['./global-config.component.less']
+  selector: 'app-travel-ratess',
+  templateUrl: './travel-ratess.component.html',
+  styleUrl: './travel-ratess.component.less'
 })
-export class GlobalConfigComponent implements OnInit {
+export class TravelRatessComponent implements OnInit {
   form = new FormGroup({
     point_lower_limit: new FormControl('', Validators.required),
     point_high_limit: new FormControl('', Validators.required),
@@ -76,66 +76,19 @@ export class GlobalConfigComponent implements OnInit {
   panels = [
     {
       active: false,
-      name: 'Configuraciones Globales'
+      name: 'Taxi'
     },
     {
       active: false,
-      name: 'Configuraciones APP'
+      name: 'XL'
     },
     {
       active: false,
-      name: 'Configuraciones Negocio'
+      name: 'Ejecutivo'
     },
     {
       active: false,
-      disabled: false,
-      name: 'Configuraciones Rango',
-      childPanel: [
-        {
-          active: false,
-          name: 'Configuraciones G0'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G1'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G2'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G3'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G4'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G5'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G6'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G7'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G8'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G9'
-        },
-        {
-          active: false,
-          name: 'Configuraciones G10'
-        }
-      ]
+      name: 'Car'
     }
   ];
 

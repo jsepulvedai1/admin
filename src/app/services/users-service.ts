@@ -202,13 +202,29 @@ export class UserService {
     );
   }
 
+  getUserCommisionDetail(pk: string) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.get<any[]>(` ${this.apiUrl}user-comision-detail/${pk}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   // getUsersToApprove() {
   //   apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
   //   const headers = new HttpHeaders({
   //     'Content-Type': 'application/json',
   //     Authorization: `Token ${this.token}`
   //   });
-  //   console.log(this.token);
+  //
   //   return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
   //     map((response: any) => {
   //       return response;
@@ -226,7 +242,7 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
 
-    const typeUsers = [1, 3]; // Los diferentes valores de type_user
+    const typeUsers = [0, 1, 3];
 
     const requests = typeUsers.map(typeUser =>
       this.http.get<any[]>(`${apiUrl}users/?type_user=1&is_validated=${typeUser}`, { headers }).pipe(
@@ -249,10 +265,8 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    console.log(this.token);
     return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       }),
       catchError(error => {
@@ -283,7 +297,6 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    console.log(this.token);
     return this.http.get<any[]>(` ${this.apiUrl}user-record/${pk}`, { headers }).pipe(
       map((response: any) => {
         return response;

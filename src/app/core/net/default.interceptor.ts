@@ -246,7 +246,6 @@ export class DefaultInterceptor {
 
   //   const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
   //   const oldReq = req;
-  //   console.log(newReq);
   //   if (url.includes('qa.getgoapp')) {
   //   }
   //   return next.handle(oldReq).pipe(

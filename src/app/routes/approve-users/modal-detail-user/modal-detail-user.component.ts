@@ -20,8 +20,7 @@ export class ModalDetailUserComponent implements OnInit {
   @Input() record: any;
   @Input() keyName: any;
   isConfirmLoading = false;
-  selectedValues: { [key: string]: string } = {};
-  selectedValue = '1';
+  selectedValue: null | undefined;
   @Input() id_number = '';
   @Input() type_vehicle = '1';
   isValidRut = false;
@@ -31,8 +30,6 @@ export class ModalDetailUserComponent implements OnInit {
   constructor(private modal: NzModalRef) {}
   ngOnInit(): void {
     this.img = this.record.image ? this.record.image.replace(/^http:\/\//i, 'https://') : '';
-    this.selectedValue = '1';
-    this.selectedValue = this.type_vehicle ?? 1;
   }
 
   handleOk(): void {
@@ -45,7 +42,6 @@ export class ModalDetailUserComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('cancel');
     this.record.image = '';
     this.modal.close({ result: this.record, radioValue: true });
   }
@@ -60,7 +56,6 @@ export class ModalDetailUserComponent implements OnInit {
 
   validarRut2() {
     this.id_number = rutTools.format(this.id_number);
-    console.log(rutTools.validate(this.id_number));
     if (this.id_number.length > 8) {
       if (!rutTools.validate(this.id_number)) {
         this.isValidRut = false;

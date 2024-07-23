@@ -20,6 +20,8 @@ import { UserTripsComponent } from './user-trips/user-trips.component';
 import { UsersComponent } from './users/users.component';
 import { UsersDetailComponent } from './users-detail/users-detail.component';
 import { UsersRoutingModule } from './users-routing.module';
+import { GetgoBalanceComponent } from './getgo-balance/getgo-balance.component';
+import { CommissionsComponent } from './commissions/commissions.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UsersRoutingModule } from './users-routing.module';
     CreateUserComponent,
     UserDetailEditComponent,
     UserGetgoComponent,
-    UserTripsComponent
+    UserTripsComponent,
+    GetgoBalanceComponent,
+    CommissionsComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +50,6 @@ import { UsersRoutingModule } from './users-routing.module';
     G2MiniBarModule,
     FullContentModule
   ],
-  exports: [UserTripsComponent, UserGetgoComponent]
+  exports: [UserTripsComponent, UserGetgoComponent, GetgoBalanceComponent, CommissionsComponent]
 })
 export class UsersModule {}
