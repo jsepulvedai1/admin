@@ -92,7 +92,7 @@ export class ApproveWomanComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getUserToApprove();
-    this.unificarRespuestas();
+    //this.unificarRespuestas();
   }
 
   protected getUserToApprove() {
@@ -103,7 +103,6 @@ export class ApproveWomanComponent implements OnInit {
         this.data2 = res;
         this.loading = false;
         this.cdr.detectChanges();
-        this.unificarRespuestas();
       });
     this.getUserToApprove2;
   }

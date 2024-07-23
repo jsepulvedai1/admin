@@ -35,7 +35,7 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
     'Padron Vehiculo': 'A'
   };
 
-  selectedValue = null;
+  selectedValue = '0';
 
   isValidRut = false;
 
@@ -98,6 +98,8 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
         driver_license_front: this.userInfo.document_sex_validator,
         id_photo: this.userInfo.id_photo
       };
+      console.log(this.userInfo.is_validated_user?.toString());
+      this.selectedValue = this.userInfo.is_validated_user?.toString() || '0';
       this.validarRut(this.userInfo.id_number || '');
       this.userInfo.avatar = this.userInfo?.avatar ? this.userInfo?.avatar.replace(/^http:\/\//i, 'https://') : '';
       this.userInfo.id_photo = this.userInfo?.id_photo ? this.userInfo?.id_photo.replace(/^http:\/\//i, 'https://') : '';
@@ -190,6 +192,7 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.data = res[0];
+
         this.msg.success(`Usurario aprobado con exito`);
         this.router.navigate([`/approve-woman/`]);
       });

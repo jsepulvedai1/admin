@@ -23,6 +23,7 @@ export class TripService {
       Authorization: `Token ${this.token}`
     });
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    console.log(this.token);
     return this.http.get<any[]>(`${this.apiUrl}trip/normal/`, { headers }).pipe(
       map((response: any) => {
         return response;

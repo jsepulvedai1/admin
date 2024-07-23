@@ -94,12 +94,12 @@ export class ApprovesUsersListComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getUserToApprove();
-    this.getUserToApproveCancel();
+    //this.getUserToApproveCancel();
   }
 
   protected getUserToApprove() {
     this.userService
-      .getUsersToApprove()
+      .getDriverToApproveBulk()
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {
         this.data2 = res;

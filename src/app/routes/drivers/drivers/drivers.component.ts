@@ -72,7 +72,7 @@ export class DriversComponent implements OnInit {
       buttons: [
         {
           text: 'Detalle',
-          click: item => this.router.navigate([`/users/detail/${item.pk}`])
+          click: item => this.router.navigate([`/drivers/detail/${item.pk}`])
         }
       ]
     }
@@ -94,13 +94,11 @@ export class DriversComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('dsadasd...');
     this.loading = true;
     this.getUserData();
   }
 
   protected getUserData() {
-    console.log('dsadasd...');
     this.userService
       .getDrivers()
       .pipe(tap(() => (this.loading = false)))

@@ -45,6 +45,7 @@ import { UsersRoutingModule } from './users-routing.module';
     CurrencyPipeModule,
     G2MiniBarModule,
     FullContentModule
-  ]
+  ],
+  exports: [UserTripsComponent, UserGetgoComponent]
 })
 export class UsersModule {}

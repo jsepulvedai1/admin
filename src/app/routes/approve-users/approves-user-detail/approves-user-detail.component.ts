@@ -202,6 +202,10 @@ export class ApprovesUserDetailComponent implements OnInit {
     }
     this.userInfo.is_validated = 1;
     this.userService
+      .approveUserRecord(this.data.pk)
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {});
+    this.userService
       .approveUser(this.pk, this.userInfo)
       .pipe(tap(() => (this.loading = false)))
       .subscribe(res => {

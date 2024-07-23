@@ -35,6 +35,23 @@ export class UserService {
     );
   }
 
+  getUsersTrips(userPk: any): Observable<any[]> {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}trip/normal/?ordering=-date_created&user_customer=${userPk}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   getUsersBulk(): Observable<any[]> {
     const apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
@@ -110,6 +127,30 @@ export class UserService {
     );
   }
 
+  getWomanUsersBulk(): Observable<any[]> {
+    const apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    const typeUsers = [0, 1];
+
+    const requests = typeUsers.map(typeUser =>
+      this.http.get<any[]>(`${apiUrl}users/?type_user=0&is_validated_user=${typeUser}`, { headers }).pipe(
+        map((response: any) => response),
+        catchError(error => throwError(() => error))
+      )
+    );
+
+    return forkJoin(requests).pipe(
+      map(responses => {
+        return responses.flat();
+      }),
+      catchError(error => throwError(() => error))
+    );
+  }
+
   getWomanUsersCanceled(): Observable<any> {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
@@ -178,6 +219,30 @@ export class UserService {
   //   );
   // }
 
+  getDriverToApproveBulk(): Observable<any[]> {
+    const apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+
+    const typeUsers = [1, 3]; // Los diferentes valores de type_user
+
+    const requests = typeUsers.map(typeUser =>
+      this.http.get<any[]>(`${apiUrl}users/?type_user=1&is_validated=${typeUser}`, { headers }).pipe(
+        map((response: any) => response),
+        catchError(error => throwError(() => error))
+      )
+    );
+
+    return forkJoin(requests).pipe(
+      map(responses => {
+        return responses.flat();
+      }),
+      catchError(error => throwError(() => error))
+    );
+  }
+
   getUsersToApprove() {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
@@ -185,7 +250,7 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
     console.log(this.token);
-    return this.http.post<any[]>(` ${this.apiUrl}filter_trips/`, { headers }).pipe(
+    return this.http.get<any[]>(` ${this.apiUrl}users/?is_validated=1&type_user=1`, { headers }).pipe(
       map((response: any) => {
         console.log(response);
         return response;
@@ -291,7 +356,7 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: `Token ${this.token}`
     });
-    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_woman_validated: 2, is_validated: 3 }, { headers }).pipe(
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_woman_validated: 2, is_validated_user: 9 }, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -316,6 +381,22 @@ export class UserService {
     );
   }
 
+  approveUserRecord(pk: number) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}user-record/update/${pk}`, { is_active: true }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   UpdateStatusUser(pk: string, status: number) {
     apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
     const headers = new HttpHeaders({
@@ -323,6 +404,21 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
     return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated_user: status }, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+  UpdateStatusDriver(pk: string, status: number) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.patch<any[]>(`${this.apiUrl}users/${pk}`, { is_validated: status }, { headers }).pipe(
       map((response: any) => {
         return response;
       }),

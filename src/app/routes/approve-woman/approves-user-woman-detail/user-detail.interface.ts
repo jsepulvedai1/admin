@@ -25,7 +25,7 @@ export interface userDetail {
   document_sex_validator?: any;
   id_photo?: string;
   id_number?: string;
-  is_validated_user?: number;
+  is_validated_user?: number | string;
 }
 
 export interface DocumentEnum {

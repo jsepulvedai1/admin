@@ -1,4 +1,4 @@
-<page-header [title]="'Viajes'" />
+<!-- <page-header [title]="'Viajes'" />
 <nz-card [nzBordered]="true">
   <form nz-form [nzLayout]="'inline'" (ngSubmit)="getTripsFilter()" class="search__form">
     <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
@@ -51,4 +51,61 @@
       <nz-badge [nzStatus]="i.statusType" [nzText]="i.statusText" />
     </ng-template>
   </st>
-</nz-card>
+</nz-card> -->
+
+<div class="filter-container">
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <div class="filter-grid">
+      <div class="filter-row">
+        <label><b>Fecha inicio</b></label>
+        <nz-date-picker formControlName="startDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
+      </div>
+      <div class="filter-row">
+        <label><b>Fecha fin</b></label>
+        <nz-date-picker formControlName="endDate" nzFormat="dd/MM/yyyy"></nz-date-picker>
+      </div>
+      <div class="filter-row">
+        <label><b>% Interés</b></label>
+        <input nz-input formControlName="interestRate" placeholder="% Interés" />
+      </div>
+      <div class="filter-row">
+        <label><b>Tipo de cuenta</b></label>
+        <input nz-input formControlName="accountType" placeholder="Tipo de cuenta" />
+      </div>
+      <div class="filter-row">
+        <label><b>Nº Cuenta</b></label>
+        <input nz-input formControlName="accountNumber" placeholder="Nº Cuenta" />
+      </div>
+      <div class="filter-row">
+        <label><b>% Interés mensual</b></label>
+        <input nz-input formControlName="monthlyInterestRate" placeholder="% Interés mensual" />
+      </div>
+    </div>
+    <div class="button-container">
+      <button nz-button nzType="primary" htmlType="submit">Filtrar</button>
+      <button nz-button nzType="default" (click)="resetFilters()">Limpiar</button>
+    </div>
+  </form>
+</div>
+<nz-table #filterTable [nzData]="filteredData" nzTableLayout="fixed" nzBordered>
+  <thead>
+    <tr>
+      <th>Fecha inicio</th>
+      <th>Fecha fin</th>
+      <th>% Interés</th>
+      <th>Tipo de cuenta</th>
+      <th>Nº Cuenta</th>
+      <th>% Interés mensual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of filterTable.data">
+      <td>{{ data.startDate }}</td>
+      <td>{{ data.endDate }}</td>
+      <td>{{ data.interestRate }}</td>
+      <td>{{ data.accountType }}</td>
+      <td>{{ data.accountNumber }}</td>
+      <td>{{ data.monthlyInterestRate }}</td>
+    </tr>
+  </tbody>
+</nz-table>

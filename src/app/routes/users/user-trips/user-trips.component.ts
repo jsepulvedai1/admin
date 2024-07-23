@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LastTrip, UserData } from '../users-detail/user-detail-interface';
+import { UserService } from 'src/app/services/users-service';
+import { tap } from 'rxjs';
 
 interface Travel {
   id: number;
@@ -17,8 +19,24 @@ interface Travel {
   styleUrls: ['./user-trips.component.less']
 })
 export class UserTripsComponent implements OnInit {
-  constructor(private router: Router) {}
-  @Input() userTrips: LastTrip[] = [];
+  loading = true;
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {}
+  @Input() userPk: string = '0';
+  userTrips: LastTrip[] = [];
+
+  ngOnInit(): void {
+    this.getTrips();
+  }
+  getTrips() {
+    this.userService
+      .getUsersTrips(this.userPk)
+      .pipe(tap(() => (this.loading = false)))
+      .subscribe(res => {
+        this.userTrips = res;
+      });
+  }
 }

@@ -7,15 +7,23 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { map, tap } from 'rxjs';
 import { TripService } from 'src/app/services/trip-service';
+import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '../../../services/users-service';
 
-export interface Data {
-  id: number;
-  email: string;
-  phone: number;
+interface DataItem {
+  name: string;
+  age: number;
   address: string;
-  disabled: boolean;
+}
+
+interface ColumnItem {
+  name: string;
+  sortOrder: NzTableSortOrder | null;
+  sortFn: NzTableSortFn<DataItem> | null;
+  listOfFilter: NzTableFilterList;
+  filterFn: NzTableFilterFn<DataItem> | null;
 }
 
 export enum EstadoViaje {
@@ -30,13 +38,56 @@ export enum EstadoViaje {
   EsperandoRespuestaDelConductor = 10
 }
 
+interface DataItem {
+  startDate: string;
+  endDate: string;
+  interestRate: string;
+  accountType: string;
+  accountNumber: string;
+  monthlyInterestRate: string;
+}
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.less']
 })
 export class TripsComponent implements OnInit {
-  listOfData: readonly Data[] = [];
+  //listOfData: readonly Data[] = [];
+
+  nameFilter: string = '';
+  //filteredData: DataItem[] = [];
+
+  listOfColumns: ColumnItem[] = [
+    {
+      name: 'Name',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
+      listOfFilter: [
+        { text: 'Joe', value: 'Joe' },
+        { text: 'Jim', value: 'Jim' }
+      ],
+      filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
+    },
+    {
+      name: 'Age',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
+      listOfFilter: [],
+      filterFn: null
+    },
+    {
+      name: 'Address',
+      sortFn: null,
+      sortOrder: null,
+      listOfFilter: [
+        { text: 'London', value: 'London' },
+        { text: 'Sidney', value: 'Sidney' }
+      ],
+      filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
+    }
+  ];
+
   scroll = { y: '220px' };
   token: string;
   q: {
@@ -108,15 +159,6 @@ export class TripsComponent implements OnInit {
   totalCallNo = 0;
   expandForm = false;
 
-  constructor(
-    public msg: NzMessageService,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private tripService: TripService
-  ) {
-    this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
-  }
-
   ngOnInit(): void {
     this.loading = true;
     this.getTrips();
@@ -169,5 +211,206 @@ export class TripsComponent implements OnInit {
 
   fullChange(val: boolean): void {
     this.scroll = val ? { y: '550px' } : { y: '430px' };
+  }
+
+  listOfData: DataItem[] = [
+    {
+      startDate: '03/04/2003',
+      endDate: '31/12/2003',
+      interestRate: '15.00%',
+      accountType: 'Time deposit account',
+      accountNumber: '2095 0001 00 0000000001',
+      monthlyInterestRate: '1.25%',
+      name: '',
+      age: 0,
+      address: ''
+    },
+    {
+      startDate: '05/04/2003',
+      endDate: '31/12/2003',
+      interestRate: '3.20%',
+      accountType: 'Automatic transfer service account',
+      accountNumber: '2095 0001 00 0000000007',
+      monthlyInterestRate: '0.28%',
+      name: '',
+      age: 0,
+      address: ''
+    },
+    {
+      startDate: '05/04/2003',
+      endDate: '31/12/2003',
+      interestRate: '2.10%',
+      accountType: 'Numbered bank account',
+      accountNumber: '2099 0001 00 0000000938',
+      monthlyInterestRate: '0.18%',
+      name: '',
+      age: 0,
+      address: ''
+    },
+    {
+      startDate: '05/04/2003',
+      endDate: '31/12/2003',
+      interestRate: '2.30%',
+      accountType: 'Personal account',
+      accountNumber: '2095 0001 00 000125711',
+      monthlyInterestRate: '0.18%',
+      name: '',
+      age: 0,
+      address: ''
+    },
+    {
+      startDate: '05/04/2003',
+      endDate: '31/12/2003',
+      interestRate: '3.83%',
+      accountType: 'Negotiable Order of Withdrawal account',
+      accountNumber: '2095 0001 00 001658111',
+      monthlyInterestRate: '0.28%',
+      name: '',
+      age: 0,
+      address: ''
+    }
+  ];
+  filteredData: DataItem[] = [...this.listOfData];
+
+  // listOfColumns: ColumnItem[] = [
+  //   {
+  //     name: 'Name',
+  //     sortOrder: null,
+  //     sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
+  //     listOfFilter: [
+  //       { text: 'Joe', value: 'Joe' },
+  //       { text: 'Jim', value: 'Jim' }
+  //     ],
+  //     filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
+  //   },
+  //   {
+  //     name: 'Age',
+  //     sortOrder: null,
+  //     sortFn: (a: DataItem, b: DataItem) => a.age - b.age,
+  //     listOfFilter: [],
+  //     filterFn: null
+  //   },
+  //   {
+  //     name: 'Address',
+  //     sortFn: null,
+  //     sortOrder: null,
+  //     listOfFilter: [
+  //       { text: 'London', value: 'London' },
+  //       { text: 'Sidney', value: 'Sidney' }
+  //     ],
+  //     filterFn: (address: string, item: DataItem) => item.address.indexOf(address) !== -1
+  //   }
+  // ];
+  // listOfData: DataItem[] = [
+  //   {
+  //     name: 'John Brown',
+  //     age: 32,
+  //     address: 'New York No. 1 Lake Park'
+  //   },
+  //   {
+  //     name: 'Jim Green',
+  //     age: 42,
+  //     address: 'London No. 1 Lake Park'
+  //   },
+  //   {
+  //     name: 'Joe Black',
+  //     age: 32,
+  //     address: 'Sidney No. 1 Lake Park'
+  //   },
+  //   {
+  //     name: 'Jim Red',
+  //     age: 32,
+  //     address: 'London No. 2 Lake Park'
+  //   }
+  // ];
+
+  filterForm: FormGroup;
+  // listOfData: DataItem[] = [
+  //   {
+  //     startDate: '03/04/2003',
+  //     endDate: '31/12/2003',
+  //     interestRate: '15.00%',
+  //     accountType: 'Time deposit account',
+  //     accountNumber: '2095 0001 00 0000000001',
+  //     monthlyInterestRate: '1.25%'
+  //   },
+  //   {
+  //     startDate: '05/04/2003',
+  //     endDate: '31/12/2003',
+  //     interestRate: '3.20%',
+  //     accountType: 'Automatic transfer service account',
+  //     accountNumber: '2095 0001 00 0000000007',
+  //     monthlyInterestRate: '0.28%'
+  //   },
+  //   {
+  //     startDate: '05/04/2003',
+  //     endDate: '31/12/2003',
+  //     interestRate: '2.10%',
+  //     accountType: 'Numbered bank account',
+  //     accountNumber: '2099 0001 00 0000000938',
+  //     monthlyInterestRate: '0.18%'
+  //   },
+  //   {
+  //     startDate: '05/04/2003',
+  //     endDate: '31/12/2003',
+  //     interestRate: '2.30%',
+  //     accountType: 'Personal account',
+  //     accountNumber: '2095 0001 00 000125711',
+  //     monthlyInterestRate: '0.18%'
+  //   },
+  //   {
+  //     startDate: '05/04/2003',
+  //     endDate: '31/12/2003',
+  //     interestRate: '3.83%',
+  //     accountType: 'Negotiable Order of Withdrawal account',
+  //     accountNumber: '2095 0001 00 001658111',
+  //     monthlyInterestRate: '0.28%'
+  //   }
+  // ];
+  //filteredData: DataItem[] = [...this.listOfData];
+
+  constructor(
+    private fb: FormBuilder,
+    public msg: NzMessageService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private tripService: TripService
+  ) {
+    this.filterForm = this.fb.group({
+      startDate: [''],
+      endDate: [''],
+      interestRate: [''],
+      accountType: [''],
+      accountNumber: [''],
+      monthlyInterestRate: ['']
+    });
+    this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
+  }
+  // constructor(
+  //   public msg: NzMessageService,
+  //   private cdr: ChangeDetectorRef,
+  //   private router: Router,
+  //   private tripService: TripService
+  // ) {
+  //   this.token = JSON.parse(localStorage.getItem('userData') || '{}').token;
+  // }
+
+  applyFilters(): void {
+    const { startDate, endDate, interestRate, accountType, accountNumber, monthlyInterestRate } = this.filterForm.value;
+
+    this.filteredData = this.listOfData.filter(
+      item =>
+        (!startDate || item.startDate.includes(startDate)) &&
+        (!endDate || item.endDate.includes(endDate)) &&
+        (!interestRate || item.interestRate.includes(interestRate)) &&
+        (!accountType || item.accountType.includes(accountType)) &&
+        (!accountNumber || item.accountNumber.includes(accountNumber)) &&
+        (!monthlyInterestRate || item.monthlyInterestRate.includes(monthlyInterestRate))
+    );
+  }
+
+  resetFilters(): void {
+    this.filterForm.reset();
+    this.filteredData = [...this.listOfData];
   }
 }

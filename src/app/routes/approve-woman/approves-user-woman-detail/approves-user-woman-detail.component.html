@@ -31,7 +31,7 @@
           <td>Sexo</td>
           <td>{{ userInfo.sex == 2 ? 'Femenino' : this.userInfo.sex === 1 ? 'Masculino' : 'Sin Informar' }}</td>
         </tr>
-        <td>Rut Conductor</td>
+        <td>Identificador</td>
         <td>
           <input [(ngModel)]="userInfo.id_number" (ngModelChange)="validarRut2()"
             [ngClass]="{'invalid-rut': !isValidRut}" placeholder="Ingresa un Rut">
@@ -43,6 +43,7 @@
           </td>
           <td>
             <nz-select class="fixed-width-select" nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opción" [(ngModel)]="selectedValue">
+              <nz-option nzLabel="Sin validar" nzValue="0"></nz-option>
               <nz-option nzLabel="Chileno Full" nzValue="2"></nz-option>
               <nz-option nzLabel="Extranjero full" nzValue="3"></nz-option>
               <nz-option nzLabel="Chileno sin compensacion" nzValue="4"></nz-option>

@@ -15,9 +15,12 @@ import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 
 import { DriversComponent } from './drivers/drivers.component';
 import { DriversRoutingModule } from './drivers-routing.module';
+import { UsersModule } from '../users/users.module';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { DriverDetailComponent } from './users-detail/driver-detail.component';
 
 @NgModule({
-  declarations: [DriversComponent],
+  declarations: [DriversComponent, DriverDetailComponent],
   imports: [
     CommonModule,
     NzEmptyModule,
@@ -32,7 +35,16 @@ import { DriversRoutingModule } from './drivers-routing.module';
     CurrencyPipeModule,
     G2MiniBarModule,
     FullContentModule,
-    DriversRoutingModule
+    DriversRoutingModule,
+    AvatarListModule,
+    FooterToolbarModule,
+    NzPaginationModule,
+    NzStepsModule,
+    CurrencyPipeModule,
+    G2MiniBarModule,
+    FullContentModule,
+    UsersModule,
+    NzCardModule
   ]
 })
 export class DriversModule {}

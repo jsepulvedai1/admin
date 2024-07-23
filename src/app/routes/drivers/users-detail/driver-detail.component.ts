@@ -7,12 +7,12 @@ import { UserService } from 'src/app/services/users-service';
 import { UserData } from '../users-detail/user-detail-interface';
 
 @Component({
-  selector: 'app-users-detail',
-  templateUrl: './users-detail.component.html',
-  styleUrls: ['./users-detail.component.less'],
+  selector: 'app-users-drivers',
+  templateUrl: './drivers-detail.component.html',
+  styleUrls: ['./drivers-detail.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersDetailComponent implements OnInit {
+export class DriverDetailComponent implements OnInit {
   pk: string = '';
   token: string;
   Sexo = {
@@ -106,7 +106,9 @@ export class UsersDetailComponent implements OnInit {
 
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
+      console.log(res);
       this.userDetail = res;
+      console.log(this.userDetail);
       this.cdr.detectChanges();
     });
   }
@@ -126,7 +128,7 @@ export class UsersDetailComponent implements OnInit {
     const statusUser = this.activeUser ? 0 : this.oldStatusUser;
     const statusDriver = this.activeUser ? 0 : this.oldStatusDriver;
 
-    this.userService.UpdateStatusUser(this.pk, statusUser).subscribe(res => {
+    this.userService.UpdateStatusUser(this.pk, statusDriver).subscribe(res => {
       this.userDetail = res;
       console.log(res);
       this.cdr.detectChanges();

@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-
 import { userDetail } from '../approves-user-woman-detail/user-detail.interface';
 
 @Component({

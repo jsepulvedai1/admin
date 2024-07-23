@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalDetailUserComponent } from './modal-detail-user.component';
+import { ModalDetailUserWomanComponent } from './modal-detail-user.component';
 
-describe('ModalDetailUserComponent', () => {
-  let component: ModalDetailUserComponent;
-  let fixture: ComponentFixture<ModalDetailUserComponent>;
+describe('ModalDetailUserWomanComponent', () => {
+  let component: ModalDetailUserWomanComponent;
+  let fixture: ComponentFixture<ModalDetailUserWomanComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalDetailUserComponent]
+      declarations: [ModalDetailUserWomanComponent]
     });
-    fixture = TestBed.createComponent(ModalDetailUserComponent);
+    fixture = TestBed.createComponent(ModalDetailUserWomanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
