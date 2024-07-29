@@ -1,66 +1,161 @@
-/* travel-card.css */
+// /* travel-card.css */
 
-/* Estilo para el contenedor de la lista de tarjetas */
+// /* Estilo para el contenedor de la lista de tarjetas */
+
+
+// /* Estilo para las tarjetas individuales */
+// .card {
+//   width: 1500px;
+//   width: 90%;
+//   background-color: #fff;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+//   transition: transform 0.2s;
+// }
+
+// .card-header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding-bottom: 15px;
+//   border-top-left-radius: 10px;
+//   border-top-right-radius: 10px;
+// }
+
+// .card:hover {
+//   transform: translateY(15px);
+//   transform: translateX(15px);
+// }
+
+// .card nz-card-meta-title {
+//   font-weight: bold;
+//   font-size: 18px;
+//   font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// }
+
+// .card p {
+//   margin: 10px 0;
+//   font-size: 14px;
+//   font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// }
+
+// .card strong {
+//   color: #1890ff;
+//   font-weight: bold;
+//   font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// }
+
+// nz-card div.ant-card-body {
+//   padding: 10px 20px;
+//   border-top: none; /* Eliminar la línea divisoria del título */
+// }
+
+// .card-date {
+//   font-weight: bold;
+//   font-size: 16px;
+// }
+
+// .card-title {
+//   font-weight: bold;
+//   font-size: 18px;
+// }
+
+// // .user-info{
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: flex-start
+// // }
+
+// .user-info {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
+
+// .user-column {
+//   flex: 1;
+//   margin-right: 20px; /* Separación entre columnas */
+// }
+
+// .user-column span {
+//   display: block;
+//   margin-bottom: 5px; /* Espaciado entre líneas */
+// }
+
+// .info-title {
+//   font-weight: bold;
+// }
+
+
+.travel-detail-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+}
+
+.travel-detail-header,
+.travel-detail-body {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+// .header-item,
+// .body-item {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+.header-item,
+.body-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Cambiado a flex-start para alinear a la izquierda */
+  width: 120px;
+}
+
+.title {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.value {
+  font-size: 14px;
+}
+
+.travel-detail-route {
+  margin: 20px 0;
+}
+
+.travel-detail-users {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-details a {
+  color: #1890ff;
+  text-decoration: none;
+}
+
 .travel-list-container {
-  max-height: 500px;
+  max-height: 600px;
   overflow-y: auto;
 }
 
-/* Estilo para las tarjetas individuales */
-.card {
-  width: 1500px;
-  width: 90%;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-  transition: transform 0.2s;
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 15px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.card:hover {
-  transform: translateY(15px);
-  transform: translateX(15px);
-}
-
-.card nz-card-meta-title {
-  font-weight: bold;
-  font-size: 18px;
-  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.card p {
-  margin: 10px 0;
-  font-size: 14px;
-  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.card strong {
-  color: #1890ff;
-  font-weight: bold;
-  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-nz-card div.ant-card-body {
-  padding: 10px 20px;
-  border-top: none; /* Eliminar la línea divisoria del título */
-}
-
-.card-date {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.card-title {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-/* Agrega más estilos según sea necesario */

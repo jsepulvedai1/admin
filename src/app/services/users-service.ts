@@ -59,7 +59,7 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
 
-    const typeUsers = [2, 3, 4, 5]; // Los diferentes valores de type_user
+    const typeUsers = [2, 3, 4, 5];
 
     const requests = typeUsers.map(typeUser =>
       this.http.get<any[]>(`${apiUrl}users/?type_user=0&is_validated_user=${typeUser}`, { headers }).pipe(
@@ -209,6 +209,37 @@ export class UserService {
       Authorization: `Token ${this.token}`
     });
     return this.http.get<any[]>(` ${this.apiUrl}user-comision-detail/${pk}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getUserBankAccount(pk: string) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.get<any[]>(` ${this.apiUrl}account_bank/?user=${pk}`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+  getUserWalletDetail(pk: string) {
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    return this.http.get<any[]>(` ${this.apiUrl}wallet/full/v2/${pk}`, { headers }).pipe(
       map((response: any) => {
         return response;
       }),

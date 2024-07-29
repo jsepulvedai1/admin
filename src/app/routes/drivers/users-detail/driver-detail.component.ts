@@ -46,6 +46,8 @@ export class DriverDetailComponent implements OnInit {
   private router$!: Subscription;
   public user: any;
   public userDetail: UserData;
+  protected isActive: boolean = false;
+  isActiveUser = false;
   @ViewChild('tagInput', { static: false }) private tagInput!: ElementRef<HTMLInputElement>;
   notice: any;
   tabs = [
@@ -66,6 +68,7 @@ export class DriverDetailComponent implements OnInit {
     this.router$ = this.router.events.pipe(filter(e => e instanceof ActivationEnd)).subscribe(() => this.setActive());
     this.setActive();
     this.getUserProfile();
+    this.getUserDetail();
   }
 
   private setActive(): void {
@@ -106,7 +109,10 @@ export class DriverDetailComponent implements OnInit {
 
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
-      this.userDetail = res;
+      this.activeUser = res.is_validated === 0 ? false : true;
+      console.log(res);
+      this.isActiveUser = !!res.is_active;
+      this.isActive = !res.is_active_user;
       this.cdr.detectChanges();
     });
   }
@@ -114,18 +120,17 @@ export class DriverDetailComponent implements OnInit {
   getUserProfile() {
     this.userService.getUserProfile(this.pk).subscribe(res => {
       this.userDetail = res;
-      this.oldStatusDriver = this.userDetail.is_validated_user || 0;
-      this.oldStatusUser = this.userDetail.is_validated || 0;
+      // this.isActive = !res.is_active_user;
       this.cdr.detectChanges();
     });
   }
 
   updateStatusUser() {
-    const statusUser = this.activeUser ? 0 : this.oldStatusUser;
-    const statusDriver = this.activeUser ? 0 : this.oldStatusDriver;
-
-    this.userService.UpdateStatusUser(this.pk, statusDriver).subscribe(res => {
-      this.userDetail = res;
+    const statusUser = this.activeUser ? 0 : 2;
+    const statusDriver = this.activeUser ? 0 : 2;
+    console.log(statusDriver);
+    this.userService.UpdateStatusDriver(this.pk, statusDriver).subscribe(res => {
+      this.getUserProfile();
       this.cdr.detectChanges();
     });
   }

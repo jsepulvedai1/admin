@@ -1,0 +1,20 @@
+<nz-table #basicTable [nzData]="bankAccounts" nzBordered>
+  <thead>
+    <tr>
+      <th nzWidth="100px">Banco</th>
+      <th>Tipo de Cuenta</th>
+      <th>Número de Cuenta</th>
+      <th>Nombre Completo Cuenta</th>
+      <th>ID Legal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of basicTable.data">
+      <td>{{ account.name_bank }}</td>
+      <td>{{ account.type_account }}</td>
+      <td>{{ account.number_account }}</td>
+      <td>{{ account.full_name_account }}</td>
+      <td>{{ account.id_legal }}</td>
+    </tr>
+  </tbody>
+</nz-table>

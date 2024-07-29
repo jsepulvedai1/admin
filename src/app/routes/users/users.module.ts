@@ -22,6 +22,9 @@ import { UsersDetailComponent } from './users-detail/users-detail.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { GetgoBalanceComponent } from './getgo-balance/getgo-balance.component';
 import { CommissionsComponent } from './commissions/commissions.component';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { BankAccountsComponent } from './bank-accounts/bank-accounts.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +35,12 @@ import { CommissionsComponent } from './commissions/commissions.component';
     UserGetgoComponent,
     UserTripsComponent,
     GetgoBalanceComponent,
-    CommissionsComponent
+    CommissionsComponent,
+    BankAccountsComponent
   ],
   imports: [
     CommonModule,
+    NzSkeletonModule,
     NzEmptyModule,
     NzTimelineModule,
     UsersRoutingModule,
@@ -48,8 +53,9 @@ import { CommissionsComponent } from './commissions/commissions.component';
     NzStepsModule,
     CurrencyPipeModule,
     G2MiniBarModule,
-    FullContentModule
+    FullContentModule,
+    NzTableModule
   ],
-  exports: [UserTripsComponent, UserGetgoComponent, GetgoBalanceComponent, CommissionsComponent]
+  exports: [UserTripsComponent, UserGetgoComponent, GetgoBalanceComponent, CommissionsComponent, BankAccountsComponent]
 })
 export class UsersModule {}

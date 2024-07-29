@@ -10,6 +10,7 @@ import { TripService } from 'src/app/services/trip-service';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../../services/users-service';
+import { Data } from '../../users/users/users.component';
 
 interface DataItem {
   name: string;
@@ -53,7 +54,7 @@ interface DataItem {
   styleUrls: ['./trips.component.less']
 })
 export class TripsComponent implements OnInit {
-  //listOfData: readonly Data[] = [];
+  listOfData: readonly Data[] = [];
 
   nameFilter: string = '';
   //filteredData: DataItem[] = [];

@@ -8,25 +8,25 @@
           <nz-switch (click)="updateStatusUser()"  [(ngModel)]="activeUser"></nz-switch>
         </div>
         <div class="detail">
-          <p> <span nz-icon nzType="user" nzTheme="outline"></span> {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
-          <p><span nz-icon nzType="phone" nzTheme="outline"></span> {{ userDetail.phone }}</p>
-          <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : userDetail.sex === Sexo.Mujer ? 'Mujer' : 'Sin Informar'}}</p>
+          <p> <span nz-icon nzType="user" nzTheme="outline"></span> Tipo: {{ userDetail.sex === Driver.Pasajero ? 'Pasajero' : 'Conductor' }}</p>
+          <p><span nz-icon nzType="phone" nzTheme="outline"></span> Telefono: {{ userDetail.phone }}</p>
+          <p> <span nz-icon nzType="woman" nzTheme="outline"></span>  Genero: {{ userDetail.sex === Sexo.Hombre ? 'Hombre' : userDetail.sex === Sexo.Mujer ? 'Mujer' : 'Sin Informar'}}</p>
           <p>
             <span nz-icon nzType="gift" nzTheme="outline"></span>
-            {{ userDetail.fec_birth ?? 'sin informacion'}}
+              Fecha de nacimeinto: {{ userDetail.fec_birth || 'Sin Informacion'}}
           </p>
           <p>
-            <span nz-icon nzType="gift" nzTheme="outline"></span>
-            Rut:{{ userDetail.id_number ?? 'sin informacion'}}
+            <span nz-icon nzType="number" nzTheme="outline"></span>
+            Rut: {{ userDetail.id_number ?? 'sin informacion'}}
           </p>
           <p>
             <span nz-icon nzType="mail" nzTheme="outline"></span>
-            {{ userDetail.email }}
+            Correo: {{ userDetail.email }}
           </p>
-          <p>
+          <!-- <p>
             <span nz-icon nzType="calendar" nzTheme="outline"></span>
             {{ '10 de marzo de 2023' }}
-          </p>
+          </p> -->
           <p>
             <span nz-icon nzType="barcode" nzTheme="outline"></span>
             Referido: {{ userDetail.code }}
@@ -37,7 +37,11 @@
           </p>
           <p>
             <span nz-icon nzType="book" nzTheme="outline"></span>
-            Puntos: {{ userDetail.points }}
+            Puntos Derecha: {{ userDetail.rigth_points }}
+          </p>
+          <p>
+            <span nz-icon nzType="book" nzTheme="outline"></span>
+            Puntos Izquierda: {{ userDetail.left_points }}
           </p>
           <p>
             <span nz-icon nzType="book" nzTheme="outline"></span>
@@ -49,12 +53,10 @@
           </p>
           <p>
             <span nz-icon nzType="calculator" nzTheme="outline"></span>
-            Activo/Desactivo: <label nz-checkbox [(ngModel)]="userDetail.is_active"></label>
+            Activo/Desactivo: <label nz-checkbox nzDisabled [(ngModel)]="isActiveUser"
+            [ngClass]="{'red-checkbox': isActiveUser === false, 'blue-checkbox': isActiveUser === true}">
+          </label>
           </p>
-          <!-- <p>
-            Activar/Desactivar: <nz-switch [(ngModel)]="activeUser"></nz-switch>
-          </p> -->
-
         </div>
       </ng-container>
     </nz-card>
@@ -67,8 +69,9 @@
         </ng-container>
         <!-- <nz-tab nzTitle="Editar"><app-user-detail-edit /></nz-tab> -->
         <nz-tab nzTitle="Instantanea GetGO"><app-table [userInfo]="userDetail" /></nz-tab>
-        <nz-tab nzTitle="Saldo GetGO"><app-getgo-balance [userInfo]="userDetail" /></nz-tab>
+        <nz-tab nzTitle="Saldo GetGO"><app-getgo-balance [userInfo]="pk" /></nz-tab>
         <nz-tab nzTitle="Comisiones"><app-commissions [userInfo]="pk" /></nz-tab>
+        <nz-tab nzTitle="Cuenta Bancaria"><app-bank-accounts [userInfo]="pk" /></nz-tab>
 
       </nz-tabset>
     </nz-card>

@@ -1,20 +1,79 @@
-<div class="travel-list-container">
-  <div class="travel-list" *ngIf="userTrips[0]?.address_delivery">
-    <nz-card *ngFor="let trip of userTrips" class="card">
-      <div class="card-header">
-        <span class="card-title">{{ userTrips[0].address_delivery }}</span>
-      </div>
-      <nz-timeline>
-        <nz-timeline-item [nzColor]="'blue'">{{ trip.address_origin }}</nz-timeline-item>
-        <nz-timeline-item [nzColor]="'red'">{{ trip.address_delivery }}</nz-timeline-item>
-      </nz-timeline>
-      <span class="card-date">Fecha: {{ trip.date_created | date:'dd-MM-yyyy' }}</span>
 
-      <p><strong>monto:</strong> {{ trip.total}}</p>
-    </nz-card>
+<div class="travel-list-container">
+<nz-card *ngFor="let trip of userTrips" class="card">
+ <div class="travel-detail-container">
+  <div class="travel-detail-header">
+    <div class="header-item">
+      <span class="title">Fecha</span>
+      <span class="value">{{ trip.date_created | date: 'dd/MM/yyyy' }}</span>
+    </div>
+    <div class="header-item">
+      <span class="title">Hora</span>
+      <span class="value">{{ trip.date_created | date: 'HH:mm' }}</span>
+    </div>
+    <div class="header-item">
+      <span class="title">Servicio</span>
+      <span class="value">{{ TipoViaje[trip.type_trip ]}}</span>
+    </div>
+    <div class="header-item">
+      <span class="title">Forma de Pago</span>
+      <span class="value">{{ FormaDePago[trip.type_payment ]}}</span>
+      <span class="value">{{ trip.type_payment }}</span>
+    </div>
+    <div class="header-item">
+      <span class="title">Estado</span>
+      <span class="value">{{ EstadoViajeText[trip?.status]}}</span>
+    </div>
+  </div>
+
+  <div class="travel-detail-body">
+    <div class="body-item">
+      <span class="title">Total Viaje</span>
+      <span class="value">{{ trip.total  }}</span>
+    </div>
+    <div class="body-item">
+      <span class="title">T.B.C</span>
+      <span class="value">{{ trip.tarifa_base_real }}</span>
+    </div>
+    <div class="body-item">
+      <span class="title">Cuota Servicio</span>
+      <span class="value">{{ trip.costo_operacional  }}</span>
+    </div>
+    <div class="body-item">
+      <span class="title">Peajes</span>
+      <span class="value">{{ trip.valor_tag  }}</span>
+    </div>
+    <div class="body-item">
+      <span class="title">Valor Servicio (75% Conductor)</span>
+      <span class="value">{{ trip.tarifa_base_real }}</span>
+    </div>
+  </div>
+
+  <div class="travel-detail-route">
+    <nz-timeline>
+      <nz-timeline-item [nzColor]="'blue'">{{ trip.address_origin }}</nz-timeline-item>
+      <nz-timeline-item [nzColor]="'red'">{{ trip.address_delivery }}</nz-timeline-item>
+    </nz-timeline>
+  </div>
+
+  <div class="travel-detail-users">
+    <div class="user-info">
+      <span class="icon">👤</span>
+      <div class="user-details">
+        <span>Nombre: {{ trip.user_customer.first_name }} {{ trip.user_customer.last_name }}</span>
+        <span>Correo: {{ trip.user_customer.email }}</span>
+        <span>Telefono: {{ trip.user_customer.phone }}</span>
+      </div>
+    </div>
+    <div class="user-info">
+      <span class="icon">🚗</span>
+      <div class="user-details">
+        <span>Nombre: {{ trip.user_delivery.first_name }} {{ trip.user_delivery.last_name }}</span>
+        <span>Correo: {{ trip.user_delivery.email }}</span>
+        <span>Telefono: {{ trip.user_delivery.phone }}</span>
+      </div>
+    </div>
   </div>
 </div>
-<div *ngIf="!userTrips[0]?.address_delivery">
-  <nz-empty nzNotFoundImage="simple" />
+</nz-card>
 </div>
-

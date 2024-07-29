@@ -44,7 +44,7 @@
           "text": "Aprobar usuarios",
           "i18n": "Aprobar usuarios",
           "icon": "anticon-check",
-          "link": "/approve-woman"
+          "link": "/approve-users"
         },
         {
           "text": "Mantenedor de Bancos",

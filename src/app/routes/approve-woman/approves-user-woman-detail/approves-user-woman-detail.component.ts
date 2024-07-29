@@ -21,6 +21,7 @@ import { NzDemoImageBasicComponent } from './imgage';
 })
 export class ApprovesUserWomanDetailComponent implements OnInit {
   userInfo: userDetail = {};
+  age: any;
   loading = false;
   pk: string = '';
   data: any = {};
@@ -95,6 +96,7 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
   protected async getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
       this.userInfo = res;
+      this.calculateAge(res.fec_birth);
       this.data2 = {
         driver_license_front: this.userInfo.document_sex_validator,
         id_photo: this.userInfo.id_photo
@@ -206,5 +208,25 @@ export class ApprovesUserWomanDetailComponent implements OnInit {
         }
       }
     }
+  }
+
+  calculateAge(birthdate: string): void {
+    const birthDate = new Date(birthdate);
+    const today = new Date();
+    console.log(!!birthdate);
+    if (!!birthdate == false) {
+      this.age = 'Sin Informacion';
+      console.log(this.age);
+      return;
+    }
+    console.log('ddd');
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    console.log(age);
+    this.age = age ?? 'Sin Informacion';
   }
 }
