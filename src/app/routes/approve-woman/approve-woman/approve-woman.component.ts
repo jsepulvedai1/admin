@@ -70,7 +70,7 @@ export class ApproveWomanComponent implements OnInit {
       buttons: [
         {
           text: 'Detalle',
-          click: item => this.router.navigate([`/approve-woman/detail/${item.pk}`])
+          click: item => this.router.navigate([`/approve-users/detail/${item.pk}`])
         }
       ]
     }

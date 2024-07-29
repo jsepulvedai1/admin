@@ -25,6 +25,7 @@ export class DashboardV1Component implements OnInit {
   tripSize: Number = 0;
   driverSize: Number = 0;
   usersToApprove: number = 0;
+  driverToApprove: number = 0;
 
   constructor(
     private http: _HttpClient,
@@ -51,6 +52,7 @@ export class DashboardV1Component implements OnInit {
     this.getTrips();
     this.getDrivers();
     this.getUserToApprove();
+    this.getDriversToApprove();
     this.webSite = CHARTS['/chart'].visitData.slice(0, 10);
     this.salesData = CHARTS['/chart'].salesData;
     this.offlineChartData = CHARTS['/chart'].offlineChartData;
@@ -69,13 +71,15 @@ export class DashboardV1Component implements OnInit {
     });
   }
 
-  private getUserToApprove() {
-    this.userService.getUsersToApprove().subscribe(res => {
-      this.usersToApprove = this.usersToApprove + res.length;
+  private getDriversToApprove() {
+    this.userService.getDriverToApproveBulk().subscribe(res => {
+      this.driverToApprove = res.length;
       this.cdr.detectChanges();
     });
-    this.userService.getUsersToApproveCancel().subscribe(res => {
-      this.usersToApprove = this.usersToApprove + res.length;
+  }
+  private getUserToApprove() {
+    this.userService.getWomanUsersBulk().subscribe(res => {
+      this.usersToApprove = res.length;
       this.cdr.detectChanges();
     });
   }
@@ -92,11 +96,11 @@ export class DashboardV1Component implements OnInit {
   }
 
   protected navigateToOtherApproveUser() {
-    this.router.navigate(['/approve-drivers']);
+    this.router.navigate(['/approve-users']);
   }
 
   protected navigateToOtherApproveUserWomen() {
-    this.router.navigate(['/approve-woman']);
+    this.router.navigate(['/approve-drivers']);
   }
 
   protected navigateToTrips() {

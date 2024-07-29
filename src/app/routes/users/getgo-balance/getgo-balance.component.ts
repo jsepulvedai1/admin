@@ -1,81 +1,50 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserData } from '../users-detail/user-detail-interface';
+import { UserService } from 'src/app/services/users-service';
 
 @Component({
   selector: 'app-getgo-balance',
   templateUrl: './getgo-balance.component.html',
-  styleUrl: './getgo-balance.component.less'
+  styleUrls: ['./getgo-balance.component.less']
 })
 export class GetgoBalanceComponent implements OnInit {
-  @Input() userInfo: UserData | undefined = {};
-  dataSource = [
-    // {
-    //   mainRow: 'Mi rango',
-    //   subColumnsRow: { left: '', center: '', right: this.userInfo?.range }
-    // },
-    // {
-    //   mainRow: '',
-    //   subColumnsRow: { left: 'izquierda', center: '', right: 'derecha' }
-    // },
-    // {
-    //   mainRow: 'Referidos directos',
-    //   subColumnsRow: { left: '10', center: '', right: '20' }
-    // },
-    // {
-    //   mainRow: 'Referidos directos activos',
-    //   subColumnsRow: { left: '10', center: '', right: '' }
-    // },
-    // {
-    //   mainRow: 'Total mi red',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // },
-    // {
-    //   mainRow: 'Activos mi red',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // },
-    // {
-    //   mainRow: 'Ciclo Semana',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // },
-    {
-      mainRow: 'Saldo GetGo',
-      subColumnsRow: { left: '', center: '', right: '' }
-    }
-    // {
-    //   mainRow: 'Viajes del periodo',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // },
-    // {
-    //   mainRow: 'Viajes Acumulados Totales usuario',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // },
-    // {
-    //   mainRow: 'Viajes Acumulados Totales conductor',
-    //   subColumnsRow: { left: '', center: '', right: '' }
-    // }
-  ];
+  constructor(private userService: UserService) {}
+
+  @Input() userInfo: string = '';
+  selectedWeek: number | null = null;
+  selectedWeekInfo: any = null;
+  totalCommission = '0';
+  weeks: any[] = [];
 
   ngOnInit(): void {
-    this.buildInfo();
+    this.fetchInfoUser();
   }
 
-  buildInfo() {
-    // this.dataSource[0].subColumnsRow.right = this.userInfo?.range;
-    // //this.dataSource[1].subColumnsRow.right = this.userInfo?.range;
-    // this.dataSource[2].subColumnsRow.right = this.userInfo?.referidos_derecha?.toString();
-    // this.dataSource[2].subColumnsRow.left = this.userInfo?.referidos_izquierda?.toString() || '0';
+  protected fetchInfoUser() {
+    this.userService.getUserWalletDetail(this.userInfo).subscribe(res => {
+      console.log(res);
+      this.weeks = res[0]; // Assuming res[0] contains the relevant weeks data
+      this.calculateTotalCommission();
+      this.selectLatestWeek();
+    });
+  }
 
-    // this.dataSource[3].subColumnsRow.right = this.userInfo?.referidos_activos_derecha?.toString();
-    // this.dataSource[3].subColumnsRow.left = this.userInfo?.referidos_activos_izquierda?.toString() || '0';
+  onWeekChange(week: number): void {
+    this.selectedWeekInfo = this.weeks.find(w => w.week === week)?.info || null;
+  }
 
-    // this.dataSource[4].subColumnsRow.center = this.userInfo?.total_red?.toString() || '0';
+  private calculateTotalCommission() {
+    let total = 0;
+    for (const week of this.weeks) {
+      total += week.info.total;
+    }
+    //this.totalCommission = total;
+  }
 
-    // this.dataSource[5].subColumnsRow.center = this.userInfo?.total_red_activos?.toString() || '0';
-
-    // this.dataSource[6].subColumnsRow.center = this.userInfo?.ciclos?.toString() || '0';
-    this.dataSource[0].subColumnsRow.center = this.userInfo?.getgo_money?.toString() || '0';
-    // this.dataSource[8].subColumnsRow.center = this.userInfo?.trip_month_current?.toString() || '0';
-    // this.dataSource[9].subColumnsRow.center = this.userInfo?.trip_count_user?.toString() || '0';
-    // this.dataSource[10].subColumnsRow.center = this.userInfo?.trip_count_driver?.toString() || '0';
+  private selectLatestWeek() {
+    if (this.weeks.length > 0) {
+      const latestWeek = Math.max(...this.weeks.map(w => w.week));
+      this.selectedWeek = latestWeek;
+      this.onWeekChange(latestWeek);
+    }
   }
 }

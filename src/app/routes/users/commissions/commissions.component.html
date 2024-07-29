@@ -1,7 +1,8 @@
-<nz-select [(ngModel)]="selectedWeek" (ngModelChange)="onWeekChange($event)" nzPlaceHolder="Select week">
-  <nz-option *ngFor="let week of weeks" [nzLabel]="'Week ' + week.week" [nzValue]="week.week"></nz-option>
+<nz-select [(ngModel)]="selectedWeek" (ngModelChange)="onWeekChange($event)" nzPlaceHolder="Seleccione Semana">
+  <nz-option *ngFor="let week of weeks" [nzLabel]="'Semana ' + week.week" [nzValue]="week.week"></nz-option>
 </nz-select>
 
+<div class="travel-list-container">
 <nz-card *ngIf="selectedWeekInfo">
   <div class="info">
     <nz-card-meta nzTitle="Total Comisión semana" [nzDescription]="selectedWeekInfo.total"></nz-card-meta>
@@ -17,8 +18,8 @@
             <th>User Commission</th>
             <th>User Parent Commission</th>
             <th>Commission</th>
-            <th>Date</th>
-            <th>Hours</th>
+            <th>Fecha</th>
+            <th>Hora</th>
           </tr>
         </thead>
         <tbody>
@@ -34,3 +35,4 @@
     </nz-card>
   </ng-container>
 </nz-card>
+</div>

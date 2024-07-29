@@ -52,6 +52,40 @@ export class GlobalService {
     );
   }
 
+  getTravelRates(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.get<any[]>(`${this.apiUrl}travelrates/`, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateTravelRates(pk: number, body: any): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Token ${this.token}`
+    });
+    apiUrl = JSON.parse(localStorage.getItem('url') || '{}');
+
+    return this.http.patch<any[]>(`${this.apiUrl}travelrates/${pk}`, body, { headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
   getGlobalApp(): Observable<any[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

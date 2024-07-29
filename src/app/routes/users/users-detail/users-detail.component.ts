@@ -29,6 +29,8 @@ export class UsersDetailComponent implements OnInit {
 
   activeUser = false;
 
+  isActiveUser = false;
+
   oldStatusDriver = 0;
   oldStatusUser = 0;
 
@@ -114,6 +116,9 @@ export class UsersDetailComponent implements OnInit {
   protected getUserDetail() {
     this.userService.getUserDetail(this.pk).subscribe(res => {
       this.userDetail = res;
+      this.isActiveUser = !!res.is_active;
+      console.log(this.isActiveUser);
+      console.log(res);
       this.cdr.detectChanges();
     });
   }
@@ -121,7 +126,10 @@ export class UsersDetailComponent implements OnInit {
   getUserProfile() {
     this.userService.getUserProfile(this.pk).subscribe(res => {
       this.userDetail = res;
+      this.isActiveUser = !!res.is_active;
+      console.log(this.isActiveUser);
       this.activeUser = res.is_validated_user === 0 ? false : true;
+      console.log(res);
       this.cdr.detectChanges();
     });
   }
@@ -131,7 +139,8 @@ export class UsersDetailComponent implements OnInit {
     const statusDriver = this.activeUser ? 0 : this.oldStatusDriver;
 
     this.userService.UpdateStatusUser(this.pk, statusUser).subscribe(res => {
-      this.userDetail = res;
+      //this.userDetail = res;
+      this.getUserProfile();
       this.cdr.detectChanges();
     });
   }

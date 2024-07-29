@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'global-config', loadChildren: () => import('./global-config/global-config.module').then(m => m.GlobalConfigModule) },
       { path: 'pay-commission', loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule) },
       { path: 'pro', loadChildren: () => import('./pro/pro.module').then(m => m.ProModule) },
-      { path: 'approve-woman', loadChildren: () => import('./approve-woman/approve-woman.module').then(m => m.ApproveWomanModule) },
+      { path: 'approve-users', loadChildren: () => import('./approve-woman/approve-woman.module').then(m => m.ApproveWomanModule) },
       // { path: 'dashboard-tool', loadChildren: () => import('./dashboard-tool/dashboard-tool.module').then(m => m.DashboardToolModule) },
       { path: 'colors', loadChildren: () => import('./colors/colors.module').then(m => m.ColorsModule) },
       { path: 'travel-ratess', loadChildren: () => import('./travel-ratess/travel-ratess.module').then(m => m.TravelRatessModule) }

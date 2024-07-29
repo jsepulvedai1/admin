@@ -48,6 +48,7 @@ export interface UserData {
   is_validated?: number;
   fec_birth?: string;
   id_number?: number;
+  is_active_user?: boolean;
 }
 
 export interface LastTrip {

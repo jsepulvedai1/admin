@@ -21,10 +21,21 @@ export class CommissionsComponent implements OnInit {
     this.userService.getUserCommisionDetail(this.userInfo).subscribe(res => {
       this.totalCommision = res[0].total_comission_global;
       this.weeks = res[1];
+      console.log(this.weeks);
+      this.selectLatestWeek();
     });
   }
 
   onWeekChange(week: number): void {
     this.selectedWeekInfo = this.weeks.find(w => w.week === week)?.info || null;
+  }
+  private selectLatestWeek() {
+    console.log('ddkdkkdkkd');
+    console.log(this.weeks);
+    if (this.weeks.length > 0) {
+      const latestWeek = Math.max(...this.weeks.map(w => w.week));
+      this.selectedWeek = latestWeek;
+      this.onWeekChange(latestWeek);
+    }
   }
 }

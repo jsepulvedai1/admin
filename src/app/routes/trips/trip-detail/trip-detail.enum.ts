@@ -21,3 +21,23 @@ export const EstadoViajeText: { [key: number]: string } = {
   [EstadoViaje.ViajeCompletado]: 'Viaje completado',
   [EstadoViaje.EsperandoRespuestaDelConductor]: 'Esperando respuesta del conductor'
 };
+
+export enum TipoViaje {
+  Borrador = 0,
+  'Getgo car' = 1,
+  'Getgo Ejecutivo' = 2,
+  'Getgo XL' = 3,
+  'Getgo Taxi' = 4,
+  ViajeCanceladoPorConductor = 5,
+  ViajeCanceladoPorUsuario = 6,
+  ViajeCompletado = 7,
+  EsperandoRespuestaDelConductor = 10
+}
+
+export enum FormaDePago {
+  'Saldo Getgo' = 0,
+  'Getgo car' = 1,
+  'Getgo Ejecutivo' = 2,
+  'Getgo XL' = 3,
+  'Getgo Taxi' = 4
+}

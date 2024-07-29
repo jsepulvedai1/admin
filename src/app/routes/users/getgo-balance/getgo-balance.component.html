@@ -1,23 +1,33 @@
-<nz-table [nzData]="dataSource" [nzBordered]="true" [nzFrontPagination]="false" [nzShowPagination]="false">
-  <thead>
-    <tr>
-      <th>Saldo Getgo</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of dataSource">
-      <td>{{ row.mainRow }}</td>
-      <td>
-        <nz-table class="inner-table">
+<nz-select [(ngModel)]="selectedWeek" (ngModelChange)="onWeekChange($event)" nzPlaceHolder="Seleccione Semana">
+  <nz-option *ngFor="let week of weeks" [nzLabel]="'Semana ' + week.week" [nzValue]="week.week"></nz-option>
+</nz-select>
+<div class="travel-list-container">
+<nz-card *ngIf="selectedWeekInfo">
+  <div class="info">
+    <nz-card-meta nzTitle="Total Comisión semana" [nzDescription]="selectedWeekInfo.total | currency:'CLP':'symbol':'1.0-0'"></nz-card-meta>
+  </div>
+
+  <ng-container *ngFor="let comision of selectedWeekInfo.comision">
+    <nz-card nzTitle="{{ comision.detail_transaction }}" style="margin-top: 16px;">
+      <nz-table #detailTable [nzData]="comision.detail">
+        <thead>
           <tr>
-            <td class="left-column" *ngIf="row.subColumnsRow.left">{{ row.subColumnsRow.left }}</td>
-            <td class="divider" *ngIf="row.subColumnsRow.left && row.subColumnsRow.right"></td>
-            <td class="right-column" *ngIf="row.subColumnsRow.right">{{ row.subColumnsRow.right }}</td>
-            <td class="center-column" *ngIf="row.subColumnsRow.center" colspan="3">{{ row.subColumnsRow.center }}</td>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Detalle</th>
+            <th>Monto</th>
           </tr>
-        </nz-table>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of detailTable.data">
+            <td>{{ detail.date_charge | date:'dd/MM/yyyy' }}</td>
+            <td>{{ detail.date_charge | date:'HH:mm' }}</td>
+            <td>{{ detail.detail_transaction }}</td>
+            <td>{{ detail.amount | currency:'CLP':'symbol':'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </ng-container>
+</nz-card>
+</div>
