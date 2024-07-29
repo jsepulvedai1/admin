@@ -9,9 +9,7 @@ import { map, tap } from 'rxjs';
 import { TripService } from 'src/app/services/trip-service';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
 import { UserService } from '../../../services/users-service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface DataItem {
   name: string;
